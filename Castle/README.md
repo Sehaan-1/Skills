@@ -23,11 +23,19 @@ Each skill knows its lane: cuecards never ships, oneslice never decides product,
 
 ## Install
 
-Copy the skill folders into your project's skills directory — all three to keep the pipeline, or just the one you need:
+Run from your **project root** — no cloning needed:
 
 ```bash
-# Claude Code, project-level
-cp -r Castle/cuecards Castle/oneslice Castle/lanes .claude/skills/
+# All three skills (full pipeline)
+npx degit Sehaan-1/Skills/Castle/cuecards  .claude/skills/cuecards
+npx degit Sehaan-1/Skills/Castle/oneslice  .claude/skills/oneslice
+npx degit Sehaan-1/Skills/Castle/lanes     .claude/skills/lanes
+```
+
+Or just the one you need right now:
+
+```bash
+npx degit Sehaan-1/Skills/Castle/cuecards  .claude/skills/cuecards
 ```
 
 Any agent that reads skill files works the same way: each `Castle/<name>/` directory (its `SKILL.md` plus `agents/`) is one self-contained skill. No configuration needed — the board lives on your repo's GitHub issues, and ADRs, the handoff, and the map live in the repo.
