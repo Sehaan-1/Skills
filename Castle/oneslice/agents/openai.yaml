@@ -1,0 +1,5 @@
+interface:
+  display_name: "Oneslice"
+  short_description: "Build one handoff slice to a hard quality bar"
+policy:
+  allow_implicit_invocation: true
