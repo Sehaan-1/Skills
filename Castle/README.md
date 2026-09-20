@@ -54,6 +54,7 @@ An idea arrives that is too big for one session. **Cuecards** names the destinat
 
 - **Plan, don't do.** Cuecards produces decisions, not deliverables. The pull to start building is the signal the board has reached its edge.
 - **A checkable destination.** "Done" is a walk that works, proof in the repo, and CI that fails if it regresses — not a vibe and not a wall of agreed words.
+- **Verifiable provenance.** An agent cannot close its own choice cards, self-certify checks by assertion, or name itself integration owner. Claims without committed artifacts are red flags, not completion.
 - **Decisions are ADRs.** Closed cards point at numbered, append-only ADRs that later cards and later agents cite by name. Supersede; never rewrite.
 - **Easy words, hard thinking.** Every human-facing artifact (card, ticket, map) is written for a smart person who does not know the stack — after, not instead of, the deep review.
 - **One slice per sitting; lock, then loop.** Oneslice stops when its slice's Check passes. Lanes locks the target and keeps rounding until the destination Check passes or a named human blocks it. A budget stops you *starting* work — it never buys a weaker Check.

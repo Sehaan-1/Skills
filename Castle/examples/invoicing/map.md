@@ -4,7 +4,7 @@
 
 - **Handoff:** [handoff](handoff.md)
 - **Board:** [Invoices for customers](board.md)
-- **Integration owner:** the agent that invoked lanes
+- **Integration owner:** Alex (lead engineer)
 - **Status:** Round 1
 - **Time budget:** none
 - **Spend ceiling:** none

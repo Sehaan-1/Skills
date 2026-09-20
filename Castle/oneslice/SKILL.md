@@ -27,6 +27,29 @@ Announce at start: `Using oneslice to [pick the slice | research | track | incre
 12. **Contract before code** when this slice is a public surface (API, module boundary, props, schema). Types first. One error shape. Validate at the edge. Additive fields only. Honour an idempotency key atomically, or don't accept one.
 13. **Name the trust boundary before you cut** when this slice accepts untrusted data, does auth, stores PII, talks to third parties, handles uploads/webhooks, or uses LLM output. Five-minute threat model. Ask the human before new auth, PII, uploads, CORS, or integrations. Never commit secrets.
 
+<!-- ── PROVENANCE GATES (added to prevent self-adjudication) ──────────────── -->
+
+14. **Research artifact committed before dependent code.** Gate 8 allows research to happen
+    "in parallel" — but that window closes at commit time. You may not commit code that
+    assumes an API or doc fact unless the research Markdown file (with cited primary sources)
+    is already committed to the branch in the same or an earlier commit. If the research is
+    not yet written, commit the research file first as a standalone commit, then commit the
+    code. A commit message that says "research TBD" or "will verify later" is a defect. The
+    research file path must appear in the GitHub issue comment that records the increment.
+
+15. **"Check passed" requires a reproducible artifact, not a claim.** When you update the
+    ticket status to `Check passed`, you must link:
+    - The commit SHA that the Check ran against, and
+    - Either a CI run URL **or** a terminal transcript (timestamped, showing the walk
+      command and its output) saved under `docs/research/<slice-slug>-check.md`.
+
+    "I ran it and it passed" with no linked artifact is not `Check passed`. It is
+    `In progress`. The same agent that wrote the code cannot self-certify by assertion —
+    the artifact is the certification. If CI is not yet wired for this slice, save the
+    transcript before updating the ticket.
+
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+
 ## Pick the slice
 
 1. Open the handoff.
@@ -68,6 +91,10 @@ _(scope discipline — fill as you notice adjacent mess)_
 
 ### Blocked
 nothing
+
+### Provenance
+- Research file: <path or "none needed">
+- Check artifact: <CI run URL or transcript path — required before status = Check passed>
 ```
 
 After every increment and when you stop, **update that ticket in the same voice**. Refer to the slice and ADRs **by name**. Never a bare `#42`. Never dump a compiler log as the status.

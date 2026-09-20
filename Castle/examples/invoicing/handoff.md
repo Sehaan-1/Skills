@@ -2,6 +2,12 @@
 
 **For a building agent.** Do not start this from Cuecards. The Cuecards sitting ended when this file was written.
 
+## Provenance
+- Board: [Invoices for customers](board.md)
+- For-you cards decided by human: 3 of 3
+- Last human answer recorded: 2026-09-20
+- Handoff written by: cuecards agent
+
 ## Where we're headed
 A customer of the bookkeeping app can create an invoice, send it, and see when it was paid — without doing any of that by hand.
 

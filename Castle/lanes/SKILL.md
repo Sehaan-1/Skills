@@ -31,6 +31,31 @@ Announce at start: `Using lanes to [map | cut | lock | round | profile | rebalan
 15. **Idle waiting is a bottleneck.** Do not start an agent that cannot cut yet. Profile the sitting, write the blocking seam, then dispatch. An agent sitting on an unwritten contract is wasted spend.
 16. **The clock does not lower the bar.** A time or spend budget stops you *starting* more work. It does not buy shortcuts, a weaker Check, or "good enough because we were looping." Better to hit the limit with meaningful landed lanes than with everything roughly present and messy.
 
+<!-- ── PROVENANCE GATES (added to prevent self-adjudication) ──────────────── -->
+
+17. **Integration owner must be a human name.** The `Integration owner` field in the map
+    header is the person who merges, runs the destination walk, and briefs agents. An agent
+    cannot be the integration owner. If no human has taken this role, write
+    `Integration owner: unassigned — needs a person` and stop until a human claims it.
+    Shipping without a named human integration owner is shipping without accountability.
+
+18. **"Destination Check passed" requires a CI run URL, not a claim.** The map status may
+    only be set to `Destination Check passed` when you can link a passing CI run (or a
+    recorded terminal session with timestamped output) that executed the walk described in
+    **How we'll know we're there**. The link must appear in the map under `## What landed`
+    and in the commit message. A passing vibe, a passing slice Check, or "I ran it and it
+    worked" with no artifact are not sufficient. If the destination Check is not yet in CI,
+    the status is `Round N` until it is.
+
+19. **A same-session round-trip is a red flag, not done.** If the map was written and
+    committed in this session **and** you are about to claim `Destination Check passed` in
+    this same session without referencing a CI run from a *prior* session or commit, stop.
+    State out loud: "The map and the done claim are both from this sitting. That is
+    provenance collapse. I need a passing CI run from a committed state before I can close
+    this." Either link the run or leave the map status as `Round N` and stop.
+
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+
 ## Sort
 
 Say the path out loud so they can override.
@@ -62,7 +87,7 @@ A non-technical person should understand **where we're headed** and **what's in 
 
 - **Handoff:** [handoff](../cuecards/handoff-<slug>.md)
 - **Board:** [<board name>](url)
-- **Integration owner:** <person or agent — merges, runs the destination walk, briefs agents>
+- **Integration owner:** <HUMAN NAME — not an agent>
 - **Status:** Mapping · Locked · Round N · Blocked: <plain reason> · Destination Check passed
 - **Time budget:** none · until <local time> (clock started <time>)
 - **Spend ceiling:** none · <what they named>

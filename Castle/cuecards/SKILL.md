@@ -30,6 +30,39 @@ Announce at start: `Using cuecards to [sort | lay out | write cards | work the b
 10. **Durable choices are ADRs.** A closed-card gist on the parent is an index line, not the record. Write `docs/adr/NNNN-slug.md`, cite it as **ADR-NNNN** by name, and never reopen a closed card to rewrite history. Supersede with a new ADR.
 11. **A decided board is not a build plan.** After the board is done, write the handoff. Do not hand a building agent only a pile of closed issues.
 
+<!-- ── PROVENANCE GATES (added to prevent self-adjudication) ──────────────── -->
+
+12. **You cannot close a for-you card.** A for-you card is closed only when the human posts
+    a reply, picks an option, or explicitly says "close it." You must quote their answer
+    verbatim in the issue comment that records the close. An agent-only session that opens
+    and closes for-you cards in the same window without a quoted human reply has not produced
+    a decided board — it has produced fabricated provenance. If no human answer exists,
+    the card stays open and you say so out loud.
+
+13. **The board is done only when every for-you card has a verifiable human answer on record.**
+    "Verifiable" means: the closing comment on the GitHub issue quotes the human's words,
+    or the local fallback YAML records `answered_by: human` with a direct quote under
+    `human_answer:`. A for-you card closed with no such record is not closed — reopen it.
+    Inspect every child issue before writing the handoff. Do not count closed issues.
+    Count issues with a quoted human answer.
+
+14. **Write the handoff only after gate 13 passes.** A handoff written before any for-you
+    card has a verifiable human answer is a fabricated plan. If the board is not done, say
+    so and stop. The handoff header must include:
+
+    ```markdown
+    ## Provenance
+    - Board: [<board name>](<url>)
+    - For-you cards decided by human: <N> of <N>
+    - Last human answer recorded: <ISO date or "see issue #NN">
+    - Handoff written by: <agent name>
+    ```
+
+    An agent filling in its own name under "decided by human" is a defect. Fill the count
+    from the issue record, not from memory.
+
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+
 ## Sort
 
 Say the path out loud so they can override.
@@ -517,6 +550,12 @@ Cuecards output is excellent **context**. It is not a build plan. After the boar
 # Handoff: <board spoken name>
 
 **For a building agent.** Do not start this from Cuecards. Cuecards sitting ends when this file is written.
+
+## Provenance
+- Board: [<board name>](<url>)
+- For-you cards decided by human: <N> of <N>
+- Last human answer recorded: <ISO date or "see issue #NN">
+- Handoff written by: <agent name>
 
 ## Where we're headed
 <from the board>
