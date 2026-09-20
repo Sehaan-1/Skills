@@ -1,0 +1,5 @@
+interface:
+  display_name: "Heraldry"
+  short_description: "Design the arms, then hold every screen to them"
+policy:
+  allow_implicit_invocation: true
