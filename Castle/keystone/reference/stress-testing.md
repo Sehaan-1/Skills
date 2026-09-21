@@ -1,57 +1,36 @@
-# Architecture Stress Testing
+# Architectural Stress Testing
 
-A boundary that has not been actively broken in a test is not an enforced boundary. Before marking an architecture record complete, execute three deliberate structural violations and verify that the fitness functions fail the build.
+## 10. Stress â€” try to break your own shape
 
-## Stress Protocol: Three Deliberate Violations
+Attempt three violations. For each: show what you did, what caught it (paste the failure), and the fix. Restore the tree.
 
-1. **Import infrastructure into domain core:**
-   - Add an import from a database driver or web framework into an entity or use case.
-   - Run the architectural check.
-   - Verify the command fails and names the violating file.
-2. **Bypass aggregate boundary:**
-   - Directly query an internal entity without traversing its aggregate root, or mutate two aggregates in a single synchronous transaction.
-   - Verify the check or domain test fails.
-3. **Bypass anti-corruption layer:**
-   - Directly use an external third-party model inside the domain without translation.
-   - Verify the boundary check fails.
+A violation that **nothing** catches is the best possible outcome of this exercise â€” it means you found a rule the record claimed and the build does not hold. Move that rule to `unenforced` in the record, say what it would take to enforce it, and add the crudest check that catches the obvious recurrence. Do not quietly leave it in the enforced column.
 
-If an attempted violation is **not** caught by any check, mark that rule as `unenforced` in the record and implement an automated check before marking the architecture complete.
+1. **Import a detail into the core.** Add one `import` from the persistence adapter into a domain type, or reference a framework type in an entity. Run the check. It must fail, and the failure must name the file.
+2. **Reach across an aggregate.** Write a test or a function that loads an internal entity directly instead of traversing from its root, or that mutates two aggregates in one transaction. Run the check. It must fail.
+3. **Cross a context without the layer.** Call the upstream system's shape from the downstream domain â€” bypass the anti-corruption layer or the published language. Run the check. It must fail.
+
+Then two questions that no tool answers, and both must be answered in writing (they are the part of the stress test a future engineer will actually read):
+
+- **What would make this shape wrong?** Name the change â€” a scale jump, a team split, a new consistency requirement, a new integration â€” and say which boundary it would move. If you cannot name one, you have not understood the forces.
+- **What is the cost of being wrong?** If the answer is "a day in one package," the boundary was cheap and correctly drawn. If it is "a quarter and a data migration," say so now, while it is still a sentence and not a project.
+
 
 ---
 
-## Stress Test Record Template
+## Stress Test Template
 
-Save at `docs/architecture/<slug>-stress.md`:
+`markdown
+# Stress Test: <system or subsystem name>
+Tested against Architecture commit: <sha>
 
-```markdown
-# Stress Test: <Architecture Slug>
+## Scenario 1: <Axis of Change>
+- **Perturbation**: <What changes 10x or shifts fundamentally>
+- **Blast Radius**: <Which contexts/modules are touched>
+- **Broken Invariants**: <What contracts are strained>
+- **Result**: PASS | WARN | FAIL
 
-## Provenance
-- Target record: [<slug>.md](<slug>.md)
-- Commit evaluated: <SHA>
-- Date: YYYY-MM-DD
-
-## Attempted Violations
-
-### 1. Inward Infrastructure Leak
-- **Action:** Added import of database driver in `core/order.ts`.
-- **Command:** `npm run test:arch`
-- **Output:** `Error: Forbidden dependency 'infrastructure/db' in 'core/order.ts'`
-- **Result:** Caught. Change reverted.
-
-### 2. Direct Aggregate Mutation
-- **Action:** Mutated line items without traversing order root.
-- **Command:** `npm test`
-- **Output:** `InconsistentAggregateStateError`
-- **Result:** Caught. Change reverted.
-
-### 3. Direct Upstream Integration
-- **Action:** Injected payment vendor schema directly into domain use case.
-- **Command:** `npm run lint:deps`
-- **Output:** `Failed: Boundary violation`
-- **Result:** Caught. Change reverted.
-
-## Structural Limits
-- **What force would make this architecture wrong?** <e.g., transition from single tenant to multi-region distributed transactions>
-- **Estimated cost to refactor if that occurs:** <honest estimate>
-```
+## Limits and Boundary Assessment
+- **Throughput/Scale ceiling**: ...
+- **Failure domains**: ...
+`

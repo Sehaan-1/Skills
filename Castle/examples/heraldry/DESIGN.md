@@ -1,6 +1,6 @@
 # Design System: Saltbox
 
-The arms for the invoicing effort from the [pipeline example](../README.md). Small-business bookkeeping, two people, desktop-first, used by owners who dislike accounting.
+The design system for the invoicing effort from the [pipeline example](../README.md). Small-business bookkeeping, two people, desktop-first, used by owners who dislike accounting.
 
 ## Register
 

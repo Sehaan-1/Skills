@@ -1,99 +1,108 @@
 ---
 name: cuecards
-description: "Use when you need choice cards a non-technical person can read and answer, when an idea is too big or too fuzzy for one sitting, when work items would otherwise come out as engineering tasks or jargon, when a board of questions is needed before anyone builds, or when the user asks for cuecards, note cards, or better questions."
+description: Clarifying product intent, drafting structured decision cards, managing GitHub issue boards, recording ADRs, and producing implementation handoffs.
 disable-model-invocation: true
 ---
 
 # Cuecards
 
-Write choice cards so clear that a person with no technical background can open one, understand why it exists, and decide.
-
-Cards live as **GitHub issues** on the repository: one parent issue for the board, child issues for cards. Choices close into named **Architecture Decision Records (ADRs)**. When the board is finished, generate a sequenced **handoff** for implementation.
-
-Announce at start: `Using cuecards to [sort | lay out | write cards | work the board | record ADR | hand off].`
+Cuecards turns vague product intent into structured decisions, drives ask-rounds with humans, commits architectural decisions (ADRs), and hands off ordered slices to builders.
 
 ## Hard gates
 
-1. **Do not build product from this skill.** Produce choices, evidence prototypes, ADRs, and a handoff. Do not write feature code for the final product.
-2. **A card is a choice, not a task.** Frame items as questions with trade-offs, not engineering to-do tickets.
-3. **Write for a non-technical decider.** Explain choices in terms of customer outcomes and trade-offs. Technical jargon in human-facing text is a defect.
-4. **Depth review before presenting.** Run the private depth review (product bar, real fork, ambitious options) before sharing (see [reference/card-craft.md](reference/card-craft.md)).
-5. **Deciders decide.** Never answer a `for-you` card on behalf of the user. Never pick options for them.
-6. **Cover the frontier.** File all sharp questions breadth-first. Run unattended research and chores in parallel.
-7. **Destination must be checkable.** Name an end-to-end user flow, kept proof artifacts, and automated verification before closing.
-8. **Live board on issue tracker.** Use GitHub issues via `gh` CLI, or local fallback under `.cuecards/boards/<slug>/` if unreachable (see [reference/board-operations.md](reference/board-operations.md)).
-9. **Durable choices become ADRs.** Close cards into `docs/adr/NNNN-slug.md` cited by name. Never silently rewrite closed history (see [reference/adr-discipline.md](reference/adr-discipline.md)).
-10. **A decided board requires a handoff.** Do not hand off an unsorted list of closed tickets. Produce `docs/cuecards/handoff-<slug>.md` (see [reference/handoff-template.md](reference/handoff-template.md)).
-11. **Agent cannot close for-you cards.** A `for-you` card closes only when the human replies. Quote their response verbatim in the closing comment.
-12. **Board is complete only when all for-you cards have recorded human answers.** Inspect every child issue before writing the handoff.
-13. **Write handoff only after all decisions are recorded.** Handoff must include verifiable provenance counts.
-14. **Cite ADRs by name.** Always reference `[ADR-NNNN Title](path)`, never bare numbers like `#42`.
+1. **Do not ship the destination from this skill.** Look-cards may add a real working slice, fixtures, screenshots, or a CI check as *evidence for a choice*. Chores may unblock. Find-cards write findings. Write ADRs and, when the board is done, a handoff. Do not start the rest of the product.
+2. **A card is a choice, not a sprint job.** If the title could be a to-do ("build login", "add Stripe"), it is mis-typed â€” unless it is a **look** card (produce real evidence so a choice can be made) or a **chore** (unblock a choice). Rewrite anything else as a question, or it is still fuzzy.
+3. **The body is for a non-technical reader.** YAML, labels, and `## For the agent` / `## Tracking` are for you. If a tired founder cannot answer the card in a few minutes, rewrite it before you file it. Jargon in the human body is a defect.
+4. **Think, then simplify, then present.** Never show a question or a recommendation you have not run through the depth review. Plain language is pass two. Pass one is: is this the real fork, and does the recommendation aim at a product that would actually be impressive?
+5. **Review before create or present.** Depth review, then quality bar. Do not dump thin cards. Do not think out loud at them in jargon.
+6. **If it needs them, they speak.** Never answer a for-you question yourself. Never pick the look-card. Facts are your job.
+7. **File the whole sharp frontier.** Do not starve the board. Unattended cards run in parallel this sitting. For-you cards may be batched when they are independent and the human agrees; otherwise one for-you thread at a time so they are not flooded.
+8. **Where we're headed must be testable.** If you cannot name the walk, the proof, and how it is enforced, you do not have a destination yet. A sentence they can say is how a *card* locks. It is not how the *board* is done.
+9. **The live board lives on the repo's issue tracker.** By default GitHub, via `gh`. If `gh` cannot see this repo (not GitHub, or auth fails), say so out loud, then use the local fallback under `.cuecards/boards/<slug>/`. Never leave the live board only in chat, and never pretend issues exist.
+10. **Durable choices are ADRs.** A closed-card gist on the parent is an index line, not the record. Write `docs/adr/NNNN-slug.md`, cite it as **ADR-NNNN** by name, and never reopen a closed card to rewrite history. Supersede with a new ADR.
+11. **A decided board is not a build plan.** After the board is done, write the handoff. Do not hand a building agent only a pile of closed issues.
 
-## Workflow
+<!-- â”€â”€ PROVENANCE GATES (added to prevent self-adjudication) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 
-### 1. Triage (Sort)
-- **One conversation:** Settle questions directly in chat without creating a board.
-- **Still fuzzy:** Goal is known but route is wide; create parent board and card issues.
-- **Decided:** Destination and ADRs exist; generate handoff and transition to implementation.
+12. **You cannot close a for-you card.** A for-you card is closed only when the human posts
+    a reply, picks an option, or explicitly says "close it." You must quote their answer
+    verbatim in the issue comment that records the close. An agent-only session that opens
+    and closes for-you cards in the same window without a quoted human reply has not produced
+    a decided board â€” it has produced fabricated provenance. If no human answer exists,
+    the card stays open and you say so out loud.
 
-### 2. Lay out the board
-1. Define **Where we're headed** and **How we'll know we're there** (user flow, proof, check).
-2. Record standing rules and domain notes.
-3. Create parent issue on GitHub.
-4. Create sharp child issues (`type:ask`, `type:look`, `type:find`, `type:chore`). Wire dependencies (`blocked_by` / `blocks`).
-5. Dispatch unattended `find` and `chore` cards in parallel.
+13. **The board is done only when every for-you card has a verifiable human answer on record.**
+    "Verifiable" means: the closing comment on the GitHub issue quotes the human's words,
+    or the local fallback YAML records `answered_by: human` with a direct quote under
+    `human_answer:`. A for-you card closed with no such record is not closed â€” reopen it.
+    Inspect every child issue before writing the handoff. Do not count closed issues.
+    Count issues with a quoted human answer.
 
-### 3. Work the board
-1. Pull open `now` cards.
-2. Present one `for-you` decision at a time (or batch independent questions).
-3. On human decision, comment quoted response, close issue, and write `docs/adr/NNNN-slug.md`.
-4. Update parent issue index.
-5. When all cards resolve, generate `docs/cuecards/handoff-<slug>.md` and stop.
+14. **Write the handoff only after gate 13 passes.** A handoff written before any for-you
+    card has a verifiable human answer is a fabricated plan. If the board is not done, say
+    so and stop. The handoff header must include:
 
-## Card Shape
+    ```markdown
+    ## Provenance
+    - Board: [<board name>](<url>)
+    - For-you cards decided by human: <N> of <N>
+    - Last human answer recorded: <ISO date or "see issue #NN">
+    - Handoff written by: <agent name>
+    ```
 
-Every card issue uses this structure:
+    An agent filling in its own name under "decided by human" is a defect. Fill the count
+    from the issue record, not from memory.
 
-```markdown
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+
+
+## Core Lifecycle
+
+`
+[Board Layout] -> [Card Craft & Review] -> [Ask Round] -> [ADR Record] -> [Handoff Sequence]
+`
+
+1. **Board Layout**: Establish parent issue or docs/cuecards/<board>.md with clear destination criteria and initial card frontier.
+2. **Card Craft & Two-Pass Review**: Draft 2-4 viable options per fork. Run Pass 1 (Product Bar & ## For the agent) and Pass 2 (Quality Bar).
+3. **Ask Rounds**: Present frontier cards to human. Record decisions verbatim.
+4. **ADR Recording**: Convert binding architectural choices into permanent records in docs/adr/.
+5. **Handoff Sequence**: Group closed decisions into sequential implementation slices (docs/cuecards/<board>-handoff.md).
+
+## Artifact Contracts
+
+### Card Shape
+`markdown
 # <spoken-English name>
-
-> **For you** — please decide. (or: **We'll handle this** — unattended.)
-
 ## In one sentence
-We need to decide <X> so that <Y>.
-
 ## Why this, why now
-<Context and impact of not deciding>
-
+## What we already know
 ## The question
-<Exactly one question in everyday words>
-
-## Options
-### A — <Outcome-based name>
-- **You'd notice:** …
-- **It costs:** …
-- **You give up:** …
-
-### B — <Outcome-based name>
-...
-
+## What this is not asking
+## Options (A, B, C: 2-4 options)
 ## Recommendation
-**A**, because <honest rationale>. <What would change this recommendation>.
-
 ## How you'll know it's answered
-You can say: "<Clear sentence locking the choice>."
+## Proof (required for look-cards)
+## After you answer
+## For the agent (5 self-check questions)
+`
 
-## Tracking
-- Type: ask | look | find | chore
-- Mode: for-you | unattended
-- Priority: now | next | later
-- Blocked by: []
-- Blocks: []
-```
+### Board Shape
+`markdown
+# <spoken name>
+## Where we're headed
+## How we'll know we're there
+## Ready now — for you
+## Ready now — unattended
+## Waiting
+## Decided
+## Not this effort
+`
 
-## Reference guides
+## Reference Index
 
-- [reference/card-craft.md](reference/card-craft.md) — 8 jobs of a card, ban-list, depth review, quality checklist.
-- [reference/board-operations.md](reference/board-operations.md) — `gh` CLI commands, labels, blocking syntax, local fallback.
-- [reference/adr-discipline.md](reference/adr-discipline.md) — ADR templates, status lifecycle, indexing, and citing.
-- [reference/handoff-template.md](reference/handoff-template.md) — Handoff schema, slice sequencing, and acceptance criteria.
+- [reference/card-craft.md](reference/card-craft.md) - The 8 jobs of a card, complete card anatomy, voice, and the 5 card types.
+- [reference/depth-review.md](reference/depth-review.md) - Two-pass depth review, product bar, 5 agent-facing questions, red flags, and good/bad comparisons.
+- [reference/board-and-rounds.md](reference/board-and-rounds.md) - Full board template, column states, ask-round mechanics, and completion criteria.
+- [reference/adr-discipline.md](reference/adr-discipline.md) - ADR specification, status lifecycle, indexing, and decisions in force.
+- [reference/handoff-template.md](reference/handoff-template.md) - Handoff document template, sequence rules, and slicing discipline.
+- [reference/board-operations.md](reference/board-operations.md) - GitHub CLI (gh) operations, labels, dependencies, query commands, and local fallback.

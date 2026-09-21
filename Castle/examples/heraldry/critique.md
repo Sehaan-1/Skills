@@ -1,6 +1,6 @@
 # Critique: Invoices screen, 2026-09-18
 
-One pass, rendered first, one table, sorted by impact. Source of truth for the "before" column: the render at commit `9f4c1ab`. The arms are [DESIGN.md](DESIGN.md).
+One pass, rendered first, one table, sorted by impact. Source of truth for the "before" column: the render at commit `9f4c1ab`. The design system is [DESIGN.md](DESIGN.md).
 
 | Before | After | Why |
 | --- | --- | --- |

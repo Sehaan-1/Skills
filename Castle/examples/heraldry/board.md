@@ -1,6 +1,6 @@
 # Board: Invoices screen, 2026-09-17
 
-Tiles cast before the arms were written. Same screen, same real copy, three directions. Ratio 16:10.
+Tiles cast before DESIGN.md was written. Same screen, same real copy, three directions. Ratio 16:10.
 
 | Tile | Register | File | One line |
 | --- | --- | --- | --- |
@@ -19,7 +19,7 @@ Rejected:
 
 ## What the tiles taught us
 
-- The warm neutral is not a preference, it is the brand (it matches the printed invoices), so the arms keep `#F7F6F3` and build everything else around it.
+- The warm neutral is not a preference, it is the brand (it matches the printed invoices), so the design system keeps `#F7F6F3` and build everything else around it.
 - Money wants monospace and right alignment; both alternatives showed how badly proportional digits scan in a column.
 - The outlier earned its place by ruling out the whole dark direction in one look, which no amount of describing would have settled.
 

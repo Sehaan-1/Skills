@@ -1,42 +1,36 @@
-# Boundary Enforcement & Fitness Functions
+# Boundary Enforcement, Ports, and Fitness Functions
 
-An architectural rule that cannot fail a build is only a suggestion. Every structural rule must be verified mechanically by automated checks wired to CI.
+## 8. Write the ports the core owns
 
-## Automated Fitness Functions
+For every boundary: the **upstream** component defines the interface; the **downstream** component implements it. The API is owned by the user, not the implementer. This is the single sentence that keeps the dependency rule honest when control has to flow outward.
 
-Adapt to the project's stack:
+Ports to name in the record:
 
-| Rule | Enforcement Tool |
+- **Persistence port** â€” named in the language of the domain (`Orders`, not `OrdersRepository`). The core calls it; the adapter implements it; all SQL stays in the adapter.
+- **Presenter / output port** â€” the use case calls it; the view-side implements it. The use case produces plain output data; the presenter formats it. This is what makes "we can't test this without a browser" go away.
+- **External service ports** â€” one per external agency, translated at the edge, never leaking a vendor's shape inward.
+- **Event publication port** â€” if the system publishes domain events, the core names the events; the adapter decides the transport.
+
+And the humble-object rule: where a behaviour is hard to test, split it so the hard-to-test part holds as little logic as possible. Views, presenters, database gateways, ORM entities, service listeners, and `main` are all humble objects â€” thin, dumb, and untested by design, with the logic pushed into something testable.
+
+**`main` is the dirtiest component in the system** and that is correct. It creates the factories, strategies, and global facilities; it loads strings, configuration, and resources; it wires dependencies (injected here, then distributed normally, without the framework); then it hands control to the high-level policy. Think of it as a plugin to the application â€” which means you can have one per configuration: dev, test, production, per-tenant, per-jurisdiction.
+
+## 9. Enforce â€” fitness functions
+
+An architectural rule that cannot fail a build is a preference. Write the checks, wire them to CI, paste the output into the record.
+
+Minimum set â€” adapt the tool, keep the rule:
+
+| Rule | Typical check |
 | --- | --- |
-| **No circular dependencies** in module graph | `dependency-cruiser` (JS/TS), `ArchUnit` (JVM), `import-linter` (Python), `madge`, `cargo-deny` |
-| **Core domain does not import infrastructure** | Linter rules (`no-restricted-imports`), ArchUnit boundary rules |
-| **Pure domain logic runs without I/O** | Isolated test target running in environment without network/database |
-| **No framework annotations on core entities** | AST lint rules or structural grep checks |
-| **Only aggregate roots have repositories** | Path-based structural check |
-| **Restricted public API surface** | TypeScript project references, package export maps (`exports`), Go internal packages |
+| No cycles in the component/module graph | dependency-cruiser, ArchUnit, import-linter, madge, Nx, jdepend |
+| Nothing in the domain names infrastructure, web, or ORM | `no-restricted-imports` / ArchUnit rule / dependency-cruiser `forbidden` |
+| Nothing inward of the adapter ring names SQL or HTTP | grep-based structural test is acceptable if no tool exists |
+| Domain and use-case tests run with no database, no network, no web server | separate test target; fail if it opens a socket |
+| No ORM annotation or framework base class on a domain type | lint rule or structural test |
+| Aggregate roots are the only things with repositories | structural test over the repository directory |
+| Public surface of each component is what the record says | API extractor / `public` audit / export-lint |
+| Metrics do not regress past the recorded thresholds | the tool's own threshold flag, in CI |
 
----
+Tests are part of the system and participate in the architecture: they are the outermost circle, they depend inward, and they are independently deployable. Give them a **testing API** with superpowers â€” bypass security, bypass expensive resources, force the system into a state â€” so business rules can be verified without driving the GUI and so the test structure is decoupled from the production structure. A suite with one test class per production class is structurally coupled, and structurally coupled suites make the code rigid: every refactor becomes a test-refactoring project, and eventually the team stops refactoring. Keep the superpowers in a separately deployable component if they could be dangerous in production.
 
-## Ports & Adapters Architecture
-
-The upstream (core) defines the port interface; the downstream (infrastructure) implements it.
-
-```text
-[Core Business Rules] ──(defines)──▶ (Port Interface)
-                                             ▲
-                                             │ (implements)
-[Infrastructure Layer] ──────────────────────┘
-```
-
-1. **Persistence Port:** Named in domain language (`Orders`, not `OrdersRepository`). Core calls it; adapter implements database operations.
-2. **Presenter / Output Port:** Use case produces plain data structures; presenter adapter handles display and serialization.
-3. **External Service Port:** Isolates third-party APIs behind an intention-revealing contract.
-4. **Event Publisher Port:** Core publishes domain events; infrastructure adapter dispatches across message brokers.
-
----
-
-## The Humble Object Pattern
-
-Where behavior is difficult to test (GUIs, raw sockets, database drivers, framework lifecycles), extract all logic into testable pure objects, leaving the difficult part "humble" — thin, procedural glue with minimal decision logic.
-
-`main` is the primary humble object of the system. It initializes factories, reads environment config, wires dependencies, and injects adapters into the domain before handing execution to high-level policy.

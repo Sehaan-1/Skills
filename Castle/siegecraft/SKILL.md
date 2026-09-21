@@ -1,64 +1,100 @@
 ---
 name: siegecraft
-description: "Use when an implementation ticket is algorithm-heavy, mathematically complex, or prone to edge-case bugs. Use to research primary sources, establish formal correctness arguments, write algorithm specifications, and split complex logic into checkable tickets. Do not use to decide product scope (cuecards) or write application feature glue (oneslice)."
+description: Deep-problem algorithmic specification, primary source research dossiers, impossibility passes, and two-layer ticket decomposition.
 disable-model-invocation: true
 ---
 
 # Siegecraft
 
-Design algorithm specifications with formal correctness arguments and primary-source research before implementing code.
-
-When an engineering task is mathematically complex or algorithm-heavy, guessing during implementation leads to subtle bugs. Siegecraft scouts primary sources, writes formal specifications (`docs/siegecraft/<slug>-spec.md`), and decomposes complex tasks into smaller tickets each with a verifiable test.
-
-Announce at start: `Using siegecraft to [scout | verify-problem | design-spec | split-tickets | verify | stop].`
+Siegecraft tackles hard, novel, or algorithmic problems: conducts primary source research, runs impossibility checks, authors rigorous algorithm specifications, and decomposes implementations into verifiable tickets.
 
 ## Hard gates
 
-1. **No decided ticket, no spec.** Requires an established handoff slice or ticket from cuecards before formulating algorithms.
-2. **Scout primary sources first.** Never implement complex algorithms from memory. Cite official specifications, textbook proofs, or reference code (see [reference/investigation-dossier.md](reference/investigation-dossier.md)).
-3. **Question the premise first.** Verify if the algorithmic challenge can be eliminated by reframing data shapes, caching, or loosening unnecessary constraints.
-4. **Formal correctness argument mandatory.** The algorithm specification must include explicit invariants and a termination proof (see [reference/formal-contract.md](reference/formal-contract.md)).
-5. **State computational complexity.** Document exact Big-O time and space complexity bounds.
-6. **Address numerical precision.** Document floating-point tolerances, rounding modes, and overflow guards when numerical calculations are involved.
-7. **Checks must be capable of failing.** Verification tests must catch naive or incorrect implementations (see [reference/check-design.md](reference/check-design.md)).
-8. **Do not write product feature code.** Siegecraft produces research dossiers, algorithm specs, and split tickets — not application code.
-9. **ADRs are law.** Specifications must respect decisions in force. Changes to product behavior require cuecards.
-10. **Unverified sources cannot be load-bearing.** If a source cannot be verified, the algorithm cannot depend on it.
+1. **No decided task, no engine.** A ticket, a closed card, a cited ADR, a handoff slice, or an explicit human ask names the wall. A product question still open is a cuecards card, not an engine. If you catch yourself choosing *what the product should do*, you have left the skill.
+2. **Scout before you design.** The dossier exists before the spec; the spec is committed before any ticket is rewritten. No engine from memory. No algorithm because a blog, a summary site, or a training recollection said so.
+3. **Primary sources own their facts.** Official docs, specs and standards, the original paper, the reference implementation's code and tests, first-party APIs. A secondary write-up is a signpost to the primary, never a citation. Follow every claim back to the source that owns it.
+4. **No product code.** Output is the dossier, the engine spec, and tickets. Measurement you run as research is recorded in the dossier; scratch scripts stay out of the tree. If you are opening a source file to add a feature, you have left the skill.
+5. **ADRs are law.** Cited ADRs for this task are closed decisions. If the best engine contradicts one, stop and name the ADR â€” that is a cuecards sitting, not a clever approximation.
+6. **The engine carries its own proof.** Every load-bearing step is CITED to its owner or DERIVED with the derivation written down: loop invariant plus induction, reduction to a cited-correct primitive, or an exhaustive small-case argument. "It is a well-known algorithm" with no citation is programming by coincidence, and a spec that does it is a defect.
+7. **Cost is a number, not a vibe.** Complexity in the table, then the same complexity at the *real* n with real constants. Best is not always best; an O(2^n) engine is fine at n = 12 and catastrophic at n = 2M. No estimate without data: a cited benchmark, a measurement this sitting, or honest arithmetic from both.
+8. **Novelty is earned, then proven.** Cited where the sources fit; invented only where they run out; the invention carries the heavier proof burden. Novel is a cost you justify, not a feature you decorate with.
+9. **Hard math says so out loud.** When numbers are load-bearing â€” floats, conditioning, accumulation, overflow, exactness â€” the spec has a numerics section. An engine whose correctness dies at IEEE-754 boundaries is not done.
+10. **Every ticket can fail.** Each ticket the split produces carries a Check that would catch a wrong implementation: known-answer vectors from the sources, differential against a naive baseline, property tests on the invariants, measured thresholds with numbers. A Check that cannot fail is decoration.
+11. **Two-layer tickets.** One spoken line for the board, rigorous technical body for the builder. Jargon is correct where the audience is technical â€” that is the point of this skill â€” but the board line stays plain and never a bare `#42`.
+12. **Splits keep the parent honest.** When one ticket becomes many, the parent becomes an index of the children with native blocked-by edges and a pointer into the spec per child. A parent still describing the old monolithic work is a lie on the board.
+13. **Stop at the spec.** No branch, no slice, no "while I'm here." The engine spec, the dossier, and the tickets are the whole output. The next sitting is oneslice's.
 
-## Workflow
+<!-- â”€â”€ PROVENANCE GATES (a claim is not a derivation) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 
-1. **Scout Primary Sources:** Search official RFCs, papers, and reference implementations. Compile findings in `docs/research/<slug>-dossier.md`.
-2. **Evaluate Problem Premise:** Check if algorithmic complexity can be simplified by reframing data structures.
-3. **Formulate Algorithm Specification:** Write contracts, pseudo-code, correctness proofs, and complexity bounds in `docs/siegecraft/<slug>-spec.md`.
-4. **Split into Child Tickets:** Decompose large algorithms into discrete, sequentially checkable units.
-5. **Verify Check Criteria:** Ensure every child ticket includes test cases with known mathematical solutions.
-6. **Hand off to Implementation:** Pass split tickets to oneslice or lanes for coding.
+14. **Dossier committed before tickets change.** You may not rewrite a ticket body to
+    assume a fact unless the dossier citing that fact's owner is already committed â€”
+    same commit or earlier. The order is strict: dossier commit â†’ spec commit â†’ issue
+    edits. A commit message that says "research TBD" or "will verify later" is a defect.
+    The comment that records the ticket update links the dossier path and the spec path.
 
-## Split Ticket Template
+15. **Mark every load-bearing claim CITED or DERIVED.** CITED â†’ the owner, at an exact
+    anchor: doc section, paper section, spec clause, or the reference implementation's
+    file and line. DERIVED â†’ the derivation, in the spec, worked â€” not asserted. An
+    engine whose key steps are neither is a fabricated design. Do not file it.
 
-Format child tickets for complex algorithmic components:
+16. **No self-certified correctness.** "Verified correct" is a claim, not a check. The
+    spec's correctness section names the argument *and* the counterexample hunt: the
+    inputs you tried to break the engine with, and why they do not. If the engine cannot
+    be fully checked this sitting, the tickets say `Engine: spec only â€” check unbuilt`
+    out loud. An admitted gap is honest; a claimed proof is fabrication.
 
-```markdown
-## Algorithm Ticket N of M: <Spoken Name>
+17. **Split provenance.** When a ticket is split, the new parent body links every child,
+    the spec section each child implements, and the check each child inherits. The
+    original ticket is rewritten into that index or closed as superseded by it â€” never
+    left as a second live description of the same work.
 
-### What this ticket does
-<One clear paragraph describing this algorithmic phase>
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 
-### Contract Inherited
-- **Specification:** [docs/siegecraft/<slug>-spec.md](docs/siegecraft/<slug>-spec.md)
-- **Invariants:** <Guaranteed pre- and post-conditions>
 
-### Check
-- **Verification test:** `npm test tests/algo-part-N.test.ts`
-- **Pass criteria:** Confirms mathematical invariants against known analytical solutions.
+## Core Lifecycle
 
-### Tracking
-- **Parent ticket:** #<number>
-- **Depends on:** Ticket N-1
-```
+`
+[Aim & Research: dossier.md] -> [Impossibility Pass] -> [Algorithm Spec: spec.md] -> [Ticket Decomposition]
+`
 
-## Reference guides
+1. **Aim & Primary Source Research**: Anchor on primary literature and reference implementations. Record in docs/siegecraft/<slug>-dossier.md.
+2. **Impossibility Pass**: Stress-test assumptions and establish bounds before designing algorithms.
+3. **Algorithm Specification**: Write the 11-section engine spec with formal contracts, invariant proofs, and cost bounds (docs/siegecraft/<slug>-spec.md).
+4. **Ticket Decomposition**: Decompose the spec into two-layer implementation tickets with explicit check steps.
 
-- [reference/investigation-dossier.md](reference/investigation-dossier.md) — Primary source standards, citation methods, and dossier format.
-- [reference/formal-contract.md](reference/formal-contract.md) — 11-section algorithm specification template.
-- [reference/check-design.md](reference/check-design.md) — Test case design, analytical solutions, and ticket splitting.
+## Artifact Contracts
+
+### Research Dossier
+`markdown
+# Dossier: <the question, in one sentence>
+## Sources consulted
+## Findings
+### F1. <claim>
+## Measured
+## Unverified
+## Contradictions
+`
+
+### Algorithm Specification
+`markdown
+# Engine: <spoken name>
+## 1. Problem, formally
+## 2. Contracts
+## 3. The engine
+## 4. Why it is correct
+## 5. Cost
+## 6. Numbers (if the math is real)
+## 7. Edges and failures
+## 8. Alternatives the sources offer
+## 9. Novelty
+## 10. Check (for the builder)
+## 11. Open risks
+`
+
+## Reference Index
+
+- [reference/aim-and-impossibility.md](reference/aim-and-impossibility.md) - Aiming criteria, hard problem boundaries, and the impossibility pass.
+- [reference/scout-and-dossier.md](reference/scout-and-dossier.md) - Primary source research rules, findings documentation, and dossier template.
+- [reference/spec-template.md](reference/spec-template.md) - Full 11-section algorithm engine specification template and rules.
+- [reference/splitting-tickets.md](reference/splitting-tickets.md) - Ticket splitting discipline, two-layer tickets, sequencing, and quality flags.
+- [reference/operations-and-tone.md](reference/operations-and-tone.md) - GitHub board operations, stopping rules, tone, and approval bar.

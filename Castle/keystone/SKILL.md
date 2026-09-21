@@ -1,82 +1,111 @@
 ---
 name: keystone
-description: "Use when the shape of a system has to be decided or defended: where boundaries are, which way dependencies point, what is core and what is detail, how code is packaged, which contexts integrate and how, and where transaction boundaries fall. Do not use to decide product questions (cuecards) or build features (oneslice)."
+description: System architecture, aggregate boundaries, context mapping, fitness functions, and structural stress tests.
 disable-model-invocation: true
 ---
 
 # Keystone
 
-Define and enforce the structural shape of a software system.
-
-Architecture is the division of a system into components, the arrangement of those components, and the ways they communicate. Its purpose is to keep systems cheap to develop, deploy, operate, and change. Keystone produces the structural boundaries that all implementation skills must respect.
-
-Announce at start: `Using keystone to [survey | cut | map | distill | set | enforce | stress | record | hold].`
+Keystone sets architectural boundaries, context maps, domain aggregates, dependency rules, and fitness functions for systems.
 
 ## Hard gates
 
-1. **No handoff, no shape.** Requires clear destination goals, handoff document, and ADRs from cuecards before drawing boundaries.
-2. **Boundaries follow axes of change.** Separate components that change at different rates or for different reasons.
-3. **The dependency rule is absolute.** Source code dependencies point strictly inward toward higher-level domain policies.
-4. **One model per bounded context.** Terminology and rules must be consistent within each context. Where contexts touch, explicitly define the integration pattern (see [reference/context-maps.md](reference/context-maps.md)).
-5. **Invariants live inside one aggregate.** Enforce business invariants synchronously inside aggregate roots. Across aggregates, use eventual consistency (see [reference/tactical-patterns.md](reference/tactical-patterns.md)).
-6. **Policy first, details deferred.** Databases, web frameworks, and messaging transports are implementation details. Keep domain policies agnostic of them.
-7. **Every structural rule must be mechanically checked.** Automated fitness functions in CI must fail the build when boundaries are violated (see [reference/boundary-enforcement.md](reference/boundary-enforcement.md)).
-8. **Do not implement feature logic.** Keystone creates boundary scaffolding, port interfaces, and fitness tests — not business feature code.
-9. **ADRs are law.** Honor existing decisions. Changing a structural decision requires superseding ADRs via cuecards.
-10. **Measure before asserting.** Calculate real coupling metrics ($I$, $A$, $D$) and count dependency cycles (see [reference/survey-and-metrics.md](reference/survey-and-metrics.md)).
-11. **Document deferred decisions.** State why a technical choice can wait, the trigger that ends deferral, and the cost to change later.
-12. **Deliberate stress testing required.** Attempt three deliberate structural violations and verify that the fitness functions fail (see [reference/stress-testing.md](reference/stress-testing.md)).
+1. **No destination, no shape.** You need where we're headed, **How we'll know we're there**, the ADRs in force, and `docs/cuecards/handoff-<slug>.md`. Missing or placeholder â†’ cuecards. Do not invent a domain model while drawing boxes.
+2. **Boundaries are drawn where there is an axis of change.** Two things that change at different rates, for different reasons, or on different clocks are separated. Everything else in this skill is a consequence of this one rule.
+3. **The dependency rule is load-bearing, not aspirational.** Source dependencies point inward, toward higher-level policy. A rule nobody can fail the build with is a preference.
+4. **One model per context.** A model is meaningless unless it is internally consistent â€” every term unambiguous, no rule contradicting another. Unification across the whole system is usually too expensive; that is a choice you make and write down, not a default you assume. Where two models must coexist, you name the relationship between them.
+5. **Invariants live inside exactly one aggregate.** An invariant is a consistency rule maintained whenever data changes. Rules inside one aggregate are enforced at the end of the transaction. Rules spanning aggregates are not â€” they are resolved within a stated time, by a named mechanism. If you cannot say which, the boundary is wrong.
+6. **Policy first; details deferred.** The database is a detail. The web is a detail. Frameworks are details. The architect's job is to make high-level policy agnostic about them so the decision can be delayed until there is information to make it with. A good architect maximizes the number of decisions **not made**.
+7. **The architecture must be enforceable, or it is a document.** Every structural rule this skill writes gets a mechanical check: a dependency-cruiser / ArchUnit / import-linter / lint rule / structural test, in the repo, wired to CI. "We enforce it in review" is not enforcement.
+8. **Do not implement features.** This skill produces the record, the ADRs, the ports (signatures, no behavior), the boundary scaffolding, and the enforcement code. It does not build slices. If you are writing business logic, you have left the skill â€” that is oneslice or lanes, building to this record.
+9. **ADRs are law.** Cited ADRs are closed. If the shape you want contradicts one, stop and name the ADR â€” cuecards sitting, not a structural workaround.
+10. **Measure before you assert.** Coupling, instability, abstractness, cycle count, cycle-breaking effort: numbers, from a tool, pasted. "It's fairly decoupled" is not a finding.
+11. **Name what is deferred, with the trigger that ends the deferral.** Deferral is the point of the discipline; an unrecorded deferral is just procrastination with better vocabulary.
+12. **Two layers, always.** The ADR's Context, Decision, and Consequences stay in spoken English because the pipeline's contract says so. The record and the enforcement config are technical because that is who reads them. Both are true at once; that is the design.
+13. **This skill does not own product questions and does not own taste.** A new product fork is a cuecards card. How it looks is heraldry. Whether the math works is siegecraft.
 
-## Workflow
+<!-- â”€â”€ PROVENANCE GATES (a claim is not a structure) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 
-1. **Survey:** Gather real forces, change-log clusters, coupling metrics ($I$, $A$, $D$), and cycle counts.
-2. **Cut:** Identify axes of change and separate domain policy from infrastructure details.
-3. **Map:** Define bounded contexts and assign explicit integration patterns (Shared Kernel, ACL, Customer/Supplier).
-4. **Distill:** Separate core differentiating domain from supporting and generic subdomains.
-5. **Aggregates & Ports:** Establish aggregate roots and transactional consistency boundaries. Define port interfaces owned by the core.
-6. **Enforce:** Write fitness functions (`dependency-cruiser`, `ArchUnit`, import linters) wired to CI.
-7. **Stress:** Execute three deliberate violations to confirm automated checks catch them.
-8. **Record:** Save architecture record to `docs/architecture/<slug>.md` and record structural ADRs.
+14. **Enforcement committed with the boundary it enforces.** You may not record a boundary
+    rule unless the check that fails when it is violated is committed in the same change
+    (or earlier). A rule with no check is a wish; a check merged "next sprint" is a wish
+    with a date. The record cites the command and the file that runs it.
 
-## Architecture Record Template
+15. **No self-certified architecture.** "The layering is clean" is a claim. The record
+    carries the tool output: the dependency graph, the cycle report, the violation list,
+    the metric table. If the tool is not available in this stack, write the check as a
+    test this sitting â€” a grep-based structural test is still a check â€” or mark the rule
+    `unenforced` out loud and say what it would take. `unenforced` is honest. A pasted
+    diagram is not.
 
-Record the structural contract at `docs/architecture/<slug>.md`:
+16. **A boundary you have not tried to break is not a boundary.** Before you call the
+    record done, attempt three named violations (see **Stress**). Each is either caught â€”
+    paste the failure â€” or it is not, and then that rule moves to `unenforced` in the
+    record with what it would take to enforce it. A fitness function that passes on a
+    broken tree is decoration, and shipping it is worse than shipping nothing, because it
+    buys confidence it has not earned. Finding one that does not catch is the most
+    valuable thing a stress test can do; hiding it is the worst.
 
-```markdown
-# Architecture: <System / Subsystem>
+17. **Existing code counts as evidence, intentions do not.** When the record describes a
+    system that already exists, every statement about its current shape must come from
+    the code or a tool run against it â€” not from the README, the wiki, the last
+    architect's memory, or a diagram someone drew in a kickoff. Where the code and the
+    documentation disagree, the code ships: say which one you measured and why.
 
-## Destination & Forcing Constraints
-- **Goal:** <from cuecards handoff>
-- **Forces:** Deploy cadence, team topology, latency envelope, data consistency
+<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 
-## Context Map
-- Contexts, boundaries, and relationship patterns (ACL, Open Host, etc.)
 
+## Core Lifecycle
+
+`
+[Survey & Map: architecture.md] -> [Distill & Aggregate] -> [Enforce: Fitness Functions] -> [Stress Test: stress.md]
+`
+
+1. **Survey & Context Mapping**: Read existing code, identify axes of change, and map bounded contexts.
+2. **Distillation & Aggregates**: Define the core domain model and transactional consistency boundaries.
+3. **Boundary & Port Enforcement**: Fix the dependency rule (inward dependencies only) and define ports owned by core.
+4. **Stress Testing & Review**: Apply perturbations across axes of change and record in docs/architecture/<system>-stress.md.
+
+## Artifact Contracts
+
+### Architecture Record (docs/architecture/<system>.md)
+`markdown
+# Architecture: <system or subsystem name>
+## Provenance
+## Destination and forcing constraints
+## Context map
+### Context: <name>
 ## Distillation
-- **Core Domain:** <differentiating value>
-- **Supporting / Generic Subdomains:** <buy, adopt, or isolate>
+## Aggregate boundaries
+### Aggregate: <root name>
+## Dependency rule
+## Component structure
+## Ports the core owns
+## Deferred decisions
+## Fitness functions
+## Stress test
+## Open structural questions
+`
 
-## Aggregate Boundaries
-- Aggregate roots, internal entities, transactional invariants, repository ports
+### Stress Test Record (docs/architecture/<system>-stress.md)
+`markdown
+# Stress Test: <system or subsystem name>
+Tested against Architecture commit: <sha>
 
-## Dependency Rule & Ports
-- Dependency levels (Domain -> Use Cases -> Adapters -> Infrastructure)
-- Ports owned by the core: Persistence, Presenters, External Services
+## Scenario 1: <Axis of Change>
+- **Perturbation**: <What changes 10x or shifts fundamentally>
+- **Blast Radius**: <Which contexts/modules are touched>
+- **Result**: PASS | WARN | FAIL
+`
 
-## Deferred Decisions
-| Decision | Why Deferred | Trigger to Resolve | Cost to Change Later |
+## Reference Index
 
-## Fitness Functions
-| Rule | Check Tool | CI Command | Status |
-| --- | --- | --- | --- |
-| No infrastructure in core | linter/arch-test | `npm run test:arch` | enforced |
-```
-
-## Reference guides
-
-- [reference/survey-and-metrics.md](reference/survey-and-metrics.md) — Six survey inputs, coupling metrics ($I, A, D$), and code smells.
-- [reference/boundary-enforcement.md](reference/boundary-enforcement.md) — Fitness functions, ports and adapters, and humble objects.
-- [reference/stress-testing.md](reference/stress-testing.md) — Protocol for verifying architectural checks with deliberate violations.
-- [reference/context-maps.md](reference/context-maps.md) — The 7 bounded context integration patterns.
-- [reference/tactical-patterns.md](reference/tactical-patterns.md) — Aggregates, value objects, entities, and repositories.
-- [reference/component-principles.md](reference/component-principles.md) — SOLID, component cohesion (REP, CCP, CRP), and coupling (ADP, SDP, SAP).
+- [reference/architectural-moves.md](reference/architectural-moves.md) - The 12 Architectural Moves from Survey to Hold.
+- [reference/survey-and-metrics.md](reference/survey-and-metrics.md) - Survey inputs and Robert C. Martin package metrics ($, $, $).
+- [reference/boundary-enforcement.md](reference/boundary-enforcement.md) - Boundary enforcement, ports, and architectural fitness functions.
+- [reference/stress-testing.md](reference/stress-testing.md) - 3-violation protocol, stress test questions, and template.
+- [reference/smells-and-flags.md](reference/smells-and-flags.md) - Architectural smell catalog, bad vs good comparisons, and red flags.
+- [reference/operations-and-tone.md](reference/operations-and-tone.md) - Board operations, stopping rules, tone, and approval bar.
+- [reference/component-principles.md](reference/component-principles.md) - Component cohesion and coupling principles (REP, CRP, CCP, ADP, SDP, SAP).
+- [reference/context-maps.md](reference/context-maps.md) - DDD context mapping patterns (Shared Kernel, Customer/Supplier, Anti-Corruption Layer).
+- [reference/tactical-patterns.md](reference/tactical-patterns.md) - Tactical DDD patterns (Entities, Value Objects, Aggregates, Domain Events).
