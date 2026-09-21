@@ -94,7 +94,7 @@ An idea arrives that is too big for one session. **Cuecards** names the destinat
 
 [`examples/invoicing/`](examples/invoicing/) walks the whole pipeline on one tiny effort — a board, three cards, three ADRs, a handoff, and a lanes map — so you can see every artifact before you run the skills.
 
-[`examples/heraldry/`](examples/heraldry/) carries the arms for that same effort: a board with the human's pick, a `DESIGN.md`, a critique table, and a walk record. Read the four files in order and you have seen everything heraldry produces.
+[`examples/heraldry/`](examples/heraldry/) carries the design system for that same effort: a board with the human's pick, a `DESIGN.md`, a critique table, and a walk record. Read the four files in order and you have seen everything heraldry produces.
 
 [`examples/architecture/`](examples/architecture/) carries the keystone record for the same effort: `architecture.md` — contexts, aggregate, dependency rule, ports, deferred decisions, fitness functions — and the `stress.md` that tried and failed to break it three ways. Read them to see what keystone commits before oneslice starts.
 
