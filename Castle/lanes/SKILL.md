@@ -56,6 +56,14 @@ Announce at start: `Using lanes to [map | cut | lock | round | profile | rebalan
 
 <!-- ──────────────────────────────────────────────────────────────────────── -->
 
+20. **Existing arms and shape are law when present.** If `DESIGN.md` exists at the repo
+    root, every user-visible lane wears the arms; the lane's brief carries the pointer,
+    and an arm change is deliberate, same-commit, and stated (heraldry owns the file).
+    If `docs/architecture/` holds a record, lanes cut along its boundaries and do not
+    weaken its fitness functions — the map's Owns lines should already follow that
+    shape. A lane that cannot honor either stops and names it; that is a heraldry or
+    keystone sitting, not an adaptation inside the lane.
+
 ## Sort
 
 Say the path out loud so they can override.
@@ -87,6 +95,7 @@ A non-technical person should understand **where we're headed** and **what's in 
 
 - **Handoff:** [handoff](../cuecards/handoff-<slug>.md)
 - **Board:** [<board name>](url)
+- **Arms:** `DESIGN.md` at the repo root — law for user-visible lanes when present · **Shape:** `docs/architecture/<slug>.md` — law for every lane when present
 - **Integration owner:** <HUMAN NAME — not an agent>
 - **Status:** Mapping · Locked · Round N · Blocked: <plain reason> · Destination Check passed
 - **Time budget:** none · until <local time> (clock started <time>)
@@ -293,7 +302,7 @@ Every round, in order:
    - Which seam or file is the bottleneck?
    - Duplicate work, or the same context about to be pasted into two agents?
    - Is `main` green?
-2. **Brief, don't dump.** For each takeable lane, a thin packet: lane block, Owns / Does not touch, seam contract paths, ADRs, Check. Not the whole handoff. Not every other lane's diff. Not the chat. If it isn't needed to pass that Check, it isn't in the brief.
+2. **Brief, don't dump.** For each takeable lane, a thin packet: lane block, Owns / Does not touch, seam contract paths, ADRs, the arms pointer for user-visible lanes, Check. Not the whole handoff. Not every other lane's diff. Not the chat. If it isn't needed to pass that Check, it isn't in the brief.
 3. **Dispatch independent work together.** One owner per lane. No second agent on a claimed lane. Do not start a blocked lane "to look busy." If this harness has subagents or worktrees, independent Now lanes in parallel (one worktree per lane). If not, run them in sequence with `main` green after each — still finish the takeable set before you stop.
 4. **Implement** at the oneslice bar. Research foreign facts in the background per lane; reuse an existing research file instead of investigating the same primary source twice.
 5. **Fault isolation.** One lane failing (tests, merge, human gate) does not cancel the others. Mark it blocked on the map. Keep A and C moving.
@@ -353,7 +362,7 @@ Oneslice git rules hold inside a lane. Across lanes:
 
 # Build loop (this sitting)
 
-1. **Load.** Handoff, ADRs, Notes, How we'll know, tree layout. If any of those is missing, cuecards.
+1. **Load.** Handoff, ADRs, Notes, How we'll know, tree layout — plus `DESIGN.md` and the `docs/architecture/` record when they exist (gate 20). If any of those is missing, cuecards.
 2. **Map.** Cut lanes and seams. Depth-review. Commit `docs/lanes/map-<slug>.md`. File/claim tickets.
 3. **Lock.** Freeze the destination Check. Record time/spend constraints. Status = Locked.
 4. **Round:** profile → brief → seams that blockers need → dispatch takeable lanes (oneslice bar, parallel if independent) → merge → walk before/after → rebalance.
@@ -371,6 +380,8 @@ Oneslice git rules hold inside a lane. Across lanes:
 - **Proof** is in the repo
 - **Enforced:** CI (or the named pin) fails if that walk regresses
 - Cited ADRs still true
+- If `DESIGN.md` exists: every landed lane's user-visible work matches the arms
+- If a keystone record exists: no lane crossed a boundary or weakened a fitness function
 - Nothing from **Not this effort** landed
 - Seams that were shared were written before both sides cut
 - Tickets and map are readable by a person who missed the sitting
@@ -414,5 +425,8 @@ Useful self-talk (and useful things to tell the human):
 ## It's working if
 
 - The whole destination shipped this sitting, or the map honestly names the human block or budget and every takeable Now lane has landed at the oneslice bar — the exit was real, not a pile of slices with no loop.
+- A teammate who missed the sitting can open `docs/lanes/map-<slug>.md`, claim an unclaimed Now lane, and not need yesterday's thread.
+- You did not use this skill to decide product, match a picture, or leave the destination half-built.
+, or the map honestly names the human block or budget and every takeable Now lane has landed at the oneslice bar — the exit was real, not a pile of slices with no loop.
 - A teammate who missed the sitting can open `docs/lanes/map-<slug>.md`, claim an unclaimed Now lane, and not need yesterday's thread.
 - You did not use this skill to decide product, match a picture, or leave the destination half-built.

@@ -16,7 +16,7 @@ Announce at start: `Using heraldry to [read | cast | arm | build | critique | po
 ## Hard gates
 
 1. **Read the room before you pick a font.** Say one line out loud, in plain words: who this is for, what it should feel like, which family it leans toward. No code until that line exists. If the brief genuinely diverges, ask **one** question, not a questionnaire.
-2. **Dial first, default never.** Name `BOLDNESS`, `MOTION`, and `DENSITY` before you build, with a one-clause reason from the read. The baseline is a fallback, not a decision.
+2. **Dial first, default never.** Name `BOLDNESS`, `MOTION`, and `DENSITY` before you build, with a one-clause reason from the read. The table row is the fallback, not a decision.
 3. **No arms, no second screen.** You may build one screen to learn something. You may not build the app on an unwritten direction. Write `DESIGN.md`, commit it, then cut.
 4. **The arms are law once written.** Like an ADR: cite them, follow them, and when you must change one, change it deliberately in the same commit as the code and say so. Never quietly drift because a section "looked better" in a different palette.
 5. **Locks are locks.** One accent, one radius system, one theme per page, one icon family, one copy register. Drift across sections is the most visible tell that a machine made this.
@@ -38,7 +38,7 @@ Announce at start: `Using heraldry to [read | cast | arm | build | critique | po
     - **The arms** committed (`DESIGN.md`), and the code matching them. If the code and the arms disagree, the arms are wrong or the code is; say which and fix it.
     - **The board** at `docs/heraldry/<slug>-board.md`, carrying a human's pick, when this is a new product, a page whose look is the question, or a redesign. A one-component fix inside an already-armed product skips it, out loud.
     - **A critique** at `docs/heraldry/<slug>-critique.md`: the Before/After table from the last pass.
-    - **A walk** at `docs/heraldry/<slug>-walk.md`: the record below, with **fresh renders** at 375 / 768 / 1440 in both themes, and a reduced-motion pass.
+    - **A walk** at `docs/heraldry/<slug>-walk.md`: the record below, with **fresh renders** at 375 / 768 / 1440 in both themes, and a reduced-motion pass. (A one-component fix inside an already-armed product owes the spot pass instead — see *How much proof this pass owes* — said out loud.)
     - **The mechanical pre-flight output**, pasted. Real commands, real output. Not a summary.
 
     Renders must be new. A screenshot from three sessions ago is not evidence that this diff is good.
@@ -80,9 +80,11 @@ If the read genuinely forks, ask **one** question: *"Should this feel closer to 
 
 Set all three. Every layout, motion, and density decision below is gated by them. Never invent aliases; use these names.
 
-* **`BOLDNESS`** — 1 = perfect symmetry, 10 = artsy chaos. Baseline **8**.
-* **`MOTION`** — 1 = static, 10 = cinematic physics. Baseline **6**.
-* **`DENSITY`** — 1 = art gallery, 10 = cockpit. Baseline **4**.
+* **`BOLDNESS`** — 1 = perfect symmetry, 10 = artsy chaos.
+* **`MOTION`** — 1 = static, 10 = cinematic physics.
+* **`DENSITY`** — 1 = art gallery, 10 = cockpit.
+
+There is no fixed default. The table below is the baseline: find the brief's row, take its numbers, adjust with a stated reason. If the brief matches no row, take the product/tool row — the most common thing agents are asked to build — and say you did. Numbers from habit are how every product ends up at the same three settings.
 
 ### Reading the dials off the brief
 
@@ -91,7 +93,7 @@ Set all three. Every layout, motion, and density decision below is gated by them
 | "minimal / calm / clean / editorial / Linear-style" | 5-6 | 3-4 | 2-3 |
 | "premium consumer / Apple-y / luxury / brand" | 7-8 | 5-7 | 3-4 |
 | "playful / wild / experimental / agency / showcase" | 9-10 | 8-10 | 3-4 |
-| "landing page / portfolio / marketing" (default) | 7-9 | 6-8 | 3-5 |
+| "landing page / portfolio / marketing" | 7-9 | 6-8 | 3-5 |
 | "product screen / dashboard / tool" | 3-5 | 3-5 | 5-8 |
 | "trust-first / public sector / regulated / accessibility-critical" | 3-4 | 2-3 | 4-5 |
 | "redesign, preserve the brand" | match existing | match +1 | match existing |
@@ -268,7 +270,7 @@ that will match. Name the accent, the typeface, the density, and the mood.
 * **Hierarchy comes from weight, color, and spacing before size.** A page where every headline is enormous has no hierarchy at all.
 * **Display**: tight tracking, compressed leading, `clamp()` scale. Body: 65 characters per line, relaxed leading, never below 1rem on mobile.
 * **Inter is not the default.** Reach for Geist, Satoshi, Cabinet Grotesk, Outfit, or a brand face first. The override is real: Inter is fine when the brief is explicitly neutral, trust-first, or accessibility-first, and you say so.
-* **Serif discipline.** "Creative, so serif" is the most-tested tell there is. A serif is allowed only when the brand names one, or the family is genuinely editorial, luxury, publication, or heritage, and you can say why *this* serif fits *this* product. Default to a sans display. Banned as defaults: Fraunces, Instrument Serif. Banned always: Times, Georgia, Garamond, Palatino as stand-ins for "serif". Serif is banned outright in dashboards and software UI.
+* **Serif discipline.** "Creative, so serif" is the most-tested tell there is. The default is a sans display. A serif is allowed when the brand names one, or the family is genuinely editorial, luxury, publication, or heritage, and you can say why *this* serif fits *this* product — and in dashboards and software UI that bar is deliberately high, because serif-as-flavor is the tell. Banned as *unchosen defaults*: Fraunces, Instrument Serif, and the stand-ins (Times, Georgia, Garamond, Palatino). If one of those is genuinely the right face for this brand, say so in the arms and ship it on purpose; never reach for it as a reflex.
 * **Emphasis inside a headline uses the same family**: italic or bold, never a random serif word dropped into a sans line.
 * **Italic descenders need room.** If an italic display word contains `y g j p q`, leading below 1.1 clips it. Reserve the space.
 * **Numbers behave.** `tabular-nums` in any column that gets compared. At density above 7, all numbers are mono.
@@ -354,70 +356,45 @@ Ask how often a user will see it.
 
 Valid reasons: spatial consistency (a toast leaves the way it came in), showing a state change, explaining how something works, answering a press, or softening a change that would otherwise jolt. Invalid: "it looks cool". If you cannot answer in one sentence, drop it.
 
-### How it moves
+### How it moves (the short form)
 
-* **Entering or exiting → ease-out** (starts fast, feels responsive). **Moving on screen → ease-in-out.** **Hover or color change → ease.** **Constant motion → linear.** Never `ease-in` for UI; it delays the exact moment the user is watching.
-* **The built-in curves are too weak.** Define your own once and reuse them:
+* Entering or exiting → ease-out. Moving on screen → ease-in-out. Hover or color → ease. Constant motion → linear. Never `ease-in` for UI.
+* Press feedback 100-160ms. UI work stays under 300ms.
+* `transform` and `opacity` only. Never animate `top`, `left`, `width`, `height`. Never from `scale(0)`.
+* Springs for anything interruptible; CSS for predetermined motion, JS only when it must be.
+* Every observer, timer, and listener gets a teardown. `prefers-reduced-motion` collapses everything above intensity 3.
 
-```css
---ease-out:    cubic-bezier(0.23, 1, 0.32, 1);      /* UI interactions */
---ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);     /* on-screen movement */
---ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);      /* drawers and sheets */
-```
-
-* **Duration bands**: press feedback 100-160ms, tooltips 125-200ms, dropdowns 150-250ms, modals and drawers 200-500ms. UI work stays under 300ms. A 180ms dropdown feels faster than a 400ms one at identical cost.
-* **Springs for anything interruptible**: `stiffness: 100, damping: 20` as a start. Springs carry velocity when interrupted; keyframes restart from zero. For gesture-driven state (a drawer the user might reverse), transitions or springs win; keyframes lose.
-* **Never animate from `scale(0)`.** Nothing in the world appears from nothing. Start at `scale(0.95)` with opacity.
-* **Nothing animates `top`, `left`, `width`, or `height`.** `transform` and `opacity` only.
-* **Popovers are origin-aware.** They scale from their trigger, using the transform-origin value your primitive library exposes (Radix publishes `--radix-popover-content-transform-origin`, for example). Modals stay centered because they are not anchored to anything.
-* **Tooltips open instantly once one is already open.** Keep the delay on first hover; skip the animation on the next.
-* **Reveal staggered lists with a cap.** Small groups cascade; long lists mount instantly. A slow cascade on a long list feels broken.
-* **Blur bridges a bad crossfade.** A 2px `filter: blur()` during the transition hides the moment two states overlap.
-* **`transform: translateY(100%)`** beats hardcoded pixels: it is relative to the element, so it survives any height.
-
-### How it costs
-
-* **CSS for predetermined motion, JS for interruptible motion.** CSS runs off the main thread; under load, JS animation frames drop.
-* **WAAPI** when you want programmatic control with CSS performance.
-* **Motion's shorthand props (`x`, `y`, `scale`) are not hardware-accelerated.** Use the full `transform` string when it matters.
-* **Changing an inheritable CSS variable on a parent recalculates every child.** Set the transform on the element, not a variable on the container.
-* **Grain and noise go on a fixed, `pointer-events-none` overlay.** Never on a scrolling container.
-* **Never `window.addEventListener("scroll")`**, never a `requestAnimationFrame` loop that writes React state, never `useState` for a continuously changing value. Use scroll-driven CSS, `IntersectionObserver`, Motion's `useScroll`, or a `ScrollTrigger`; use motion values for anything driven by the pointer.
-* **Clean up.** Every observer, timer, listener, and animation instance gets a teardown.
-* **`prefers-reduced-motion` collapses everything** above intensity 3: infinite loops, parallax, scroll hijacks, magnetic pull. Gate it, do not hope.
-
-### Canonical patterns (get these wrong and the page feels broken)
-
-* **Sticky stack**: pin each card at `start: "top top"` with `pin: true`, and drive the shrink of the previous card from the *next* card's trigger. The common failure is a trigger that fires halfway through the scroll instead of pinning at the viewport top.
-* **Horizontal pan**: pin the wrapper at `start: "top top"`, set `end: "+=" + distance` where distance is track width minus viewport, `scrub: 1`, `invalidateOnRefresh: true`. The common failure is animating before the pin, so the user sees half a slide.
-* **Scroll reveal**: for plain "appear on scroll", Motion's `whileInView` with `once: true` is lighter than GSAP. Save GSAP for real pinning and scrubbing.
-* **Never mix GSAP or WebGL with Motion in the same component tree.** They fight for the same frames.
-
----
+The full engineering — the exact curves to define once, duration bands, spring constants, origin-aware popovers, tooltip and stagger rules, the blur bridge, scroll-driven recipes, the GSAP-vs-Motion rule, and what each choice costs at runtime — is in [reference/motion.md](reference/motion.md). Load it when a pass actually ships motion.
 
 ## The arsenal
 
-Know these by name. Reach for one when the read calls for it, not by default. **At most one marquee per page**, and no infinite loop in every tile.
-
-* **Heroes**: asymmetric split · editorial manifesto · media mask · kinetic type · curtain reveal · scroll-pinned.
-* **Navigation**: dock magnification · magnetic button · gooey menu · morphing status pill · radial menu at the click point · speed dial · full-screen mega menu.
-* **Layout**: bento grid · masonry · split-screen scroll · sticky stack · deliberate broken grid.
-* **Containers**: tilt card · spotlight border · true glass (inner border plus inner highlight, with a solid fallback) · morphing modal that grows from its trigger · swipe stack.
-* **Scroll**: sticky card stack · horizontal pan · zoom parallax · scroll-drawn path · sequence scrub.
-* **Media**: coverflow · drag-to-pan canvas · accordion strip that opens on hover · hover image trail.
-* **Type**: kinetic marquee · text mask over media · scramble decode · circular path · outlined-to-filled.
-* **Micro**: directional hover fill from the entry side · ripple from the click coordinates · skeleton shimmer shaped like the content · focus spotlight · tinted ambient gradient.
-
-Bento rules, if you use a grid: **exactly as many cells as you have content** (`3 items → 3 cells`), `grid-auto-flow: dense`, no dead cells in the middle or at the end, and at least two or three cells carrying real visual variation (an image, a brand-appropriate gradient, a texture) rather than white-on-white text.
-
----
+Named patterns — heroes, navigation, layout, containers, scroll, media, type, micro —
+worth knowing by name and reaching for when the read calls for one, never by default.
+The full list, with the bento-grid rules, is in [reference/arsenal.md](reference/arsenal.md).
+The bans hold without loading it: **at most one marquee per page**, and no infinite loop
+in every tile.
 
 ## The loop (render, critique, fix, prove)
 
 The loop is identical whether you are generating a screen for the first time or tightening one that shipped last year:
 look at the pixels, say what is wrong, fix the few things that matter, look again.
 
-1. **Render.** Run the thing. Screenshot it at 375, 768, and 1440 in both themes, and put the chosen tile next to each one. Look at the actual pixels; never critique from the source.
+### How much proof this pass owes
+
+Evidence scales with the size of the claim, not to zero and not past need:
+
+* **Full pass** — a new product, a new page, or a redesign: everything gate 16 lists. Board, fresh renders at three widths in both themes, reduced-motion and keyboard passes, zoom, contrast values, pasted pre-flight, walk record.
+* **Spot pass** — a fix inside an already-armed product that touches one component or one region of one screen. Say `spot pass` out loud, then owe exactly this:
+  * fresh renders of the affected region at the widths it actually appears at (both themes if it touches color or tokens; one if the arms make variation impossible),
+  * contrast values for any token that changed,
+  * the critique table — still one table, before/after/why,
+  * the pre-flight rows the change could plausibly break — all of them, not the convenient ones,
+  * the walk record appended, or a dated spot record beside it.
+  
+  No board. No keyboard or zoom pass unless interaction changed.
+* What no pass may skip: **fresh** renders (never reused from a previous sitting), the honest `unrendered`, and the bans. "Small" changes the amount of evidence, never its freshness.
+
+1. **Render.** Run the thing. Screenshot it at 375, 768, and 1440 in both themes, and put the chosen tile next to each one. Look at the actual pixels; never critique from the source. *(A spot pass renders the affected region at the widths it appears at instead — say which you ran.)*
 2. **Critique against the arms, then against the bans.** Output **one markdown table**, one row per issue:
 
    | Before | After | Why |
@@ -450,7 +427,9 @@ These are the signatures a machine produces when it tries to look designed. Trea
 
 ### The single worst one
 
-**The em dash is banned in the interface.** Zero. Not "sparingly" — zero. Not in headlines, eyebrows, pills, buttons, body copy, quotes, attribution, captions, or alt text. Use a period, a comma, a colon, or parentheses. Ranges use a hyphen (`2018-2026`), not an en dash. A user should never see anything but the regular hyphen and the math minus sign. *(This ban governs shipped interface copy. Docs, ADRs, tickets, and skill files are not the interface.)*
+**The em dash is banned in the interface.** Zero. Not "sparingly" — zero. Not in headlines, eyebrows, pills, buttons, body copy, quotes, attribution, captions, or alt text. Use a period, a comma, a colon, or parentheses. *(This ban governs shipped interface copy the product authored. Docs, ADRs, tickets, and skill files are not the interface.)*
+
+**The en dash is allowed in exactly one place**: between two numbers, as a range (`2018–2026`) — that is what it is for. Anywhere else it is an em dash in disguise. Outside a numeric range, a user should see nothing but the regular hyphen and the math minus sign. If verbatim third-party text you must quote contains a banned dash, normalize the punctuation, or accept it in the walk record out loud — still a fail, but a named one.
 
 ### Visual
 
@@ -536,7 +515,8 @@ If you cannot render, write `unrendered` and list what you could not check — t
 
 Run this before you say anything is done. The mechanical ones have real commands; adapt them to the stack, and paste what they return.
 
-- [ ] **Em dash sweep**: `grep -rn "—\|–" src/` returns nothing (visual dash check too, in the copy block).
+- [ ] **Em dash sweep**: `grep -rn "—" src/` returns nothing in product-authored copy; visual check the rendered copy block too.
+- [ ] **En dash sweep**: `grep -rn "–" src/` — every hit must be a numeric range (`2018–2026`); any other hit is a fail.
 - [ ] **Label count**: small-caps labels above headings, at most one per three sections.
 - [ ] **Accent count**: exactly one accent value across the whole surface.
 - [ ] **Radius count**: matches the arms' documented system, nothing off-scale.
@@ -602,4 +582,6 @@ Do not call an interface done until all of these hold:
 * Put the board beside the build and a stranger sees the same product — the tile was a promise, and the screen kept it.
 * The things you changed this pass were the few things that mattered, and you stopped.
 * The evidence in `docs/heraldry/` is something a stranger could check, and it would fail if you broke the interface tomorrow.
+* Nobody had to ask "does this look okay?" because the walk already answered it.
+ something a stranger could check, and it would fail if you broke the interface tomorrow.
 * Nobody had to ask "does this look okay?" because the walk already answered it.
