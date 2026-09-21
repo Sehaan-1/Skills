@@ -10,13 +10,13 @@
 # Design System: <Product>
 
 ## Register
-<name> â€” and the one clause that chose it.
+<name> — and the one clause that chose it.
 
 ## Chosen board
-<path to the tile a human picked> â€” "<their words>"
+<path to the tile a human picked> — "<their words>"
 
 ## Dials
-Boldness <n> Â· Motion <n> Â· Density <n> (and the one line that produced them)
+Boldness <n> · Motion <n> · Density <n> (and the one line that produced them)
 
 ## 1. Atmosphere
 Two or three sentences of plain description. What does it feel like to use?

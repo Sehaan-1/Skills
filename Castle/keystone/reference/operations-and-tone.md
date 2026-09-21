@@ -2,11 +2,11 @@
 
 # Board operations (GitHub)
 
-This skill does not run a board. It adds ADRs to `docs/adr/NNNN-â€¦.md` under the numbering cuecards owns, and it files structural work as issues on the existing board when the record produces follow-up work.
+This skill does not run a board. It adds ADRs to `docs/adr/NNNN-….md` under the numbering cuecards owns, and it files structural work as issues on the existing board when the record produces follow-up work.
 
-- **ADR** â€” write it in the same sitting as the decision, using cuecards' format (`Context` / `Decision` / `Consequences` / `History`, spoken-English title, `Supersedes` / `Superseded by`). Append to `docs/adr/README.md`.
-- **Follow-up issues** â€” one per structural defect the record found, titled in spoken English, labelled `keystone` plus the priority label the board already uses (`now` / `next` / `later`). Body is technical; the first line is plain. Sub-issue them to the board parent and wire native `blocked_by` using the same `gh api` incantations as cuecards' **Board operations**.
-- **Reference in the record** â€” cite issues by name (the audience note at the top owns the no-bare-`#42` law).
+- **ADR** — write it in the same sitting as the decision, using cuecards' format (`Context` / `Decision` / `Consequences` / `History`, spoken-English title, `Supersedes` / `Superseded by`). Append to `docs/adr/README.md`.
+- **Follow-up issues** — one per structural defect the record found, titled in spoken English, labelled `keystone` plus the priority label the board already uses (`now` / `next` / `later`). Body is technical; the first line is plain. Sub-issue them to the board parent and wire native `blocked_by` using the same `gh api` incantations as cuecards' **Board operations**.
+- **Reference in the record** — cite issues by name (the audience note at the top owns the no-bare-`#42` law).
 
 If `gh` cannot see the repo, say so out loud, and write the ADRs and follow-ups as files. Never pretend issues exist.
 
@@ -16,15 +16,15 @@ If `gh` cannot see the repo, say so out loud, and write the ADRs and follow-ups 
 
 The record is committed, the enforcement runs in CI, the stress test shows three violations caught, the ADRs are filed, and the deferred decisions have triggers. Say:
 
-`Shape set. Contexts: <N> â€” <names>. Core: <name>. Fitness functions: <M> enforced, <K> unenforced. Deferred: <list>. Then I stop.`
+`Shape set. Contexts: <N> — <names>. Core: <name>. Fitness functions: <M> enforced, <K> unenforced. Deferred: <list>. Then I stop.`
 
-Oneslice and lanes build inside this shape and cite the record. If a builder finds that a boundary here is wrong, that is a new keystone sitting against the same question, with the counterexample on the table â€” not a quiet patch. Heraldry never hears about any of this.
+Oneslice and lanes build inside this shape and cite the record. If a builder finds that a boundary here is wrong, that is a new keystone sitting against the same question, with the counterexample on the table — not a quiet patch. Heraldry never hears about any of this.
 
 ---
 
 # Tone
 
-Direct, technical, and unwilling to accept a claim in place of a measurement â€” including from your own first draft. This skill's reader has fifteen years of scar tissue; do not explain polymorphism to them and do not let them get away with "it's clean now."
+Direct, technical, and unwilling to accept a claim in place of a measurement — including from your own first draft. This skill's reader has fifteen years of scar tissue; do not explain polymorphism to them and do not let them get away with "it's clean now."
 
 Useful self-talk (and useful things to say out loud to the human):
 
@@ -39,9 +39,9 @@ Useful self-talk (and useful things to say out loud to the human):
 - `I measured the README, not the code. re-running against the tree.`
 - `everything is public, so the packages are decoration. tightening access first.`
 - `the deferral has no trigger. that is procrastination with better vocabulary.`
-- `this contradicts ADR-NNNN. stopping â€” cuecards, not a structural workaround.`
+- `this contradicts ADR-NNNN. stopping — cuecards, not a structural workaround.`
 - `that service split is a deployment decision, not an architecture. deferring it.`
-- `D = 0.41 on billing. it is volatile, concrete, and depended on â€” that is the pain, and it is why changes hurt.`
+- `D = 0.41 on billing. it is volatile, concrete, and depended on — that is the pain, and it is why changes hurt.`
 - `the fix is moving a boundary, not rewriting the code.`
 - `no tool for this stack. writing the structural test as a grep and saying so.`
 - `I cannot verify this rule mechanically. marking it unenforced out loud.`
@@ -60,7 +60,7 @@ Do not call the sitting done without all of these:
 - The dependency rule is written as allowed/forbidden patterns with a stated direction, and levels are defined by distance from I/O.
 - The packaging choice is named with the cohesion trade it makes.
 - Metrics were produced by a tool against a named commit and are in the record: I, A, D per component, and the cycle count.
-- Every structural rule has a check, a command, and a status â€” `enforced` or `unenforced`, nothing in between.
+- Every structural rule has a check, a command, and a status — `enforced` or `unenforced`, nothing in between.
 - The stress test exists: three attempted violations, each either caught (failure pasted) or recorded as `unenforced` with what it would take. Tree restored.
 - Deferred decisions are a table with triggers and honest change costs.
 - ADRs are written for every decision a future engineer might otherwise relitigate, in the existing `docs/adr/` numbering.
@@ -76,4 +76,4 @@ Do not call the sitting done without all of these:
 - Someone proposes deferring a database, framework, or service decision, and the record already has it deferred with a trigger.
 - The domain tests run with no database and no web server, and they are fast.
 - Two teams can ship in a week without a joint release, because the seam between them was committed before both sides cut.
-- A year from now, the shape is still recognisable in the code â€” and where it is not, the drift is visible in a failing build rather than in someone's memory.
+- A year from now, the shape is still recognisable in the code — and where it is not, the drift is visible in a failing build rather than in someone's memory.

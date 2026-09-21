@@ -6,9 +6,9 @@ These are the signatures a machine produces when it tries to look designed. Trea
 
 ### The single worst one
 
-**The em dash is banned in the interface.** Zero. Not "sparingly" â€” zero. Not in headlines, eyebrows, pills, buttons, body copy, quotes, attribution, captions, or alt text. Use a period, a comma, a colon, or parentheses. *(This ban governs shipped interface copy the product authored. Docs, ADRs, tickets, and skill files are not the interface.)*
+**The em dash is banned in the interface.** Zero. Not "sparingly" — zero. Not in headlines, eyebrows, pills, buttons, body copy, quotes, attribution, captions, or alt text. Use a period, a comma, a colon, or parentheses. *(This ban governs shipped interface copy the product authored. Docs, ADRs, tickets, and skill files are not the interface.)*
 
-**The en dash is allowed in exactly one place**: between two numbers, as a range (`2018â€“2026`) â€” that is what it is for. Anywhere else it is an em dash in disguise. Outside a numeric range, a user should see nothing but the regular hyphen and the math minus sign. If verbatim third-party text you must quote contains a banned dash, normalize the punctuation, or accept it in the walk record out loud â€” still a fail, but a named one.
+**The en dash is allowed in exactly one place**: between two numbers, as a range (`2018–2026`) — that is what it is for. Anywhere else it is an em dash in disguise. Outside a numeric range, a user should see nothing but the regular hyphen and the math minus sign. If verbatim third-party text you must quote contains a banned dash, normalize the punctuation, or accept it in the walk record out loud — still a fail, but a named one.
 
 ### Visual
 

@@ -10,9 +10,9 @@ Lanes orchestrates multi-agent or multi-round execution across parallel work str
 
 ## Hard gates
 
-1. **No destination, no ship.** You need where we're headed, **How we'll know we're there** (walk / proof / enforced), ADRs in force, and `docs/cuecards/handoff-<slug>.md` with real slices. Missing, placeholder, or "the closed issues are the plan" â†’ cuecards. Do not invent a destination while coding.
+1. **No destination, no ship.** You need where we're headed, **How we'll know we're there** (walk / proof / enforced), ADRs in force, and `docs/cuecards/handoff-<slug>.md` with real slices. Missing, placeholder, or "the closed issues are the plan" → cuecards. Do not invent a destination while coding.
 2. **Do not reopen product.** The map is engineering: order, ownership, shared contracts, parallelism. A new product question is a cuecards card, not a clever extra lane.
-3. **ADRs are law.** Cited ADRs are closed. If the destination cannot honor one, stop and name it â€” cuecards sitting, not a workaround spread across lanes.
+3. **ADRs are law.** Cited ADRs are closed. If the destination cannot honor one, stop and name it — cuecards sitting, not a workaround spread across lanes.
 4. **Map before parallel.** If two people or two agents would cut without a committed map, they will collide. Write the map. Commit it. Then run.
 5. **The destination Check is done.** Slice Checks are waypoints. You are not done until the board's walk works, the proof exists, and enforcement would fail if it regressed.
 6. **Not this effort still binds.** Shipping the destination is not permission to ship the backlog, the nice-to-haves, or uncited ADRs.
@@ -21,18 +21,18 @@ Lanes orchestrates multi-agent or multi-round execution across parallel work str
 9. **shared contracts before both sides.** If two lanes share an API, schema, event, package, or fixture, the contract is written and committed **before** both implement. Consuming lanes do not start the part that needs an unwritten seam.
 10. **Tickets and the map are for people.** A teammate who was not in the room must be able to open the map, pick an unclaimed Now lane, and know what to touch. Agent jargon as the live status is a defect. Never a bare `#42`.
 11. **Claim a lane.** One owner per lane. Do not have two writers on the same files. Assign the ticket. Put the name on the map.
-12. **This sitting is the destination.** Do not stop merely because Slice 1's Check passed. Stop when the destination Check passes, or when you are blocked on a human (ADR, auth/PII/upload/CORS/integration, access, a missing decision). If the work cannot fit one sitting without dropping the oneslice bar, **do not drop the bar** â€” commit an honest map, ship every Now lane that still fits at that bar, and leave Next/Then visible. Never "finish" by shipping a mess.
+12. **This sitting is the destination.** Do not stop merely because Slice 1's Check passed. Stop when the destination Check passes, or when you are blocked on a human (ADR, auth/PII/upload/CORS/integration, access, a missing decision). If the work cannot fit one sitting without dropping the oneslice bar, **do not drop the bar** — commit an honest map, ship every Now lane that still fits at that bar, and leave Next/Then visible. Never "finish" by shipping a mess.
 13. **Lock, then loop.** Freeze the destination Check and commit the map before round 1. Rounds change the tree, not the target. Do not move the walk to make a round look done.
-14. **Thin briefs.** A lane agent or teammate gets only what their Check needs: their lane, Owns / Does not touch, the shared contracts they consume, the ADRs they honor. Dumping the whole handoff, every other lane, and the chat into every agent is a coordination failure â€” cost, latency, and drift.
+14. **Thin briefs.** A lane agent or teammate gets only what their Check needs: their lane, Owns / Does not touch, the shared contracts they consume, the ADRs they honor. Dumping the whole handoff, every other lane, and the chat into every agent is a coordination failure — cost, latency, and drift.
 15. **Idle waiting is a bottleneck.** Do not start an agent that cannot cut yet. Profile the sitting, write the blocking seam, then dispatch. An agent sitting on an unwritten contract is wasted spend.
 16. **The clock does not lower the bar.** A time or spend budget stops you *starting* more work. It does not buy shortcuts, a weaker Check, or "good enough because we were looping." Better to hit the limit with meaningful landed lanes than with everything roughly present and messy.
 
-<!-- â”€â”€ PROVENANCE GATES (added to prevent self-adjudication) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<!-- ── PROVENANCE GATES (added to prevent self-adjudication) ──────────────── -->
 
 17. **Integration owner must be a human name.** The `Integration owner` field in the map
     header is the person who merges, runs the destination walk, and briefs agents. An agent
     cannot be the integration owner. If no human has taken this role, write
-    `Integration owner: unassigned â€” needs a person` and stop until a human claims it.
+    `Integration owner: unassigned — needs a person` and stop until a human claims it.
     Shipping without a named human integration owner is shipping without accountability.
 
 18. **"Destination Check passed" requires a CI run URL, not a claim.** The map status may
@@ -50,13 +50,13 @@ Lanes orchestrates multi-agent or multi-round execution across parallel work str
     provenance collapse. I need a passing CI run from a committed state before I can close
     this." Either link the run or leave the map status as `Round N` and stop.
 
-<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
 
 20. **Existing arms and shape are law when present.** If `DESIGN.md` exists at the repo
     root, every user-visible lane matches DESIGN.md; the lane's brief carries the design system pointer,
     and an arm change is deliberate, same-commit, and stated (heraldry owns the file).
     If `docs/architecture/` holds a record, lanes cut along its boundaries and do not
-    weaken its fitness functions â€” the map's Owns lines should already follow that
+    weaken its fitness functions — the map's Owns lines should already follow that
     shape. A lane that cannot honor either stops and names it; that is a heraldry or
     keystone sitting, not an adaptation inside the lane.
 

@@ -4,11 +4,11 @@
 
 Set all three. Every layout, motion, and density decision below is gated by them. Never invent aliases; use these names.
 
-* **`BOLDNESS`** â€” 1 = perfect symmetry, 10 = artsy chaos.
-* **`MOTION`** â€” 1 = static, 10 = cinematic physics.
-* **`DENSITY`** â€” 1 = art gallery, 10 = cockpit.
+* **`BOLDNESS`** — 1 = perfect symmetry, 10 = artsy chaos.
+* **`MOTION`** — 1 = static, 10 = cinematic physics.
+* **`DENSITY`** — 1 = art gallery, 10 = cockpit.
 
-There is no fixed default. The table below is the baseline: find the brief's row, take its numbers, adjust with a stated reason. If the brief matches no row, take the product/tool row â€” the most common thing agents are asked to build â€” and say you did. Numbers from habit are how every product ends up at the same three settings.
+There is no fixed default. The table below is the baseline: find the brief's row, take its numbers, adjust with a stated reason. If the brief matches no row, take the product/tool row — the most common thing agents are asked to build — and say you did. Numbers from habit are how every product ends up at the same three settings.
 
 ### Reading the dials off the brief
 

@@ -4,8 +4,8 @@
 
 Run this before you say anything is done. The mechanical ones have real commands; adapt them to the stack, and paste what they return.
 
-- [ ] **Em dash sweep**: `grep -rn "â€”" src/` returns nothing in product-authored copy; visual check the rendered copy block too.
-- [ ] **En dash sweep**: `grep -rn "â€“" src/` â€” every hit must be a numeric range (`2018â€“2026`); any other hit is a fail.
+- [ ] **Em dash sweep**: `grep -rn "—" src/` returns nothing in product-authored copy; visual check the rendered copy block too.
+- [ ] **En dash sweep**: `grep -rn "–" src/` — every hit must be a numeric range (`2018–2026`); any other hit is a fail.
 - [ ] **Label count**: small-caps labels above headings, at most one per three sections.
 - [ ] **Accent count**: exactly one accent value across the whole surface.
 - [ ] **Radius count**: matches the design system (DESIGN.md)' documented system, nothing off-scale.

@@ -1,6 +1,6 @@
 # Architectural Smells, Comparisons, and Red Flags
 
-# Smell â†’ cause
+# Smell → cause
 
 Read down the left, land on the right. Each row is a structural failure, not a code-style failure.
 
@@ -37,16 +37,16 @@ Read down the left, land on the right. Each row is a structural failure, not a c
 **Good:** "Invariant I2: `order.total == sum(lineItems.amount)`, enforced transactionally within the `Order` aggregate on every commit. The `Order` aggregate root is `Order`; `LineItem` has local identity and is not reachable except by traversal from `Order`. Consequence: `LineItem` may not be loaded or mutated directly, and there is no `LineItemRepository`."
 
 **Bad cross-context rule:** "Inventory will let us know when stock changes."
-**Good:** "Cross-context rule: an order may not be confirmed for more units than are available. This is **not** transactional across `Ordering` and `Inventory`. Ordering publishes `OrderPlaced`; Inventory consumes it and replies `StockReserved` or `StockRejected` within 5 s; Ordering compensates on rejection or on no reply after 30 s. Reconciliation job `reconcile-reservations` runs hourly and is the backstop. Worst-case oversell: bounded by the 30 s window at current peak rate â‰ˆ 12 orders."
+**Good:** "Cross-context rule: an order may not be confirmed for more units than are available. This is **not** transactional across `Ordering` and `Inventory`. Ordering publishes `OrderPlaced`; Inventory consumes it and replies `StockReserved` or `StockRejected` within 5 s; Ordering compensates on rejection or on no reply after 30 s. Reconciliation job `reconcile-reservations` runs hourly and is the backstop. Worst-case oversell: bounded by the 30 s window at current peak rate ≈ 12 orders."
 
 **Bad deferral:** "We'll decide on the database later."
 **Good:** "| Persistence engine | The repository port is the only thing the core needs; any of Postgres, DynamoDB, or flat files satisfies it | First load test above 2k writes/s, or the first reporting query that needs a join | Swap the adapter: ~3 days. No core change. |"
 
 **Bad metric claim:** "Coupling is reasonable now."
-**Good:** "Measured at 9f3a1c2: `billing` I=0.21 A=0.44 D=0.23; `notifications` I=0.86 A=0.10 D=0.24; `pricing` I=0.05 A=0.62 D=0.33. Cycles: 0. `shared-kernel` sits at I=0.00 A=0.31 â€” deliberately near the Zone of Pain; it is low-volatility by agreement, and the joint test suite in CI is what keeps it that way."
+**Good:** "Measured at 9f3a1c2: `billing` I=0.21 A=0.44 D=0.23; `notifications` I=0.86 A=0.10 D=0.24; `pricing` I=0.05 A=0.62 D=0.33. Cycles: 0. `shared-kernel` sits at I=0.00 A=0.31 — deliberately near the Zone of Pain; it is low-volatility by agreement, and the joint test suite in CI is what keeps it that way."
 
 **Bad review:** "This is a bit messy."
-**Good:** "Drifts. `orders/exports.ts` imports `prisma` directly and queries `lineItem` by id, bypassing the `Order` root â€” that is rule 4 of the record (aggregate access only through the root) and it is unenforced, because the fitness function only checks package-level imports, not intra-package access. Two fixes: route through `OrderRepository`, and add the intra-package rule."
+**Good:** "Drifts. `orders/exports.ts` imports `prisma` directly and queries `lineItem` by id, bypassing the `Order` root — that is rule 4 of the record (aggregate access only through the root) and it is unenforced, because the fitness function only checks package-level imports, not intra-package access. Two fixes: route through `OrderRepository`, and add the intra-package rule."
 
 ---
 
@@ -63,7 +63,7 @@ Read down the left, land on the right. Each row is a structural failure, not a c
 | "The diagram shows the architecture" | The diagram is a claim. The source tree and a tool run are evidence. |
 | "It's only a small shortcut across the layer" | A relaxed layered architecture with one bypass has no architecture; every bypass is a precedent. |
 | "We'll enforce it in code review" | Review is fallible, the feedback loop is a pull request long, and the loop closes after the violation is merged. |
-| "One more shared package won't hurt" | Everything can reach it, so it becomes the model â€” the least distilled part of the system. |
+| "One more shared package won't hurt" | Everything can reach it, so it becomes the model — the least distilled part of the system. |
 | "The tests pass, so the structure is fine" | Tests verify behavior. Architecture is about the cost of the next change, which no passing test measures. |
 | "I'll model it the way I did at my last job" | Context differs. Forces differ. The last architecture solved the last team's problem. |
 | "The domain expert agrees with my model" | Agreement is cheap when the words are yours. Use their words and see if it still holds. |

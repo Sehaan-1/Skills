@@ -17,11 +17,11 @@ A non-technical person should understand **where we're headed** and **what's in 
 
 - **Handoff:** [handoff](../cuecards/handoff-<slug>.md)
 - **Board:** [<board name>](url)
-- **Arms:** `DESIGN.md` at the repo root â€” law for user-visible lanes when present Â· **Shape:** `docs/architecture/<slug>.md` â€” law for every lane when present
-- **Integration owner:** <HUMAN NAME â€” not an agent>
-- **Status:** Mapping Â· Locked Â· Round N Â· Blocked: <plain reason> Â· Destination Check passed
-- **Time budget:** none Â· until <local time> (clock started <time>)
-- **Spend ceiling:** none Â· <what they named>
+- **Arms:** `DESIGN.md` at the repo root — law for user-visible lanes when present · **Shape:** `docs/architecture/<slug>.md` — law for every lane when present
+- **Integration owner:** <HUMAN NAME — not an agent>
+- **Status:** Mapping · Locked · Round N · Blocked: <plain reason> · Destination Check passed
+- **Time budget:** none · until <local time> (clock started <time>)
+- **Spend ceiling:** none · <what they named>
 - **Round:** 0
 - **Agents in flight:** none
 
@@ -36,24 +36,24 @@ A non-technical person should understand **where we're headed** and **what's in 
 This is the locked target. Rounds do not rewrite it.
 
 ## Decisions we honor
-- [ADR-NNNN Title](../adr/NNNN-â€¦.md)
+- [ADR-NNNN Title](../adr/NNNN-….md)
 
 ## Not this effort
-- [ADR-00NN â€¦](â€¦) â€” <gist>
+- [ADR-00NN …](…) — <gist>
 - <anything else from the board that must not land>
 
 ## shared contracts (shared contracts)
 A seam is anything two lanes both touch: API, schema, event, package, fixture, env.
 
 ### Seam: <spoken name>
-- **Contract:** <path to types / schema / proto â€” exists before both sides cut>
+- **Contract:** <path to types / schema / proto — exists before both sides cut>
 - **Owned by:** <lane that writes it>
 - **Consumed by:** <lanes>
-- **Status:** not written Â· written Â· both sides on it
+- **Status:** not written · written · both sides on it
 
 ## Lanes
 
-### Lane A â€” <spoken name>
+### Lane A — <spoken name>
 - **Check:** <user-visible or integration; must be able to fail>
 - **Does:** <what exists when this lane is done>
 - **Handoff slices:** Slice 2, Slice 3
@@ -64,8 +64,8 @@ A seam is anything two lanes both touch: API, schema, event, package, fixture, e
 - **Waits on:** none | Lane C merge
 - **Claimed by:** unclaimed | <name>
 - **Ticket:** [<spoken name>](url)
-- **Brief:** <path or "inline below â€” only this lane's packet">
-- **Status:** unclaimed Â· in progress Â· Check passed Â· blocked: <plain>
+- **Brief:** <path or "inline below — only this lane's packet">
+- **Status:** unclaimed · in progress · Check passed · blocked: <plain>
 
 ## Now / Next / Then
 - **Now, in parallel:** A, B
@@ -82,7 +82,7 @@ A seam is anything two lanes both touch: API, schema, event, package, fixture, e
 - **Idle / waiting on:**
 - **Bottleneck:** <seam, file, merge, or none>
 - **Duplicate work or duplicate context:**
-- **Walk before â†’ after this round:**
+- **Walk before → after this round:**
 
 ## What landed
 - <lane / seam, in spoken English>
@@ -91,7 +91,7 @@ A seam is anything two lanes both touch: API, schema, event, package, fixture, e
 nothing
 ```
 
-Do not skip sections. Shorten them; do not omit them. If you cannot fill shared contracts and Owns, you are not ready to parallelize â€” you have a queue, and the map should say so.
+Do not skip sections. Shorten them; do not omit them. If you cannot fill shared contracts and Owns, you are not ready to parallelize — you have a queue, and the map should say so.
 
 
 ---
@@ -100,7 +100,7 @@ Do not skip sections. Shorten them; do not omit them. If you cannot fill shared 
 
 Live status is the map plus GitHub issues. The map is the picture. The issue is the lane's ticket.
 
-Lane ticket â€” same voice as oneslice, extra lines for the team:
+Lane ticket — same voice as oneslice, extra lines for the team:
 
 ```markdown
 ## Lane <letter>: <spoken name>
@@ -115,7 +115,7 @@ Lane ticket â€” same voice as oneslice, extra lines for the team:
 - [ADR-NNNN Title](path)
 
 ### Status
-In progress â€” claimed by <name>.
+In progress — claimed by <name>.
 
 ### What landed
 ### What I didn't touch (on purpose)

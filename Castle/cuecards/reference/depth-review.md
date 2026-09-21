@@ -1,13 +1,13 @@
 # Depth Review: Two-Pass Quality Bar
 
-# Depth review (pass one â€” before they ever see it)
+# Depth review (pass one — before they ever see it)
 
 Do this **privately**. Fill `## For the agent`. Do not show this block as the conversation. Then quality bar. Then present.
 
-1. **Think** â€” real fork, what would *great* look like.
-2. **Draft** â€” options include the ambitious-right one.
-3. **Depth review** â€” this list.
-4. **Simplify** â€” same thinking, easier words.
+1. **Think** — real fork, what would *great* look like.
+2. **Draft** — options include the ambitious-right one.
+3. **Depth review** — this list.
+4. **Simplify** — same thinking, easier words.
 5. **Present or file.**
 
 If you cannot defend the question and recommendation against "would this help us build something impressive?", you are not ready.
@@ -48,7 +48,7 @@ Read the card as someone who cannot code. Thinking stays; words get simpler.
 4. Self-contained with named gists
 5. So-that chain is obvious
 6. Fence is real
-7. 2â€“4 outcome-named options with notice / cost / give-up
+7. 2–4 outcome-named options with notice / cost / give-up
 8. Recommendation rejectable, not a hedge
 9. Done sentence they could utter
 10. Unlocks **and** blocks named
@@ -70,7 +70,7 @@ Fail any one: rewrite. Do not file. Do not present.
 | --- | --- |
 | "They'll know what I mean" | The card has to carry it. |
 | "I'll put the real detail only in Tracking" | Then they decide blind. |
-| "Build the X" | Find the question â€” unless this is a look-card producing evidence. |
+| "Build the X" | Find the question — unless this is a look-card producing evidence. |
 | "Just list the technical options" | Name outcomes. Recommend. |
 | "Keep the board tiny so we look careful" | Starving the frontier is a defect. File every sharp question. |
 | "Simple words means a simple recommendation" | Simple words, hard call. |
@@ -90,8 +90,8 @@ Good title: `How do people sign in?`
 Bad question: `Should we use Stripe or Braintree for PCI-DSS SAQ-A?`  
 Good question: `When someone pays, do they type their card on our site, or on a checkout page that belongs to a payments company?`
 
-Bad option: `A â€” Postgres. B â€” Mongo.`  
-Good option: `A â€” One list of invoices we can all trust, even if that takes longer to set up.`
+Bad option: `A — Postgres. B — Mongo.`  
+Good option: `A — One list of invoices we can all trust, even if that takes longer to set up.`
 
 Bad look-card: a sketch you delete.  
 Good look-card: a running slice in the repo, screenshot (or fixture) linked, CI pin if it is a UI walk, they pick A/B/C facing that.

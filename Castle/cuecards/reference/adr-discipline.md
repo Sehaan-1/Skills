@@ -27,7 +27,7 @@ NNNN is four digits, next unused. The file is the record. Git versions it next t
 
 ## Format (required)
 
-Spoken-English title. Same voice as the card for Context and Decision. Consequences must say what this means *downstream* â€” for people and for later work â€” not only what was picked.
+Spoken-English title. Same voice as the card for Context and Decision. Consequences must say what this means *downstream* — for people and for later work — not only what was picked.
 
 ```markdown
 # ADR-NNNN: <spoken title>
@@ -47,28 +47,28 @@ The locked choice, in a sentence they could say. Same as the card's Answer.
 
 ## Consequences
 What this means from now on:
-- **People notice:** â€¦
-- **Later cards/ADRs must:** â€¦
-- **We give up:** â€¦
+- **People notice:** …
+- **Later cards/ADRs must:** …
+- **We give up:** …
 - **Look/CI/proof:** paths or jobs this commits us to, if any
 
 ## History
 Append-only. Do not edit Context or Decision as if the past changed.
 - YYYY-MM-DD accepted
-- YYYY-MM-DD superseded by ADR-PPPP â€” <one line why>
+- YYYY-MM-DD superseded by ADR-PPPP — <one line why>
 ```
 
 ## Status lifecycle
 
 ```text
-proposed â†’ accepted â†’ deprecated
-                     â†˜ superseded â†’ (new ADR is accepted)
+proposed → accepted → deprecated
+                     ↘ superseded → (new ADR is accepted)
 ```
 
-- **proposed** â€” optional draft while the card is still open (big forks only). Default is to write on accept.
-- **accepted** â€” in force. Listed under Notes â†’ ADRs in force and on the parent Decided list.
-- **deprecated** â€” historically true, no longer in force, no replacement yet. Remove from ADRs in force. Keep the file. Append History. Do **not** delete. Do **not** reopen the card to rewrite it.
-- **superseded** â€” a newer ADR replaces it. Old file: set Status, set Superseded by, append History. New file: Status accepted, Supersedes ADR-NNNN. ADRs in force lists only the new one.
+- **proposed** — optional draft while the card is still open (big forks only). Default is to write on accept.
+- **accepted** — in force. Listed under Notes → ADRs in force and on the parent Decided list.
+- **deprecated** — historically true, no longer in force, no replacement yet. Remove from ADRs in force. Keep the file. Append History. Do **not** delete. Do **not** reopen the card to rewrite it.
+- **superseded** — a newer ADR replaces it. Old file: set Status, set Superseded by, append History. New file: Status accepted, Supersedes ADR-NNNN. ADRs in force lists only the new one.
 
 Never rewrite Decision on an accepted ADR. Correction = new ADR.
 
@@ -81,15 +81,15 @@ Replace this table whenever status changes. Do not copy Decision text here.
 
 | ID | Title | Status | Supersedes |
 | --- | --- | --- | --- |
-| [ADR-0001](0001-who-owes-us.md) | Who owes us? | accepted | |
-| [ADR-0002](0002-where-the-invoice-goes.md) | Where does the invoice go? | accepted | |
+| [ADR-0001](../../examples/invoicing/adr/0001-who-owes-us.md) | Who owes us? | accepted | |
+| [ADR-0002](../../examples/invoicing/adr/0002-where-the-invoice-goes.md) | Where does the invoice go? | accepted | |
 ```
 
 ## Citing
 
 In cards, Notes, handoff, and chat:
 
-> Already decided: [ADR-0001 Who owes us?](docs/adr/0001-who-owes-us.md)
+> Already decided: [ADR-0001 Who owes us?](../../examples/invoicing/adr/0001-who-owes-us.md)
 
 Not: "see #12" or "as we said last week."
 

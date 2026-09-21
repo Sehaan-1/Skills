@@ -26,14 +26,14 @@ Cuecards output is excellent **context**. It is not a build plan. After the boar
 - Enforced:
 
 ## Constraints (from Notes)
-- â€¦
+- …
 
 ## ADRs this implements (in force)
-- [ADR-0001 Who owes us?](../adr/0001-who-owes-us.md)
-- â€¦
+- [ADR-0001 Who owes us?](../../examples/invoicing/adr/0001-who-owes-us.md)
+- …
 
 ## Not this effort
-- [ADR-00NN â€¦](â€¦) â€” <gist>
+- [ADR-00NN …](…) — <gist>
 
 ## Sequence
 Ordered slices. Each slice is independently checkable. Cite ADRs. Name the walk/proof this slice advances. Do not paste product code.
@@ -44,11 +44,11 @@ Ordered slices. Each slice is independently checkable. Cite ADRs. Name the walk/
 - **Check:** <walk or test>
 - **Depends on:** none
 
-### Slice 2: â€¦
+### Slice 2: …
 - **Depends on:** Slice 1
 ```
 
-No placeholders. If you cannot sequence it, an ADR is missing or still fuzzy â€” go back to the board, do not invent a fake plan.
+No placeholders. If you cannot sequence it, an ADR is missing or still fuzzy — go back to the board, do not invent a fake plan.
 
 Show the human the file. Stop. The next sitting (different skill or a human "go build") executes it.
 

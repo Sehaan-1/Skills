@@ -2,17 +2,17 @@
 
 # Design the engine (the spec)
 
-The spec is the artifact: `docs/siegecraft/<slug>.md`. Precise enough that the builder of any ticket it produces never has to invent math. Short enough that the builder actually reads all of it. No implementation language â€” pseudo-code and exact statements are welcome; a code dump is not the deliverable.
+The spec is the artifact: `docs/siegecraft/<slug>.md`. Precise enough that the builder of any ticket it produces never has to invent math. Short enough that the builder actually reads all of it. No implementation language — pseudo-code and exact statements are welcome; a code dump is not the deliverable.
 
 ```markdown
 # Engine: <spoken name>
 
 - **Status:** proposed | accepted | implemented
 - **Date:** YYYY-MM-DD
-- **Wall:** <one line â€” what was too hard, under what constraint>
-- **Tickets:** [<parent>](url) â†’ <children>
+- **Wall:** <one line — what was too hard, under what constraint>
+- **Tickets:** [<parent>](url) → <children>
 - **Dossier:** [docs/research/<slug>.md](../research/<slug>.md)
-- **ADRs honored:** [ADR-NNNN Title](../adr/NNNN-slug.md), â€¦
+- **ADRs honored:** [ADR-NNNN Title](../adr/NNNN-slug.md), …
 
 ## 1. Problem, formally
 Inputs (types, sizes, distributions), outputs, and the exact success condition.
@@ -29,12 +29,12 @@ Exact where exactness is the point; named primitives where one is used.
 
 ## 4. Why it is correct
 CITED steps: the owner, at an anchor, and what it guarantees.
-DERIVED steps: the argument â€” loop invariant + induction, reduction to a
+DERIVED steps: the argument — loop invariant + induction, reduction to a
 cited-correct primitive, or exhaustive small cases.
 The counterexample hunt: what you tried to break it with, and why it holds.
 
 ## 5. Cost
-Time and space: best / typical / worst, amortized where it matters â€” in the table,
+Time and space: best / typical / worst, amortized where it matters — in the table,
 then at the real n with real constants. Where the constants come from: cited
 benchmark, measured this sitting (dossier link), or arithmetic from those.
 
@@ -46,11 +46,11 @@ Known-answer vectors lifted from the sources.
 
 ## 7. Edges and failures
 Empty, one, many, huge, adversarial. Untrusted input at the boundary.
-What happens when each precondition fails â€” loud, per the contract.
+What happens when each precondition fails — loud, per the contract.
 
 ## 8. Alternatives the sources offer
-2â€“4 real candidates with owner citations, why each was rejected, and at what
-cost. The naive baseline is always on this list â€” it is the differential
+2–4 real candidates with owner citations, why each was rejected, and at what
+cost. The naive baseline is always on this list — it is the differential
 oracle for the Check.
 
 ## 9. Novelty
@@ -70,8 +70,8 @@ What could still sink this, and what would signal it early.
 ### Rules for the spec
 
 - **CITE and DERIVE inline.** Every load-bearing line is one or the other. UNVERIFIED carries nothing.
-- **Naive baseline always.** The simplest correct engine is on the alternatives list even when rejected â€” it is what the implementation gets differentially tested against.
-- **Determinism is decided here.** Tie-breaking, ordering, iteration order â€” specified, not left to the builder's mood.
+- **Naive baseline always.** The simplest correct engine is on the alternatives list even when rejected — it is what the implementation gets differentially tested against.
+- **Determinism is decided here.** Tie-breaking, ordering, iteration order — specified, not left to the builder's mood.
 - **Numbers are honest.** Measured numbers carry their machine and date; estimates say they are estimates.
 - **Engines are not ADRs.** The spec is the citable record for engineering. When an engine decision closes a *card* other cards must honor, cuecards writes the ADR and the ADR cites the spec by name and path.
 

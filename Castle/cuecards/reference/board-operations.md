@@ -62,18 +62,18 @@ Ready now: open, label `card`, no assignee, not blocked (or all blockers closed)
   assets/
 ```
 
-Same bodies. Say out loud that issues were not created. ADRs still go in `docs/adr/` â€” they are repo files, not issues.
+Same bodies. Say out loud that issues were not created. ADRs still go in `docs/adr/` — they are repo files, not issues.
 
 ## It's working if
 
 - The board is a GitHub issue; every card is a child issue with labels, edges, and priority.
-- A non-technical reader can pick a Ready now â€” for you issue and decide.
+- A non-technical reader can pick a Ready now — for you issue and decide.
 - Unattended cards actually run without them, in parallel.
 - Notes hold standing rules **and ADRs in force** so cards don't repeat them.
 - Look-cards left a kept artifact and (when UI) a pin CI can fail on.
 - How we'll know we're there has walk + proof + enforcement, and the board is not called done until those pass.
-- Every accepted ask/look has `docs/adr/NNNN-â€¦.md` with Context, Decision, Consequences, and a status. Later cards cite **ADR-NNNN** by name.
-- Supersession is a new ADR plus History on the old file â€” closed issues are not rewritten.
+- Every accepted ask/look has `docs/adr/NNNN-….md` with Context, Decision, Consequences, and a status. Later cards cite **ADR-NNNN** by name.
+- Supersession is a new ADR plus History on the old file — closed issues are not rewritten.
 - When the board is done, `docs/cuecards/handoff-<slug>.md` sequences slices that cite ADRs. That file exists before anyone writes destination code.
 - Every open card still reads as one question, with options and a recommendation, in easy words, after hard thinking.
 - You did not ship the destination as a side effect.

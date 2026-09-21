@@ -13,7 +13,7 @@ Start from the handoff. Do not start from the org chart, and do not start from a
 
 Regrouping slices onto lanes is allowed. Changing **Does**, sneaking past **Not this effort**, or contradicting an ADR is not.
 
-**When the honest map is one lane:** write that. Then run it (still this skill if they asked to ship the destination â€” you keep going through every slice in that lane until the destination Check, each slice at the oneslice bar). Do not fake Lane B.
+**When the honest map is one lane:** write that. Then run it (still this skill if they asked to ship the destination — you keep going through every slice in that lane until the destination Check, each slice at the oneslice bar). Do not fake Lane B.
 
 ---
 

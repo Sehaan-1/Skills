@@ -30,7 +30,7 @@ If the read genuinely forks, ask **one** question: *"Should this feel closer to 
 
 ## The nine registers
 
-A register is where the arrows start: dials, palette family, type stance, motion stance, and what that world must never do. Name one per product, in the design system (DESIGN.md), and let it do the first half of the thinking. It is a starting position, not a costume â€” the design system (DESIGN.md) may bend it, but you say why.
+A register is where the arrows start: dials, palette family, type stance, motion stance, and what that world must never do. Name one per product, in the design system (DESIGN.md), and let it do the first half of the thinking. It is a starting position, not a costume — the design system (DESIGN.md) may bend it, but you say why.
 
 | Register | Built for | Boldness | Motion | Density | Palette family | Type stance | Never |
 | --- | --- | --- | --- | --- | --- | --- | --- |

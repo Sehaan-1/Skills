@@ -23,10 +23,10 @@ Oneslice git rules hold inside a lane. Across lanes:
 
 - Default branch stays deployable.
 - **No long-lived lane branches.** Short-lived `feature/<lane-spoken-slug>` (or per-slice), merge in days. A flag beats a long-lived branch.
-- File ownership on the map is the lock. Touch another lane's files â†’ you found a missing seam or a map bug. Stop. Fix the map.
+- File ownership on the map is the lock. Touch another lane's files → you found a missing seam or a map bug. Stop. Fix the map.
 - Worktrees when two agents must not share a working tree. One lane per worktree.
 - Do not force-push shared branches. Never commit secrets. If a secret hits a remote: rotate first, then purge.
-- After each lane merge, the integration owner runs the destination walk as far as it can go â€” not only at the end.
+- After each lane merge, the integration owner runs the destination walk as far as it can go — not only at the end.
 
 ---
 

@@ -12,7 +12,7 @@ You write for that person. Labels, YAML, and Tracking are for the agent and CI.
 2. **Place** itself: where we are, what is already decided, why this question now.
 3. **Ask exactly one question** in everyday words.
 4. **Fence** what it is not asking.
-5. **Offer 2â€“4 options** in outcome language (what a person would notice, what it costs, what you give up) â€” not library names.
+5. **Offer 2–4 options** in outcome language (what a person would notice, what it costs, what you give up) — not library names.
 6. **Recommend** one option, with a short reason they can reject. The recommendation is the one you'd defend to a great product person, not the one that is easiest to build or easiest to explain.
 7. **Define done** as a sentence they could say out loud. Look-cards *also* attach real evidence (see types).
 8. **Show the chain:** answering this unlocks X; also list **what this blocks**.
@@ -26,16 +26,16 @@ Every card issue uses this body. Do not skip sections. Shorten them; do not omit
 ```markdown
 # <spoken-English name>
 
-> **For you** â€” please decide.
-> (or: **We'll handle this** â€” unattended. You do not need to answer.)
-> (or: **For you** â€” look, then pick. A real slice will exist to react to.)
-> (or: **A chore** â€” then we can decide.)
+> **For you** — please decide.
+> (or: **We'll handle this** — unattended. You do not need to answer.)
+> (or: **For you** — look, then pick. A real slice will exist to react to.)
+> (or: **A chore** — then we can decide.)
 
 ## In one sentence
 We need to decide <X> so that <Y>.
 
 ## Why this, why now
-<2â€“5 sentences. The chain from where we're headed to this question.
+<2–5 sentences. The chain from where we're headed to this question.
  What goes wrong if we skip it or guess.>
 
 ## What we already know
@@ -50,13 +50,13 @@ We need to decide <X> so that <Y>.
 - <nearby question that belongs elsewhere, or is not this effort>
 
 ## Options
-### A â€” <name a person would use>
+### A — <name a person would use>
 - **You'd notice:**
 - **It costs:**
 - **You give up:**
 
-### B â€” ...
-### C â€” ...   (2â€“4. never one. never seven.)
+### B — ...
+### C — ...   (2–4. never one. never seven.)
 
 ## Recommendation
 **A**, because <one short reason>. <what would change your mind.>
@@ -72,7 +72,7 @@ You can say: "<a sentence in their voice that locks the choice>."
 ## After you answer
 - **Unlocks / this blocks:** <names>
 - **Still later:** <what this does not settle>
-- **ADR:** ADR-NNNN (accepted) / none â€” find and chore usually none
+- **ADR:** ADR-NNNN (accepted) / none — find and chore usually none
 
 ## For the agent
 <!-- required before present. human can ignore. -->
@@ -125,12 +125,12 @@ File paths belong in Proof, Tracking, or `## For the agent`.
 
 | Type | Mode | Banner | When | Done when |
 | --- | --- | --- | --- | --- |
-| ask | for-you | **For you** â€” please decide. | Talking can settle it. Default. | They pick (or rewrite) an option. |
-| look | for-you | **For you** â€” look, then pick. | Talking cannot settle how it looks / feels / goes. | A **real kept artifact** exists, they pick using it, Proof is filled and linked. |
+| ask | for-you | **For you** — please decide. | Talking can settle it. Default. | They pick (or rewrite) an option. |
+| look | for-you | **For you** — look, then pick. | Talking cannot settle how it looks / feels / goes. | A **real kept artifact** exists, they pick using it, Proof is filled and linked. |
 | find | unattended | **We'll handle this.** | A fact you can look up is blocking a choice. | A one-page finding in plain language, linked on the issue. They do not do homework. |
-| chore | unattended if you can, else for-you | **A chore** â€” then we can decide. | Signup, access, moving data so its shape can be seen. | Checklist complete. Never "build the destination." |
+| chore | unattended if you can, else for-you | **A chore** — then we can decide. | Signup, access, moving data so its shape can be seen. | Checklist complete. Never "build the destination." |
 
-**Look-cards are real.** They exist to produce something you can run or inspect: a working module or slice in the repo, captured screenshots, DOM fixtures, a canary run, a CI check that fails when the slice regresses. Label nothing "throwaway you do not keep." Cheap and rough is fine; fake is not. You still do not pick the option â€” they do, facing the artifact.
+**Look-cards are real.** They exist to produce something you can run or inspect: a working module or slice in the repo, captured screenshots, DOM fixtures, a canary run, a CI check that fails when the slice regresses. Label nothing "throwaway you do not keep." Cheap and rough is fine; fake is not. You still do not pick the option — they do, facing the artifact.
 
 **Find-cards** stay unattended. Findings are rewritten so the next ask-card can use them without opening a white paper.
 

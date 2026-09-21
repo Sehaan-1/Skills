@@ -11,7 +11,7 @@ Cuecards turns vague product intent into structured decisions, drives ask-rounds
 ## Hard gates
 
 1. **Do not ship the destination from this skill.** Look-cards may add a real working slice, fixtures, screenshots, or a CI check as *evidence for a choice*. Chores may unblock. Find-cards write findings. Write ADRs and, when the board is done, a handoff. Do not start the rest of the product.
-2. **A card is a choice, not a sprint job.** If the title could be a to-do ("build login", "add Stripe"), it is mis-typed â€” unless it is a **look** card (produce real evidence so a choice can be made) or a **chore** (unblock a choice). Rewrite anything else as a question, or it is still fuzzy.
+2. **A card is a choice, not a sprint job.** If the title could be a to-do ("build login", "add Stripe"), it is mis-typed — unless it is a **look** card (produce real evidence so a choice can be made) or a **chore** (unblock a choice). Rewrite anything else as a question, or it is still fuzzy.
 3. **The body is for a non-technical reader.** YAML, labels, and `## For the agent` / `## Tracking` are for you. If a tired founder cannot answer the card in a few minutes, rewrite it before you file it. Jargon in the human body is a defect.
 4. **Think, then simplify, then present.** Never show a question or a recommendation you have not run through the depth review. Plain language is pass two. Pass one is: is this the real fork, and does the recommendation aim at a product that would actually be impressive?
 5. **Review before create or present.** Depth review, then quality bar. Do not dump thin cards. Do not think out loud at them in jargon.
@@ -22,19 +22,19 @@ Cuecards turns vague product intent into structured decisions, drives ask-rounds
 10. **Durable choices are ADRs.** A closed-card gist on the parent is an index line, not the record. Write `docs/adr/NNNN-slug.md`, cite it as **ADR-NNNN** by name, and never reopen a closed card to rewrite history. Supersede with a new ADR.
 11. **A decided board is not a build plan.** After the board is done, write the handoff. Do not hand a building agent only a pile of closed issues.
 
-<!-- â”€â”€ PROVENANCE GATES (added to prevent self-adjudication) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<!-- ── PROVENANCE GATES (added to prevent self-adjudication) ──────────────── -->
 
 12. **You cannot close a for-you card.** A for-you card is closed only when the human posts
     a reply, picks an option, or explicitly says "close it." You must quote their answer
     verbatim in the issue comment that records the close. An agent-only session that opens
     and closes for-you cards in the same window without a quoted human reply has not produced
-    a decided board â€” it has produced fabricated provenance. If no human answer exists,
+    a decided board — it has produced fabricated provenance. If no human answer exists,
     the card stays open and you say so out loud.
 
 13. **The board is done only when every for-you card has a verifiable human answer on record.**
     "Verifiable" means: the closing comment on the GitHub issue quotes the human's words,
     or the local fallback YAML records `answered_by: human` with a direct quote under
-    `human_answer:`. A for-you card closed with no such record is not closed â€” reopen it.
+    `human_answer:`. A for-you card closed with no such record is not closed — reopen it.
     Inspect every child issue before writing the handoff. Do not count closed issues.
     Count issues with a quoted human answer.
 
@@ -53,7 +53,7 @@ Cuecards turns vague product intent into structured decisions, drives ask-rounds
     An agent filling in its own name under "decided by human" is a defect. Fill the count
     from the issue record, not from memory.
 
-<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
 
 
 ## Core Lifecycle

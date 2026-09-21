@@ -26,14 +26,14 @@ Heraldry defines the aesthetic direction, establishes the design system (DESIGN.
 14. **Heraldry does not decide product.** A new product question is a cuecards card. Heraldry is allowed to say "this screen has no working empty state"; it is not allowed to decide what the empty state should sell.
 15. **Name the register before the first pixel.** Nine registers, one choice, on the record. "I will know it when I see it" is not a direction; it is how a product ends up in five of them.
 
-<!-- â”€â”€ PROVENANCE GATES (a claim is not a check) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<!-- ── PROVENANCE GATES (a claim is not a check) ─────────────────────────── -->
 
 16. **"It looks good" is a claim. It is not a check.** Before you tell a human an interface is done, five artifacts must exist, made in *this* sitting:
 
     - **The design system (DESIGN.md)** committed (`DESIGN.md`), and the code matching them. If the code and the design system (DESIGN.md) disagree, the design system (DESIGN.md) are wrong or the code is; say which and fix it.
-    - **The board** at `docs/heraldry/<slug>-board.md`, carrying a human's pick, when this is a new product, a page whose look is the question, or a redesign. A one-component fix inside an product with an existing design system skips it, out loud.
+    - **The board** at `docs/heraldry/<slug>-board.md`, carrying a human's pick, when this is a new product, a page whose look is the question, or a redesign. A one-component fix inside a product with an existing design system skips it, out loud.
     - **A critique** at `docs/heraldry/<slug>-critique.md`: the Before/After table from the last pass.
-    - **A walk** at `docs/heraldry/<slug>-walk.md`: the record below, with **fresh renders** at 375 / 768 / 1440 in both themes, and a reduced-motion pass. (A one-component fix inside an product with an existing design system owes the spot pass instead â€” see *How much proof this pass owes* â€” said out loud.)
+    - **A walk** at `docs/heraldry/<slug>-walk.md`: the record below, with **fresh renders** at 375 / 768 / 1440 in both themes, and a reduced-motion pass. (A one-component fix inside a product with an existing design system owes the spot pass instead — see *How much proof this pass owes* — said out loud.)
     - **The mechanical pre-flight output**, pasted. Real commands, real output. Not a summary.
 
     Renders must be new. A screenshot from three sessions ago is not evidence that this diff is good.
@@ -44,7 +44,7 @@ Heraldry defines the aesthetic direction, establishes the design system (DESIGN.
 
 19. **You cannot pick the direction for them.** A board with no human pick is three files, not a decision. If nobody has pointed at a tile, the direction is not chosen: do not write the design system (DESIGN.md) from your own favorite and carry on. When the human is unavailable, explore the directions, state the recommendation, and stop there.
 
-<!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<!-- ─────────────────────────────────────────────────────────────────────── -->
 
 
 ## Core Lifecycle
@@ -79,7 +79,7 @@ Rejected: <one line each, and why>
 <the two or three things the design system (DESIGN.md) should adopt from the comparison>
 ```
 
-**Then write the design system (DESIGN.md) from the chosen tile**, and hand the builder three things: the tile, the design system (DESIGN.md), and the register name. The tile is a reference, not a spec. Where the tile and the design system (DESIGN.md) disagree, the design system (DESIGN.md) win â€” or you amend the design system (DESIGN.md) on purpose, in the same commit, and say so.
+**Then write the design system (DESIGN.md) from the chosen tile**, and hand the builder three things: the tile, the design system (DESIGN.md), and the register name. The tile is a reference, not a spec. Where the tile and the design system (DESIGN.md) disagree, the design system (DESIGN.md) win — or you amend the design system (DESIGN.md) on purpose, in the same commit, and say so.
 
 `
 

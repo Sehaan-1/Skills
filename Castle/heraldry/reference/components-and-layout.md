@@ -69,7 +69,7 @@ Priority order for assets, and do not skip to the bottom because the top is slow
 2. **Use a real image.** A brand asset, a real screenshot, or a seeded placeholder (`https://picsum.photos/seed/<descriptive-seed>/1600/1200`) with a seed that describes the section.
 3. **Label the hole and say so.** `<!-- TODO: hero product photo, 1600x1200 -->` plus a closing sentence: *"This page needs real images at these three placements; supply or generate them."* Never fill the hole with invented decoration.
 
-**A text-only page is not minimalism â€” it is unfinished.** Even a restrained editorial page needs two or three real images.
+**A text-only page is not minimalism — it is unfinished.** Even a restrained editorial page needs two or three real images.
 
 **Logo walls**: real SVG brand marks from a public logo set, or a generated monogram when the brand is invented. Logos only, no category labels under them. Legible in both themes.
 

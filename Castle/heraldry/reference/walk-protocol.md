@@ -37,7 +37,7 @@ Rendered from commit <sha>, fresh this sitting.
 <the known-bad things, with the fixed ones crossed off>
 ```
 
-If you cannot render, write `unrendered` and list what you could not check â€” that is a legitimate, honest record. Claiming a walk you did not run is fabrication, and it is worse than an admitted gap.
+If you cannot render, write `unrendered` and list what you could not check — that is a legitimate, honest record. Claiming a walk you did not run is fabrication, and it is worse than an admitted gap.
 
 ---
 
@@ -72,13 +72,13 @@ Do not call an interface done until all of these hold:
 * Every animation has a reason, and reduced motion collapses it.
 * Every visible string was re-read.
 * No product decision was made here, and no ADR was silently contradicted.
-* A stranger could describe this interface's character in one sentence after ten seconds â€” if they cannot, it is still a default.
+* A stranger could describe this interface's character in one sentence after ten seconds — if they cannot, it is still a default.
 
 ## It's working if
 
 * The human can point at any screen and name what the product looks like without opening the code.
 * Two screens built a week apart, by different agents, look like they belong to the same castle and the same register.
-* Put the board beside the build and a stranger sees the same product â€” the tile was a promise, and the screen kept it.
+* Put the board beside the build and a stranger sees the same product — the tile was a promise, and the screen kept it.
 * The things you changed this pass were the few things that mattered, and you stopped.
 * The evidence in `docs/heraldry/` is something a stranger could check, and it would fail if you broke the interface tomorrow.
 * Nobody had to ask "does this look okay?" because the walk already answered it.

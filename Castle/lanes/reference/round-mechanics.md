@@ -12,24 +12,24 @@ This is not a visual loop. There is no target screenshot, no pixel match, no fid
 2. Destination Check written on the map in the same words as the board. **That is the target.** Do not move it later to make a round look done.
 3. If they gave a **time budget**, record the clock on the map now (after lock, not before). Check it between rounds.
 4. If they named a **spend ceiling**, performance goal, or "Now lanes only," write it on the map. Constraints do not rewrite ADRs or the oneslice bar.
-5. If they gave **no** time budget, warn once that this sitting may run until the destination Check â€” then run until an exit.
+5. If they gave **no** time budget, warn once that this sitting may run until the destination Check — then run until an exit.
 6. Map Status = Locked. Say out loud: `Target locked: <walk in one line>. Then I loop.`
 
 ## A round
 
 Every round, in order:
 
-1. **Profile the sitting** (five minutes, on the map â€” not a product APM tour unless a lane Check says so).
+1. **Profile the sitting** (five minutes, on the map — not a product APM tour unless a lane Check says so).
    - Which Now lanes are actually takeable?
    - Where would an agent sit idle (unwritten seam, unmerged wait, missing claim)?
    - Which seam or file is the bottleneck?
    - Duplicate work, or the same context about to be pasted into two agents?
    - Is `main` green?
 2. **Brief, don't dump.** For each takeable lane, a thin packet: lane block, Owns / Does not touch, seam contract paths, ADRs, the DESIGN.md pointer for user-visible lanes, Check. Not the whole handoff. Not every other lane's diff. Not the chat. If it isn't needed to pass that Check, it isn't in the brief.
-3. **Dispatch independent work together.** One owner per lane. No second agent on a claimed lane. Do not start a blocked lane "to look busy." If this harness has subagents or worktrees, independent Now lanes in parallel (one worktree per lane). If not, run them in sequence with `main` green after each â€” still finish the takeable set before you stop.
+3. **Dispatch independent work together.** One owner per lane. No second agent on a claimed lane. Do not start a blocked lane "to look busy." If this harness has subagents or worktrees, independent Now lanes in parallel (one worktree per lane). If not, run them in sequence with `main` green after each — still finish the takeable set before you stop.
 4. **Implement** at the oneslice bar. Research foreign facts in the background per lane; reuse an existing research file instead of investigating the same primary source twice.
 5. **Fault isolation.** One lane failing (tests, merge, human gate) does not cancel the others. Mark it blocked on the map. Keep A and C moving.
-6. **Merge + measure.** Integration owner merges. Run tests. Walk as far as the destination currently allows. Write **Walk before â†’ after this round** on the map. A round with no before/after is just typing.
+6. **Merge + measure.** Integration owner merges. Run tests. Walk as far as the destination currently allows. Write **Walk before → after this round** on the map. A round with no before/after is just typing.
 7. **Rebalance.** Unlock Next whose waits landed. Split a lane that is the bottleneck. Merge lanes that turned out coupled. Check the clock and spend. Update the map. Next round, or exit.
 
 Main stays green after every merge. A round that leaves the tree broken is a failed round: revert to last green, then investigate. Changes stay gradual and reversible (oneslice increments).
@@ -38,7 +38,7 @@ Main stays green after every merge. A round that leaves the tree broken is a fai
 
 - Destination Check passed (walk + proof + enforced), or
 - Named human block on the map, or
-- Time or spend budget hit â€” stop with meaningful landed lanes at full bar, map honest about Next.
+- Time or spend budget hit — stop with meaningful landed lanes at full bar, map honest about Next.
 
 Do not exit because a slice Check passed. Do not exit by lowering the implementation bar. Do not exit by rewriting the walk.
 
