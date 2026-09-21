@@ -220,15 +220,10 @@ A context is a boundary within which a model applies and a language is consisten
 
 For every pair that touches, name the pattern. Unnamed relationships are where integrations rot.
 
-| Pattern | Use when | It costs | It breaks when |
-| --- | --- | --- | --- |
-| **Shared kernel** | Two teams agree to share a small, carefully chosen subset of model + code + schema | Coordination on every change; joint test suites must both pass | The subset grows, or one team changes it without the other |
-| **Customer / supplier** | One context feeds another; dependencies run one way | Downstream must be treated as a customer in upstream planning | No automated acceptance tests from downstream in upstream CI — then every upstream change is a surprise |
-| **Conformist** | Downstream has no leverage, or the upstream model is good enough and translation isn't worth it | Downstream gives up its own model in that area | Upstream changes; downstream has no say and no insulation |
-| **Anti-corruption layer** | Downstream must keep its own model clean while integrating with a legacy, external, or badly-factored upstream | A translation layer to build and maintain — one place, deliberately | The layer starts leaking upstream concepts, or everyone routes around it |
-| **Open host service** | Many consumers need to integrate; one-off translation per consumer is worse | You own a published protocol and must evolve it compatibly | The protocol becomes a second model nobody owns, or gets per-consumer special cases |
-| **Published language** | The translation itself is the hard part, or parties must interoperate independently | Adopting (or writing and documenting) a shared interchange language | The language is underspecified — then independent implementations diverge |
-| **Separate ways** | Integration is not worth the coordination cost | Duplication, deliberately | Someone quietly re-couples them through a shared database |
+The seven named patterns — shared kernel, customer/supplier, conformist, anti-corruption
+layer, open host service, published language, separate ways — with when each fits, what it
+costs, and how it breaks, live in [reference/context-maps.md](reference/context-maps.md).
+Name one per touching pair, out loud, from that list. Do not invent an eighth.
 
 The anti-pattern has a name too, and you should use it out loud when you find it: a **big ball of mud** — a system where the boundaries are gone, every part knows every other part, and the change log shows every feature touching everywhere. Naming it is not an insult; it is the diagnosis that tells you which move comes next.
 
@@ -286,13 +281,10 @@ The canonical rings, adapted to what this system actually is — the count is no
 
 Nothing in an inner ring may name anything declared in an outer ring — not a function, not a class, not a variable, not a data format, and especially not a row structure or DTO a framework generated. Data crossing a boundary goes as an isolated, simple structure, in the form most convenient for the **inner** circle. Do not pass entities outward and do not pass rows inward.
 
-Where those rules come from, in case you need to defend them:
-
-- **SRP** tells you where to draw boundaries — one reason to change per component.
-- **OCP** tells you why the boundary pays — extend without modifying.
-- **LSP** is the reason substitutability across a boundary is real rather than nominal; a plugin that needs `instanceof` to work is not a plugin.
-- **ISP** keeps a consumer from depending on a fat interface it does not use, which is how accidental coupling enters.
-- **DIP** is the mechanism: depend on abstractions the **caller** defines, so the dependency arrow opposes the flow of control.
+Where those rules come from, in case you need to defend them — SRP draws the boundary,
+OCP pays for it, LSP makes substitution real, ISP keeps accidental coupling out, DIP is
+the mechanism that points the arrow inward — the one-line version of each is in
+[reference/component-principles.md](reference/component-principles.md).
 
 ## 7. Choose the packaging, and lose the argument honestly
 
@@ -305,19 +297,11 @@ Four ways to organize code, and the differences between them evaporate if you ge
 | **Ports and adapters** | Inside (domain) / outside (infrastructure); outside depends on inside | Domain code with no framework in it; testable without I/O; language named after the domain, not the persistence | Marshalling across boundaries; more files; easy to leak a detail through a poorly drawn port |
 | **Package by component** | All responsibilities for one coarse-grained component behind one interface, in one package | One place to go, **and** the compiler enforces the boundary — internals are not public | Coarser than you'd like for very large components; a stepping stone to services, not a substitute |
 
-Choose with the cohesion principles, and say which one you are sacrificing:
-
-- **REP** — the granule of reuse is the granule of release. Pulls components **bigger**.
-- **CCP** — gather what changes together, for the same reasons, at the same times. Pulls components **bigger**. For most applications maintainability beats reusability; early in a project, CCP dominates.
-- **CRP** — don't force users to depend on things they don't need. Pulls components **smaller**.
-
-These fight. That is the job. An architect who optimizes REP and CRP gets too many components touched by a simple change; one who optimizes CCP and REP generates needless releases. Find the position that fits today's concerns and say out loud that it will move as the project matures — early on you sacrifice reuse, later you slide toward it.
-
-Then the coupling principles:
-
-- **ADP** — allow no cycles in the component dependency graph. Cycles are why the build broke overnight. Break them with DIP (both sides depend on an abstraction one of them owns) or by extracting the shared part into a new component both depend on downward.
-- **SDP** — depend in the direction of stability. A volatile component must not be depended on by something that is hard to change; the hard-to-change thing makes it hard to change.
-- **SAP** — a component should be as abstract as it is stable. SDP and SAP together are DIP for components, with shades of grey.
+Choose with the cohesion principles — REP, CCP, CRP — and say which one you are
+sacrificing today. They fight; that is the job. Early, maintainability beats reuse;
+later you slide toward reuse. The one-line version of each, the coupling principles
+(ADP, SDP, SAP), and how the position moves as the project matures are in
+[reference/component-principles.md](reference/component-principles.md).
 
 Measure, per component, and put the numbers in the record:
 
@@ -412,29 +396,11 @@ Report as: **holds** / **drifts** (with the rule and the file) / **contradicts**
 
 # Reference: the tactical building blocks
 
-The short version, with the rule that actually matters. A fifteen-year engineer knows these; this is the checklist for whether they were applied.
-
-| Block | The rule |
-| --- | --- |
-| **Entity** | Distinguished by identity, not attributes. Keep the definition focused on life-cycle continuity and identity. Beware requirements that match objects by attributes — that is usually a value object or a specification. |
-| **Value object** | Care only about attributes → immutable, no identity, conceptually whole. Whole Value: `street, city, postalCode` is one `Address`, not three fields. Immutability is what makes sharing safe and combination cheap. |
-| **Aggregate** | See gate 5 and move 5. Root controls access; invariants hold at commit. |
-| **Domain service** | A significant process or transformation that is not a natural responsibility of an entity or value object. Stateless. Named after an activity from the domain language, not `XHelper`. If you need one for every other operation, your entities are anemic. |
-| **Module** | Choose modules that tell the story of the system and contain a cohesive set of concepts. Names become part of the ubiquitous language. Low coupling is the goal; if you cannot get it, the model is wrong — look for the overlooked concept. |
-| **Repository** | Provide the illusion of an in-memory collection of aggregate roots. Reconstitution, not querying convenience. Only for roots that genuinely need direct access. Encapsulate the storage and query technology completely. |
-| **Factory** | Shift complex assembly — especially whole aggregates — to a separate object that enforces the invariants on creation and does not require the client to name concrete classes. |
-| **Domain event** | A record of something that happened, in domain language, published because another part of the system or another context must react. Not a message queue; the queue is an adapter. |
-| **Specification** | An explicit predicate value object: "does this object satisfy the criteria." Combine with logical operators when the rules get complex. Keeps rule knowledge out of the caller and out of the repository. |
-
-**Supple design** — the checklist that separates a working domain model from a good one:
-
-- **Intention-revealing interfaces** — name classes and operations to describe effect and purpose, not mechanism. Write the test first; it forces client-developer mode.
-- **Side-effect-free functions** — push logic into functions that return results with no observable side effects. Segregate commands into simple operations that return no domain information. Complex logic belongs in value objects, where it is safe to combine.
-- **Assertions** — state post-conditions and invariants explicitly. Where the language cannot express them, they become unit tests; where they cannot be tested, they become documentation. Either way, write them down.
-- **Conceptual contours** — decompose along the axes of change and stability the domain actually has. Stable, coherent units; no irrelevant options. This emerges from refactoring toward insight, not from a technically-motivated cleanup.
-- **Standalone classes** — minimise dependencies on other concepts. Low coupling is a design goal in itself, not a side effect.
-- **Closure of operations** — where it fits, an operation whose return type is the type of its arguments. A high-level interface with no dependency on other concepts.
-- **Declarative design** — a style where the specification of *what* drives the system and the *how* is delegated to a mechanism behind an intention-revealing interface. Feasible only where the mechanism is genuinely well understood; otherwise it is a trap of indirection.
+The nine blocks — entity, value object, aggregate, domain service, module, repository,
+factory, domain event, specification — with the one rule that matters for each, plus the
+supple-design checklist, live in [reference/tactical-patterns.md](reference/tactical-patterns.md).
+They are the checklist for whether the record's model was actually applied: read them when
+you write or review the distillation and the aggregate boundaries.
 
 ---
 
@@ -516,7 +482,7 @@ This skill does not run a board. It adds ADRs to `docs/adr/NNNN-….md` under th
 
 - **ADR** — write it in the same sitting as the decision, using cuecards' format (`Context` / `Decision` / `Consequences` / `History`, spoken-English title, `Supersedes` / `Superseded by`). Append to `docs/adr/README.md`.
 - **Follow-up issues** — one per structural defect the record found, titled in spoken English, labelled `keystone` plus the priority label the board already uses (`now` / `next` / `later`). Body is technical; the first line is plain. Sub-issue them to the board parent and wire native `blocked_by` using the same `gh api` incantations as cuecards' **Board operations**.
-- **Reference in the record** — cite issues by name, never a bare `#42`.
+- **Reference in the record** — cite issues by name (the audience note at the top owns the no-bare-`#42` law).
 
 If `gh` cannot see the repo, say so out loud, and write the ADRs and follow-ups as files. Never pretend issues exist.
 

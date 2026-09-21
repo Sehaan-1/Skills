@@ -50,6 +50,15 @@ Announce at start: `Using oneslice to [pick the slice | research | track | incre
 
 <!-- ──────────────────────────────────────────────────────────────────────── -->
 
+16. **Existing arms and shape are law when present.** If `DESIGN.md` exists at the repo
+    root, anything user-visible this slice touches wears the arms — palette, type,
+    radius, motion. Cite it; if the slice genuinely requires changing an arm, change it
+    in the same commit as the code and say so (heraldry owns that file). If
+    `docs/architecture/` holds a record, read it before the first increment and cut
+    inside its boundaries; a boundary or fitness function the slice cannot honor is a
+    stop-and-name-it (keystone sitting), not a workaround. Neither file existing is not
+    a gap this skill fills.
+
 ## Pick the slice
 
 1. Open the handoff.
@@ -188,10 +197,8 @@ You are not a reviewer leaving comments for someone else. You **build**, then yo
 
 ## Primary questions (ask of your own diff)
 
-- Is there a code-judo move that would make this dramatically simpler?
-- Can this be reframed so fewer concepts, branches, or helper layers are needed?
+- Is there a code-judo move that would make this dramatically simpler — a reframing so fewer concepts, branches, or helper layers are needed?
 - Does this improve or worsen the local architecture?
-- Did the diff add branching where a better abstraction should exist?
 - Did a cohesive module become more coupled, more stateful, or harder to scan?
 - Is this logic in the right file and layer?
 - Did this enlarge a file or component past a healthy size?
@@ -255,7 +262,6 @@ Useful self-talk (and useful things to tell the human if you must stop):
 - `this contradicts ADR-NNNN. stopping. cuecards sitting, not a workaround.`
 - `slice Check still wouldn't catch a break. fixing the proof before calling done.`
 - `this depends on their API/docs. background research on primary sources; cutting the rest in parallel.`
-- `finding contradicts ADR-NNNN. stopping. cuecards sitting.`
 - `tracker was jargon. rewriting in spoken English.`
 - `about to write 200 lines before a test. stopping, proving, committing.`
 - `this is a public surface. contract first.`
@@ -363,7 +369,7 @@ Also: authz ≠ authn — after authenticate, check this user may touch *this* r
 
 # Build loop
 
-1. **Measure.** Restate **Does**, **Check**, ADRs. Name files. If that already looks like two slices, stop and split the handoff. List foreign facts → **dispatch research**. If this slice is an interface, write the contract first. If it crosses a trust boundary, write the five-minute threat model. Post the human-readable tracker. Branch off default. Claim the issue.
+1. **Measure.** Restate **Does**, **Check**, ADRs. If `DESIGN.md` or `docs/architecture/` exist, read them now (gate 16). Name files. If that already looks like two slices, stop and split the handoff. List foreign facts → **dispatch research**. If this slice is an interface, write the contract first. If it crosses a trust boundary, write the five-minute threat model. Post the human-readable tracker. Branch off default. Claim the issue.
 2. **Increment.** Smallest complete piece. Simplest thing that could work. Existing patterns win. Do not assume researched facts until the note exists. Do not touch files the slice does not require.
 3. **Prove that increment.** Repo test/lint/typecheck. Build stays green. Watch new tests fail first when you add behavior.
 4. **Commit** that increment (atomic, why-message, no secrets, no mixed concerns). Update the tracker: What landed / What I didn't touch.
@@ -388,6 +394,8 @@ Behavior correct is not enough. All of these must hold:
 - No missed obvious decomposition that would materially improve maintainability
 - Slice **Check** ran and would fail if this slice were broken
 - Cited ADRs still true
+- If `DESIGN.md` exists: user-visible work matches the arms, and any arm change was deliberate, same-commit, and stated
+- If `docs/architecture/` has a record: no boundary crossed, no fitness function weakened
 - Nothing from **Not this effort** landed
 - You did not start the next slice
 - Tracker issue is updated in spoken English (what landed, what you didn't touch)
@@ -402,4 +410,8 @@ Any line above that fails is a blocker unless you can justify it in one sentence
 - Exactly one handoff slice changed behavior, its Check passed, and you know the Check can fail.
 - The diff is simpler than the first draft, not merely larger.
 - The human is not staring at the rest of the product half-built in this sitting.
+- Cuecards was not asked to decide anything you could have coded around.
+ot staring at the rest of the product half-built in this sitting.
+- Cuecards was not asked to decide anything you could have coded around.
+t half-built in this sitting.
 - Cuecards was not asked to decide anything you could have coded around.

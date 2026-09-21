@@ -62,7 +62,7 @@ npx degit Sehaan-1/Skills/Castle/siegecraft  .claude/skills/siegecraft
 npx degit Sehaan-1/Skills/Castle/heraldry    .claude/skills/heraldry
 ```
 
-Any agent that reads skill files works the same way: each `Castle/<name>/` directory (its `SKILL.md` plus `agents/`) is one self-contained skill. No configuration needed — the board lives on your repo's GitHub issues, and ADRs, the handoff, the map, the architecture record, the engine spec, and the arms live in the repo.
+Any agent that reads skill files works the same way: each `Castle/<name>/` directory (its `SKILL.md`, plus its `agents/` and `reference/` files) is one self-contained skill. No configuration needed — the board lives on your repo's GitHub issues, and ADRs, the handoff, the map, the architecture record, the engine spec, and the arms live in the repo.
 
 > Note: the `npx skills` CLI auto-discovers skills under a top-level `skills/` folder, and this collection deliberately lives under `Castle/` — so it installs by copy. In your own fork, `mv Castle skills` restores CLI discovery if you prefer it.
 
@@ -74,9 +74,11 @@ An idea arrives that is too big for one session. **Cuecards** names the destinat
 
 [`examples/invoicing/`](examples/invoicing/) walks the whole pipeline on one tiny effort — a board, three cards, three ADRs, a handoff, and a lanes map — so you can see every artifact before you run the skills.
 
-[`examples/heraldry/`](examples/heraldry/) carries the arms for that same effort: a `DESIGN.md`, a critique table, and a walk record. Read the three files in order and you have seen everything heraldry produces.
+[`examples/heraldry/`](examples/heraldry/) carries the arms for that same effort: a board with the human's pick, a `DESIGN.md`, a critique table, and a walk record. Read the four files in order and you have seen everything heraldry produces.
 
-[`examples/architecture/`](examples/architecture/) carries the keystone record for the same effort: `architecture.md`, `fitness.md`, and `stress.md`. Read them to see what keystone commits before oneslice starts.
+[`examples/architecture/`](examples/architecture/) carries the keystone record for the same effort: `architecture.md` — contexts, aggregate, dependency rule, ports, deferred decisions, fitness functions — and the `stress.md` that tried and failed to break it three ways. Read them to see what keystone commits before oneslice starts.
+
+[`examples/siegecraft/`](examples/siegecraft/) takes one algorithm-hard piece of the same effort — *which payment pays which invoice* — from `dossier.md` (primary-source findings) to `engine.md` (the spec with its correctness argument and checks) to `tickets.md` (the parent-as-index and the two children, in the two-layer shape). Read them to see what siegecraft commits before a builder ever sees the wall.
 
 ## Sources and further reading
 
@@ -113,7 +115,7 @@ An idea arrives that is too big for one session. **Cuecards** names the destinat
 - [`frontend-skill`](https://github.com/openai/skills) for restrained composition on marketing surfaces.
 - The catalogue these were read from: [nexu-io/open-design → `skills/`](https://github.com/nexu-io/open-design/tree/main/skills).
 
-Licensing differs per upstream (MIT for most, Apache-2.0 for Anthropic's and Vercel's): check before you redistribute their files. heraldry itself copies no text from any of them.
+Licensing differs per upstream (MIT for most, Apache-2.0 for Anthropic's and Vercel's): check before you redistribute their files. heraldry itself copies no text from any of them. Castle itself is MIT-licensed: see [LICENSE](../LICENSE).
 
 ## Design notes
 

@@ -1,6 +1,7 @@
 ---
 name: siegecraft
 description: "Use when a decided ticket, card, or handoff slice is genuinely algorithm-hard and the math is the risk: optimization, search, scheduling, parsing, geometry, matching, compression, simulation, statistics, cryptography, constraint solving. Use when a task needs a researched or novel algorithm designed before anyone builds, when a builder would otherwise invent math mid-slice, when tickets must be rewritten or split into highly technical sub-tickets, or when the user asks for siegecraft, an engine, or algorithm research. Does not implement (oneslice), ship (lanes), decide product (cuecards), or design interfaces (heraldry)."
+disable-model-invocation: true
 ---
 
 # Siegecraft
@@ -403,7 +404,7 @@ Do not call the sitting done without all of these:
 - Tickets were rewritten or split in the two-layer shape, edges wired, the parent an honest index, the board updated.
 - Every ticket's Check can fail and does not require the builder to re-derive the math.
 - No product code was written; nothing outside the dossier, the spec, and the tickets changed.
-- Cited ADRs still true; spoken lines still plain; never a bare `#42`.
+- Cited ADRs still true; spoken lines still plain.
 
 ## It's working if
 

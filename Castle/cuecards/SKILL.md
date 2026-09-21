@@ -81,7 +81,7 @@ Live state is issues on the current repo. The parent issue is the board. Child i
 
 The human may work cards in parallel across sessions, so expect other sessions to be editing the tracker concurrently. Re-read the parent issue before you write to it.
 
-Run **Board operations** at the bottom of this file. Create labels if missing. Every title is spoken English. Refer to issues **by that name**, wrapping the link; never a bare `#42` in anything the human reads.
+Run **Board operations** at the bottom of this file. Create labels if missing. Every title is spoken English, referred to **by that name** with the link wrapped — the voice rules below are the law for how.
 
 If `gh` is missing, the repo is not GitHub, or auth fails: say so, then use the local fallback under `.cuecards/boards/<slug>/` with the same bodies. Do not pretend issues exist.
 
