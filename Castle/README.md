@@ -4,6 +4,24 @@ Six agent skills that take a fuzzy idea all the way to a shipped, checkable dest
 
 Each skill is small, self-contained, and composable. They work with any agent that reads skill files, and every durable artifact they produce lands in your repo — issues, ADRs, a handoff, a map, a `DESIGN.md`, a walk record, an architecture record, an engine spec — so the work survives the session that made it.
 
+## Start here (The 80/20 for a normal Tuesday)
+
+For most day-to-day tasks, you only need two skills: **cuecards → oneslice**.
+
+```
+fuzzy idea ──▶ CUECARDS ──▶ handoff + ADRs ──▶ ONESLICE ──▶ shipped slice
+                (decide)                        (build)
+```
+
+1. **Cuecards**: Turn a fuzzy goal into a clear board of choices and a sequenced handoff.
+2. **Oneslice**: Take one slice from that handoff, write code to pass the Check, prove it, and stop.
+
+The other four skills fire **only when specific triggers occur**:
+- **Keystone**: You are designing system boundaries, modularizing packages, or preventing dependency tangles for a new or complex subsystem.
+- **Heraldry**: A screen needs to look good, not just work — establishing `DESIGN.md` tokens or running a design critique.
+- **Siegecraft**: A ticket is genuinely algorithm-heavy and mathematical precision or formal correctness is the primary risk.
+- **Lanes**: You need parallel multi-agent execution across distinct modules against a time or budget envelope.
+
 ## The pipeline
 
 ```
@@ -18,7 +36,7 @@ fuzzy idea ──▶ CUECARDS ──▶ ADRs + handoff ──▶ ONESLICE ──
                            SIEGECRAFT ──▶ engine spec + dossier + split tickets
                            (algorithm: runs between cuecards and oneslice for hard tickets)
 
-                             HERALDRY ──▶ the arms, and an interface that can prove it wears them
+                             HERALDRY ──▶ DESIGN.md, and an interface that can prove it matches it
                              (design: runs beside oneslice and lanes)
 ```
 
@@ -29,7 +47,7 @@ fuzzy idea ──▶ CUECARDS ──▶ ADRs + handoff ──▶ ONESLICE ──
 | [siegecraft](siegecraft/SKILL.md) | A decided ticket is genuinely algorithm-hard and the math is the risk: the builder would otherwise invent mathematics mid-slice | A primary-source dossier in `docs/research/`, an engine spec in `docs/siegecraft/`, rewritten and split tickets with a Check that can fail |
 | [oneslice](oneslice/SKILL.md) | Implementing one slice of a decided handoff | One slice that passed a strict quality bar, on a short-lived branch, with a human-readable ticket |
 | [lanes](lanes/SKILL.md) | Shipping the whole destination, with parallel workstreams or a time/spend budget | A committed map in `docs/lanes/`, lanes that did not collide, the destination Check passing |
-| [heraldry](heraldry/SKILL.md) | Any interface has to be designed, built, redesigned, or made to look good: a page, a screen, a component, a design system, a visual direction, a reference board, or a `DESIGN.md` | A board of three cast tiles with a human's pick, `DESIGN.md` (the arms) at the repo root, a critique table, and a walk record in `docs/heraldry/` |
+| [heraldry](heraldry/SKILL.md) | Any interface has to be designed, built, redesigned, or made to look good: a page, a screen, a component, a design system, a visual direction, a reference board, or a `DESIGN.md` | A board of three visual directions with a human's pick, `DESIGN.md` at the repo root, a critique table, and a walk record in `docs/heraldry/` |
 
 Each skill knows its lane: cuecards never ships, keystone never decides product, siegecraft never implements, oneslice never decides product, lanes never reopens product, heraldry never decides what to build. The handoff and the ADRs are the contract between them. The architecture record is the shape every slice must not break. The engine spec is the math every builder inherits. `DESIGN.md` is the contract for how it looks, and both oneslice and lanes cite it instead of inventing a visual language mid-slice.
 
@@ -62,13 +80,15 @@ npx degit Sehaan-1/Skills/Castle/siegecraft  .claude/skills/siegecraft
 npx degit Sehaan-1/Skills/Castle/heraldry    .claude/skills/heraldry
 ```
 
-Any agent that reads skill files works the same way: each `Castle/<name>/` directory (its `SKILL.md`, plus its `agents/` and `reference/` files) is one self-contained skill. No configuration needed — the board lives on your repo's GitHub issues, and ADRs, the handoff, the map, the architecture record, the engine spec, and the arms live in the repo.
+Any agent that reads skill files works the same way: each `Castle/<name>/` directory (its `SKILL.md`, plus its `agents/` and `reference/` files) is one self-contained skill. Durable artifacts live directly in your repository: GitHub issues, ADRs, handoff documents, architecture records, engine specs, and `DESIGN.md`.
+
+> **Invocation note:** Four of the six skills (`cuecards`, `keystone`, `lanes`, `siegecraft`) define `disable-model-invocation: true`. This is intentional: they are designed to be explicitly triggered by the user (via slash command or prompt naming) rather than auto-invoked on arbitrary minor prompts. This ensures an agent never spins up GitHub boards or initiates multi-lane orchestration unprompted. `oneslice` and `heraldry` can be invoked directly by the model during implementation.
 
 > Note: the `npx skills` CLI auto-discovers skills under a top-level `skills/` folder, and this collection deliberately lives under `Castle/` — so it installs by copy. In your own fork, `mv Castle skills` restores CLI discovery if you prefer it.
 
 ## A full run, in one paragraph
 
-An idea arrives that is too big for one session. **Cuecards** names the destination with you — including *how we'll know we're there*: a walk, proof, and something that enforces it — then lays the effort out as a board of choice cards on GitHub that a non-technical person can read and answer. Unattended cards (look-ups, chores) run in parallel; for-you cards wait for you. Each decision closes into a numbered ADR in `docs/adr/`. When the board is done, cuecards writes a handoff and stops. **Keystone** then reads the handoff and decides the shape: where the bounded contexts are, which way the dependency arrows point, which invariants are transactional, and which structural rules are enforced by a command that fails the build. Its architecture record in `docs/architecture/` is the shape every later skill must not break, and it is committed before the first slice lands. Where a handoff slice is genuinely algorithm-hard — the risk is wrong math, not wrong product — **Siegecraft** scouts the problem against primary sources, derives the engine with a formal contract and correctness argument, and rewrites the ticket into children each with a Check that can fail. The dossier and spec are committed before any builder sees the tickets. **Heraldry** reads the brief, says out loud what this thing should feel like and which register it belongs to, casts three tiles of the same screen in three directions, and lets the human point at one. Then it writes `DESIGN.md` — the arms: one accent, one radius system, one theme, an explicit list of what is banned. It then builds or critiques the interface against those arms in short loops, and refuses to call a screen done until there are fresh renders at three widths in both themes, a critique table, and a walk record in the repo. **Oneslice** then builds one handoff slice at a time, each independently checkable, each held to a hard quality bar: no spaghetti, no secrets, research cited to primary sources, tickets in spoken English. When many slices can move at once — or a team is on it — **Lanes** cuts the work into parallel lanes around committed seams, locks the destination Check, and loops in measured rounds until the walk works, a named human blocks it, or the budget says stop starting.
+An idea arrives that is too big for one session. **Cuecards** names the destination with you — including *how we'll know we're there*: a walk, proof, and something that enforces it — then lays the effort out as a board of choice cards on GitHub that a non-technical person can read and answer. Unattended cards (look-ups, chores) run in parallel; for-you cards wait for you. Each decision closes into a numbered ADR in `docs/adr/`. When the board is done, cuecards writes a handoff and stops. **Keystone** then reads the handoff and decides the shape: where the bounded contexts are, which way the dependency arrows point, which invariants are transactional, and which structural rules are enforced by a command that fails the build. Its architecture record in `docs/architecture/` is the shape every later skill must not break, and it is committed before the first slice lands. Where a handoff slice is genuinely algorithm-hard — the risk is wrong math, not wrong product — **Siegecraft** scouts the problem against primary sources, derives the engine with a formal contract and correctness argument, and rewrites the ticket into children each with a Check that can fail. The dossier and spec are committed before any builder sees the tickets. **Heraldry** reads the brief, says out loud what this thing should feel like and which register it belongs to, explores three visual directions of the same screen, and lets the human point at one. Then it writes `DESIGN.md`: one accent, one radius system, one theme, an explicit list of what is banned. It then builds or critiques the interface against that design system in short loops, and refuses to call a screen done until there are fresh renders at three widths in both themes, a critique table, and a walk record in the repo. **Oneslice** then builds one handoff slice at a time, each independently checkable, each held to a hard quality bar: no spaghetti, no secrets, research cited to primary sources, tickets in spoken English. When many slices can move at once — or a team is on it — **Lanes** coordinates the work into parallel lanes around committed boundaries, locks the destination Check, and loops in measured rounds until the walk works, a named human blocks it, or the budget says stop starting.
 
 ## Worked examples
 
@@ -126,9 +146,9 @@ Licensing differs per upstream (MIT for most, Apache-2.0 for Anthropic's and Ver
 - **Decisions are ADRs.** Closed cards and structural decisions point at numbered, append-only ADRs that later cards and later agents cite by name. Supersede; never rewrite.
 - **Easy words, hard thinking.** Every human-facing artifact (card, ticket, map) is written for a smart person who does not know the stack — after, not instead of, the deep review.
 - **One slice per sitting; lock, then loop.** Oneslice stops when its slice's Check passes. Lanes locks the target and keeps rounding until the destination Check passes or a named human blocks it. A budget stops you *starting* work — it never buys a weaker Check.
-- **The arms are written, not remembered.** Heraldry commits `DESIGN.md` before the second screen, so two agents a week apart produce the same castle instead of two opinions. The bans are part of the design system; a system without them is a mood board.
+- **The design system is written, not remembered.** Heraldry commits `DESIGN.md` before the second screen, so two agents a week apart build the same interface instead of two opinions. The bans are part of the design system; a system without them is a mood board.
 - **The shape is enforced, not recalled.** Keystone commits an enforcement check with every structural rule. A rule nobody can fail the build with is a preference, not architecture.
 - **Math is designed, not invented.** Siegecraft commits the dossier and the engine spec before the builder sees the ticket. A builder who invents math mid-slice is doing two jobs badly instead of one job well.
-- **Breadth lives in registers, not in forks.** Nine named registers (Keep, Scriptorium, Cathedral, Barbican, Armoury, Watchtower, Solar, Bazaar, Masquerade) carry the range that would otherwise become nine drifting stylesheets. One skill, one contract, nine starting positions, and the arms still govern whatever a register starts.
+- **Breadth lives in registers, not in forks.** Nine named registers (Keep, Scriptorium, Cathedral, Barbican, Armoury, Watchtower, Solar, Bazaar, Masquerade) carry the range that would otherwise become nine drifting stylesheets. One skill, one contract, nine starting positions, and `DESIGN.md` still governs whatever a register starts.
 - **Picture before prose.** "Premium" and "calm" mean ten things each. Three tiles of the same real screen in three registers, one deliberate outlier among them, and a human pointing at one settles in a minute what a page of adjectives cannot settle at all. The tile is a promise; the walk is where you check whether the build kept it.
 - **Taste is shown, not claimed.** Fresh renders at 375 / 768 / 1440 in both themes, a critique table, and a mechanical pre-flight with pasted output — or the honest word `unrendered`. An agent may not certify its own taste by assertion, and a walk that could not fail is a slideshow, not a check.

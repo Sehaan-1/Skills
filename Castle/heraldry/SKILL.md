@@ -5,20 +5,20 @@ description: "Use when designing, building, redesigning, or polishing any user i
 
 # Heraldry
 
-A castle wears one coat of arms. Every tower, gate, and banner carries the same tinctures, the same charges, the same hand. Nobody designed each wall separately.
+A cohesive product follows one visual identity. Every view, component, and surface carries the same tokens, typography, and aesthetic restraint. Nobody designs each view in isolation.
 
-This skill is that idea, applied to interfaces. Decide what this thing looks like, write it down as **the arms** (`DESIGN.md`), then make every screen wear them. When the interface already exists, this is the loop that renders it, critiques it, fixes the few things that matter, and proves it with fresh evidence.
+This skill turns visual direction into a clear design system (`DESIGN.md`), then holds every screen to it. When the interface already exists, this is the loop that renders it, critiques it, fixes the key flaws, and verifies it with fresh evidence.
 
 Cuecards decides *what* to build. Oneslice builds it. Lanes ships the whole destination. Heraldry answers the question lanes explicitly refuses — **what does it look like, and is it actually good?**
 
-Announce at start: `Using heraldry to [read | cast | arm | build | critique | polish | walk | stop].`
+Announce at start: `Using heraldry to [read | explore | design-system | build | critique | polish | verify | stop].`
 
 ## Hard gates
 
 1. **Read the room before you pick a font.** Say one line out loud, in plain words: who this is for, what it should feel like, which family it leans toward. No code until that line exists. If the brief genuinely diverges, ask **one** question, not a questionnaire.
 2. **Dial first, default never.** Name `BOLDNESS`, `MOTION`, and `DENSITY` before you build, with a one-clause reason from the read. The table row is the fallback, not a decision.
-3. **No arms, no second screen.** You may build one screen to learn something. You may not build the app on an unwritten direction. Write `DESIGN.md`, commit it, then cut.
-4. **The arms are law once written.** Like an ADR: cite them, follow them, and when you must change one, change it deliberately in the same commit as the code and say so. Never quietly drift because a section "looked better" in a different palette.
+3. **No design system, no second screen.** You may build one screen to learn something. You may not build the app on an unwritten direction. Write `DESIGN.md`, commit it, then implement.
+4. **The design system is law once written.** Like an ADR: cite `DESIGN.md`, follow it, and when you must change it, change it deliberately in the same commit as the code and say so. Never quietly drift because a section "looked better" in a different palette.
 5. **Locks are locks.** One accent, one radius system, one theme per page, one icon family, one copy register. Drift across sections is the most visible tell that a machine made this.
 6. **Bans are bans.** The Forbidden list is not a preference. If the pre-flight finds one, the work is not done.
 7. **Motion claimed is motion shown.** If you claim `MOTION` above 4, the interface moves. If you cannot ship working motion this sitting, drop the dial and ship a clean static page. Half-built motion is worse than none.
@@ -35,7 +35,7 @@ Announce at start: `Using heraldry to [read | cast | arm | build | critique | po
 
 16. **"It looks good" is a claim. It is not a check.** Before you tell a human an interface is done, five artifacts must exist, made in *this* sitting:
 
-    - **The arms** committed (`DESIGN.md`), and the code matching them. If the code and the arms disagree, the arms are wrong or the code is; say which and fix it.
+    - **The design system** committed (`DESIGN.md`), and the code matching it. If the code and `DESIGN.md` disagree, the design system is wrong or the code is; say which and fix it.
     - **The board** at `docs/heraldry/<slug>-board.md`, carrying a human's pick, when this is a new product, a page whose look is the question, or a redesign. A one-component fix inside an already-armed product skips it, out loud.
     - **A critique** at `docs/heraldry/<slug>-critique.md`: the Before/After table from the last pass.
     - **A walk** at `docs/heraldry/<slug>-walk.md`: the record below, with **fresh renders** at 375 / 768 / 1440 in both themes, and a reduced-motion pass. (A one-component fix inside an already-armed product owes the spot pass instead — see *How much proof this pass owes* — said out loud.)
@@ -180,9 +180,9 @@ Rejected: <one line each, and why>
 
 ---
 
-## Arm the castle
+## The design system (DESIGN.md)
 
-**The arms are `DESIGN.md` at the repo root.** One file. It is the single source of truth for what this product looks like, readable by any agent, and precise enough to generate new screens from. If the repo already has one, it is law: follow it, and change it on purpose.
+**The design system is recorded in `DESIGN.md` at the repo root.** One file. It is the single source of truth for what this product looks like, readable by any agent, and precise enough to generate new screens from. If the repo already has one, it is law: follow it, and change it on purpose.
 
 ### Required shape
 
@@ -237,20 +237,20 @@ Three or four plain sentences an agent can paste to generate a new screen
 that will match. Name the accent, the typeface, the density, and the mood.
 ```
 
-### Rules for the arms
+### Rules for DESIGN.md
 
 - **Name colors by role, not appearance.** "Copper" means "the accent", not "a nice brown". Role names survive a palette change; appearance names do not.
 - **Always hex, always the number.** "Deep charcoal (#1B1A18)". Radius, spacing, and type scale get numbers too.
 - **One accent.** Semantic states are status, not a second accent, and they are desaturated to live inside the neutral system.
 - **Write the bans down.** The explicit "never do this" list is what keeps the next screen from drifting back to the default. A design system without bans is a mood board.
 - **Lock the register, and cite the board.** Both sit at the top of the file, above the colors, because they are the decisions everything else follows from. A reader should be able to tell which register this is and which tile was chosen without scrolling.
-- **Plain language.** "Generously rounded corners (10px)", not `rounded-[10px]`. The arms are read by humans first and agents second.
-- **Short.** If the arms are longer than the code they describe, they will not be read. Cut.
+- **Plain language.** "Generously rounded corners (10px)", not `rounded-[10px]`. The file is read by humans first and agents second.
+- **Short.** If DESIGN.md is longer than the code it describes, it will not be read. Cut.
 - **Rotate between projects.** Never ship the same palette, typeface, and layout family twice in a row. If your last project was beige and brass, this one is not.
 
 ---
 
-## The tinctures (color)
+## Color system
 
 * **One accent, used identically everywhere.** Pick it once, lock it. A rose-accented site does not get a teal status badge in the footer. Audit every component before shipping.
 * **Saturation under 80%** unless the brand demands otherwise. Desaturated accents sit in a neutral system; saturated ones fight it.
