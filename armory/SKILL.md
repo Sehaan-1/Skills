@@ -1,11 +1,11 @@
 ---
-name: sdk-advisor
+name: armory
 description: Recommends the best SDK or client library for a given programming language, framework, and use case by evaluating candidates on performance, active maintenance, license compatibility, and developer experience. Produces a single top pick with honest trade-offs, a scored comparison of alternatives, and a ready-to-run initialization snippet. Use this skill whenever the user asks which SDK, client library, API wrapper, driver, or integration package to use; asks to compare libraries for a service or platform; or is starting a new integration and needs to choose a dependency — even if they never say the words "recommend an SDK."
 ---
 
-# SDK Advisor
+# Armory
 
-Help the user commit to ONE SDK with confidence. The deliverable is a short Markdown report: a top choice, a scored comparison, honest trade-offs, and an initialization snippet they can paste straight into their project.
+The castle's armory is where you pick the right weapon before the campaign. This skill does that for SDKs: it helps the user commit to ONE library with confidence. The deliverable is a short Markdown report: a top choice, a scored comparison, honest trade-offs, and an initialization snippet they can paste straight into their project.
 
 Users come to this skill because choosing an SDK is expensive to get wrong — swapping one later means rewriting glue code — and because the signals that matter (is it still maintained? will legal sign off on the license?) are scattered across registries, GitHub, and docs. Your job is to gather those signals and do the weighing for them.
 
@@ -34,7 +34,7 @@ List 3–5 candidates. A good set usually spans:
 - **community alternatives** with real adoption,
 - the **generic fallback** (raw HTTP/REST client, language stdlib) when it is genuinely competitive.
 
-Drop candidates that obviously fail a hard constraint (wrong language, archived/unmaintained, license the user already ruled out). Prefer candidates you have real knowledge of over exotic ones — a recommendation the user can't verify is worse than a boring one.
+Drop candidates that obviously fail a hard constraint (wrong language, archived/unmaintained, license the user already ruled out). Prefer candidates you have real knowledge of over exotic ones — a recommendation the user can't verify is worse than a boring one. A well-known candidate you excluded (e.g., a wrapper for a different framework) is worth one line in the report — "considered X, dropped because Y" preempts the user's most likely follow-up question.
 
 ### 3. Gather live facts
 If network/tool access is available, run the bundled facts script for every candidate — it pulls latest version, release date, license, repository, and downloads straight from the registry, which beats memory for maintenance and license questions:
@@ -47,7 +47,11 @@ Spec format is `ecosystem:package-name`; supported ecosystems: `pypi`, `npm`, `c
 
 If a web search tool is also available, use it to fill gaps the script can't see: recent announcements, deprecations, known issues, benchmark comparisons, maintainer responsiveness. Cite anything important you learn this way.
 
-If you have NO network access, say so in the report, proceed from knowledge, date every maintenance claim ("as of early 2025"), and tell the user to re-check release recency before committing.
+Two failure modes to watch for:
+- **Partial egress.** Sandboxed environments sometimes block some registries at the network level while others work, or while a browser-style fetch tool still gets through. If the script fails for a host, retry that package through whatever fetch/search tool is available before falling back to knowledge — a partial live picture beats a fully stale one.
+- **Stale search indexes.** Registry *search* APIs lag behind canonical records (e.g., Maven search has reported versions months behind the true latest). When a release date or version drives the recommendation, prefer the canonical source (registry JSON endpoint, `maven-metadata.xml`) and say which one you used.
+
+If you have NO network access at all, say so in the report, proceed from knowledge, date every maintenance claim ("as of early 2025"), and tell the user to re-check release recency before committing.
 
 ### 4. Score the candidates
 Read `references/scoring.md` for the full rubric. In short: score each candidate 0–5 on four axes — **performance**, **active maintenance**, **license compatibility**, **developer experience** — then compute a weighted total. Default weights are equal (25% each); shift them when the user states priorities (e.g. "performance is the top concern" → ~40% performance, 20% each other). Show the weights you used.
