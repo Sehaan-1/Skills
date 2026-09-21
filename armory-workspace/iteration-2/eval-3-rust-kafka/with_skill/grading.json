@@ -1,0 +1,41 @@
+{
+  "expectations": [
+    {
+      "text": "Report follows the skill's fixed template",
+      "passed": true,
+      "evidence": "All five template sections present with the weighted comparison table."
+    },
+    {
+      "text": "States non-default weights skewed toward performance because the user declared it the top priority",
+      "passed": true,
+      "evidence": "'Weights: 40% performance / 20% each other \u2014 you declared performance the top priority.'"
+    },
+    {
+      "text": "Compares at least rdkafka and one pure-Rust alternative",
+      "passed": true,
+      "evidence": "Comparison table: rdkafka vs kafka (kafka-rust), with live release dates and download counts."
+    },
+    {
+      "text": "No fabricated benchmark numbers \u2014 performance claims are cited, qualitative, or marked as architectural reasoning",
+      "passed": true,
+      "evidence": "~1M msg/s attributed to the rdkafka README's published benchmarks; consume headroom labeled 'architectural reasoning, not a measured guarantee'."
+    },
+    {
+      "text": "Snippet shows rdkafka (or chosen crate) consumer initialization for the described use case",
+      "passed": true,
+      "evidence": "Cargo.toml with cmake-build feature + StreamConsumer: ClientConfig, group.id, manual commit, subscribe, async stream loop."
+    },
+    {
+      "text": "Trade-offs section mentions the native-dependency cost of librdkafka bindings if rdkafka is the pick",
+      "passed": true,
+      "evidence": "'Native build dependency is the real cost' \u2014 cmake-build vs dynamic-linking, slower builds, FFI debugging surface."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "notes": "Self-graded by the session agent (no independent grader subagents in this environment); assertions checked against iteration-2 output text."
+}

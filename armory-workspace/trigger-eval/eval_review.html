@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eval Set Review - armory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Lora', Georgia, serif; background: #faf9f5; padding: 2rem; color: #141413; }
+    h1 { font-family: 'Poppins', sans-serif; margin-bottom: 0.5rem; font-size: 1.5rem; }
+    .description { color: #b0aea5; margin-bottom: 1.5rem; font-style: italic; max-width: 900px; }
+    .controls { margin-bottom: 1rem; display: flex; gap: 0.5rem; }
+    .btn { font-family: 'Poppins', sans-serif; padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; font-size: 0.875rem; font-weight: 500; }
+    .btn-add { background: #6a9bcc; color: white; }
+    .btn-add:hover { background: #5889b8; }
+    .btn-export { background: #d97757; color: white; }
+    .btn-export:hover { background: #c4613f; }
+    table { width: 100%; max-width: 1100px; border-collapse: collapse; background: white; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    th { font-family: 'Poppins', sans-serif; background: #141413; color: #faf9f5; padding: 0.75rem 1rem; text-align: left; font-size: 0.875rem; }
+    td { padding: 0.75rem 1rem; border-bottom: 1px solid #e8e6dc; vertical-align: top; }
+    tr:nth-child(even) td { background: #faf9f5; }
+    tr:hover td { background: #f3f1ea; }
+    .section-header td { background: #e8e6dc; font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 0.8rem; color: #141413; text-transform: uppercase; letter-spacing: 0.05em; }
+    .query-input { width: 100%; padding: 0.4rem; border: 1px solid #e8e6dc; border-radius: 4px; font-size: 0.875rem; font-family: 'Lora', Georgia, serif; resize: vertical; min-height: 60px; }
+    .query-input:focus { outline: none; border-color: #d97757; box-shadow: 0 0 0 2px rgba(217,119,87,0.15); }
+    .toggle { position: relative; display: inline-block; width: 44px; height: 24px; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle .slider { position: absolute; inset: 0; background: #b0aea5; border-radius: 24px; cursor: pointer; transition: 0.2s; }
+    .toggle .slider::before { content: ""; position: absolute; width: 18px; height: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.2s; }
+    .toggle input:checked + .slider { background: #d97757; }
+    .toggle input:checked + .slider::before { transform: translateX(20px); }
+    .btn-delete { background: #c44; color: white; padding: 0.3rem 0.6rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.75rem; font-family: 'Poppins', sans-serif; }
+    .btn-delete:hover { background: #a33; }
+    .summary { margin-top: 1rem; color: #b0aea5; font-size: 0.875rem; }
+  </style>
+</head>
+<body>
+  <h1>Eval Set Review: <span id="skill-name">armory</span></h1>
+  <p class="description">Current description: <span id="skill-desc">Recommends the best SDK or client library for a given programming language, framework, and use case by evaluating candidates on performance, active maintenance, license compatibility, and developer experience. Produces a single top pick with honest trade-offs, a scored comparison of alternatives, and a ready-to-run initialization snippet. Use this skill whenever the user asks which SDK, client library, API wrapper, driver, or integration package to use; asks to compare libraries for a service or platform; or is starting a new integration and needs to choose a dependency — even if they never say the words "recommend an SDK."</span></p>
+
+  <div class="controls">
+    <button class="btn btn-add" onclick="addRow()">+ Add Query</button>
+    <button class="btn btn-export" onclick="exportEvalSet()">Export Eval Set</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:65%">Query</th>
+        <th style="width:18%">Should Trigger</th>
+        <th style="width:10%">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="eval-body"></tbody>
+  </table>
+
+  <p class="summary" id="summary"></p>
+
+  <script>
+    const EVAL_DATA = [{"query": "I'm starting a new Node.js project on Express and need to send transactional emails \u2014 should we use the Postmark SDK, nodemailer, or something else?", "should_trigger": true}, {"query": "hey, which python lib should i use for google cloud storage? we're on django 5 and it's mostly uploads/downloads of user files", "should_trigger": true}, {"query": "We need to integrate Twilio SMS into our Ruby on Rails app. There seem to be like three different gems \u2014 can you figure out which one is actually maintained?", "should_trigger": true}, {"query": "Building a CLI in Go that talks to our internal REST API. Do I even need an SDK there, or is net/http plus a JSON decoder enough? I'd like a recommendation either way.", "should_trigger": true}, {"query": "my react native app needs firebase auth, not sure whether to go expo firebase or react-native-firebase. which package set do you recommend for a bare workflow app?", "should_trigger": true}, {"query": "I'm picking a Kafka client for a Java Spring Boot service \u2014 throughput matters a lot and legal wants Apache-2.0 only. What do you suggest?", "should_trigger": true}, {"query": "We're a startup writing our iOS app in Swift and need Stripe billing. Official Stripe SDK vs RevenueCat \u2014 which should we build on?", "should_trigger": true}, {"query": "can u tell me the best rust crate for talking to postgres? using axum, perf is kind of important, and i'd prefer something actively maintained", "should_trigger": true}, {"query": "Our team is evaluating OpenTelemetry instrumentation libraries for .NET \u2014 which one should we standardize on across ~12 microservices?", "should_trigger": true}, {"query": "starting an Elixir project that needs to talk to Shopify's admin API \u2014 is there a decent hex package for that or should we just hit the REST API ourselves?", "should_trigger": true}, {"query": "How do I verify the Stripe webhook signature header in Python? I already have the stripe package installed, just can't get construct_event to stop throwing.", "should_trigger": false}, {"query": "can you write me a function that uploads a file to S3 using boto3, with retries on 500s? we already standardized on boto3 across the org", "should_trigger": false}, {"query": "What's the actual difference between an SDK and an API? New PM here trying to write requirements and the engineers keep using the terms interchangeably.", "should_trigger": false}, {"query": "our Kafka consumer built with rdkafka keeps rebalancing every few minutes, config attached \u2014 what are we doing wrong?", "should_trigger": false}, {"query": "I need to design the API surface for our new payments service \u2014 REST vs gRPC, and should versioning go in the path or a header?", "should_trigger": false}, {"query": "help me migrate our codebase from stripe-node v12 to v22, there are like 40 breaking changes and the changelog is huge", "should_trigger": false}, {"query": "which LLM should our chatbot use, GPT-5 or Claude? we care about latency and per-token cost more than benchmark scores", "should_trigger": false}, {"query": "Is MIT compatible with GPL v2 if we only link dynamically? Asking for our legal wiki page, no specific library involved yet.", "should_trigger": false}, {"query": "review this package.json and tell me which dependencies are outdated or have known CVEs, it's attached", "should_trigger": false}, {"query": "write me a Terraform module to provision an S3 bucket with lifecycle rules and block public access", "should_trigger": false}];
+
+    let evalItems = [...EVAL_DATA];
+
+    function render() {
+      const tbody = document.getElementById('eval-body');
+      tbody.innerHTML = '';
+
+      // Sort: should-trigger first, then should-not-trigger
+      const sorted = evalItems
+        .map((item, origIdx) => ({ ...item, origIdx }))
+        .sort((a, b) => (b.should_trigger ? 1 : 0) - (a.should_trigger ? 1 : 0));
+
+      let lastGroup = null;
+      sorted.forEach(item => {
+        const group = item.should_trigger ? 'trigger' : 'no-trigger';
+        if (group !== lastGroup) {
+          const headerRow = document.createElement('tr');
+          headerRow.className = 'section-header';
+          headerRow.innerHTML = `<td colspan="3">${item.should_trigger ? 'Should Trigger' : 'Should NOT Trigger'}</td>`;
+          tbody.appendChild(headerRow);
+          lastGroup = group;
+        }
+
+        const idx = item.origIdx;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><textarea class="query-input" onchange="updateQuery(${idx}, this.value)">${escapeHtml(item.query)}</textarea></td>
+          <td>
+            <label class="toggle">
+              <input type="checkbox" ${item.should_trigger ? 'checked' : ''} onchange="updateTrigger(${idx}, this.checked)">
+              <span class="slider"></span>
+            </label>
+            <span style="margin-left:8px;font-size:0.8rem;color:#b0aea5">${item.should_trigger ? 'Yes' : 'No'}</span>
+          </td>
+          <td><button class="btn-delete" onclick="deleteRow(${idx})">Delete</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+      updateSummary();
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function updateQuery(idx, value) { evalItems[idx].query = value; updateSummary(); }
+    function updateTrigger(idx, value) { evalItems[idx].should_trigger = value; render(); }
+    function deleteRow(idx) { evalItems.splice(idx, 1); render(); }
+
+    function addRow() {
+      evalItems.push({ query: '', should_trigger: true });
+      render();
+      const inputs = document.querySelectorAll('.query-input');
+      inputs[inputs.length - 1].focus();
+    }
+
+    function updateSummary() {
+      const trigger = evalItems.filter(i => i.should_trigger).length;
+      const noTrigger = evalItems.filter(i => !i.should_trigger).length;
+      document.getElementById('summary').textContent =
+        `${evalItems.length} queries total: ${trigger} should trigger, ${noTrigger} should not trigger`;
+    }
+
+    function exportEvalSet() {
+      const valid = evalItems.filter(i => i.query.trim() !== '');
+      const data = valid.map(i => ({ query: i.query.trim(), should_trigger: i.should_trigger }));
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'eval_set.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    render();
+  </script>
+</body>
+</html>

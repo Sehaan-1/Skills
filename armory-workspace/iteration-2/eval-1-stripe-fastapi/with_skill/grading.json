@@ -1,0 +1,36 @@
+{
+  "expectations": [
+    {
+      "text": "Report follows the skill's fixed template (top pick, comparison table, trade-offs, getting started, assumptions sections)",
+      "passed": true,
+      "evidence": "All five template sections present in order with the weighted comparison table."
+    },
+    {
+      "text": "Names the official `stripe` Python package as the top pick",
+      "passed": true,
+      "evidence": "Top pick: '`stripe` (MIT, v15.6.1)' \u2014 the official Stripe Python SDK."
+    },
+    {
+      "text": "Ran the facts script (or equivalent live lookup) and reflects real latest-version/release-recency data",
+      "passed": true,
+      "evidence": "v15.6.1 published 2026-09-01, 'live PyPI data, verified 2026-09-22' \u2014 matches the fetch_package_facts.py output."
+    },
+    {
+      "text": "Snippet includes install command, Stripe client initialization, and PaymentIntent creation with placeholder keys",
+      "passed": true,
+      "evidence": "'pip install stripe requests', StripeClient('sk_test_your_secret_key'), client.v1.payment_intents.create(...) with placeholder key, FastAPI threadpool wrapper."
+    },
+    {
+      "text": "Lists the assumptions it made (no stated priorities, project license assumed permissive)",
+      "passed": true,
+      "evidence": "Assumptions section: equal weighting, permissive license assumed, server-side PaymentIntent assumption."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "notes": "Self-graded by the session agent (no independent grader subagents in this environment); assertions checked against iteration-2 output text."
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "query": "I'm starting a new Node.js project on Express and need to send transactional emails \u2014 should we use the Postmark SDK, nodemailer, or something else?",
+    "should_trigger": true
+  },
+  {
+    "query": "hey, which python lib should i use for google cloud storage? we're on django 5 and it's mostly uploads/downloads of user files",
+    "should_trigger": true
+  },
+  {
+    "query": "We need to integrate Twilio SMS into our Ruby on Rails app. There seem to be like three different gems \u2014 can you figure out which one is actually maintained?",
+    "should_trigger": true
+  },
+  {
+    "query": "Building a CLI in Go that talks to our internal REST API. Do I even need an SDK there, or is net/http plus a JSON decoder enough? I'd like a recommendation either way.",
+    "should_trigger": true
+  },
+  {
+    "query": "my react native app needs firebase auth, not sure whether to go expo firebase or react-native-firebase. which package set do you recommend for a bare workflow app?",
+    "should_trigger": true
+  },
+  {
+    "query": "I'm picking a Kafka client for a Java Spring Boot service \u2014 throughput matters a lot and legal wants Apache-2.0 only. What do you suggest?",
+    "should_trigger": true
+  },
+  {
+    "query": "We're a startup writing our iOS app in Swift and need Stripe billing. Official Stripe SDK vs RevenueCat \u2014 which should we build on?",
+    "should_trigger": true
+  },
+  {
+    "query": "can u tell me the best rust crate for talking to postgres? using axum, perf is kind of important, and i'd prefer something actively maintained",
+    "should_trigger": true
+  },
+  {
+    "query": "Our team is evaluating OpenTelemetry instrumentation libraries for .NET \u2014 which one should we standardize on across ~12 microservices?",
+    "should_trigger": true
+  },
+  {
+    "query": "starting an Elixir project that needs to talk to Shopify's admin API \u2014 is there a decent hex package for that or should we just hit the REST API ourselves?",
+    "should_trigger": true
+  },
+  {
+    "query": "How do I verify the Stripe webhook signature header in Python? I already have the stripe package installed, just can't get construct_event to stop throwing.",
+    "should_trigger": false
+  },
+  {
+    "query": "can you write me a function that uploads a file to S3 using boto3, with retries on 500s? we already standardized on boto3 across the org",
+    "should_trigger": false
+  },
+  {
+    "query": "What's the actual difference between an SDK and an API? New PM here trying to write requirements and the engineers keep using the terms interchangeably.",
+    "should_trigger": false
+  },
+  {
+    "query": "our Kafka consumer built with rdkafka keeps rebalancing every few minutes, config attached \u2014 what are we doing wrong?",
+    "should_trigger": false
+  },
+  {
+    "query": "I need to design the API surface for our new payments service \u2014 REST vs gRPC, and should versioning go in the path or a header?",
+    "should_trigger": false
+  },
+  {
+    "query": "help me migrate our codebase from stripe-node v12 to v22, there are like 40 breaking changes and the changelog is huge",
+    "should_trigger": false
+  },
+  {
+    "query": "which LLM should our chatbot use, GPT-5 or Claude? we care about latency and per-token cost more than benchmark scores",
+    "should_trigger": false
+  },
+  {
+    "query": "Is MIT compatible with GPL v2 if we only link dynamically? Asking for our legal wiki page, no specific library involved yet.",
+    "should_trigger": false
+  },
+  {
+    "query": "review this package.json and tell me which dependencies are outdated or have known CVEs, it's attached",
+    "should_trigger": false
+  },
+  {
+    "query": "write me a Terraform module to provision an S3 bucket with lifecycle rules and block public access",
+    "should_trigger": false
+  }
+]
