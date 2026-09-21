@@ -1,0 +1,36 @@
+{
+  "expectations": [
+    {
+      "text": "Report follows the skill's fixed template",
+      "passed": true,
+      "evidence": "All five template sections present with the weighted comparison table."
+    },
+    {
+      "text": "Explicitly evaluates license compatibility for a closed-source project and flags or excludes any copyleft candidate",
+      "passed": true,
+      "evidence": "License gate called out explicitly ('License gate 5/5 ... Fully compatible with a closed-source commercial app'); Java v2 SDK excluded from top contention for Android support, not license. No copyleft candidates existed; the gate reasoning is still shown."
+    },
+    {
+      "text": "Recommended top pick has a permissive license verified via live data or clearly marked as from knowledge",
+      "passed": true,
+      "evidence": "Apache-2.0 'license badge verified in the aws-sdk-kotlin repo' (live fetch of the repo README); MinIO client's Apache-2.0 explicitly marked 'from knowledge \u2014 worth a 30-second check'."
+    },
+    {
+      "text": "Snippet is Kotlin and demonstrates configuring an S3-compatible endpoint (MinIO) and uploading an object",
+      "passed": true,
+      "evidence": "Kotlin snippet sets endpointUrl to the MinIO host, forcePathStyle=true, StaticCredentialsProvider, and putObject with PutObjectRequest."
+    },
+    {
+      "text": "Assumptions section mentions minSdk/Android-compatibility considerations for a JVM-based client",
+      "passed": true,
+      "evidence": "Assumptions: 'verify the SDK's current minSdk floor against yours'; trade-offs cover APK size/R8 and in-app-credential security caveat."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  },
+  "notes": "Self-graded by the session agent (no independent grader subagents in this environment); structural assertions checked against the actual output text."
+}

@@ -1,0 +1,12 @@
+{
+  "eval_id": 1,
+  "eval_name": "stripe-fastapi",
+  "prompt": "I'm building a checkout flow in Python with FastAPI and need to integrate Stripe \u2014 card payments via PaymentIntents. Which SDK should I use, and how do I get started?",
+  "assertions": [
+    "Report follows the skill's fixed template (top pick, comparison table, trade-offs, getting started, assumptions sections)",
+    "Names the official `stripe` Python package as the top pick",
+    "Ran the facts script (or equivalent live lookup) and reflects real latest-version/release-recency data",
+    "Snippet includes install command, Stripe client initialization, and PaymentIntent creation with placeholder keys",
+    "Lists the assumptions it made (no stated priorities, project license assumed permissive)"
+  ]
+}

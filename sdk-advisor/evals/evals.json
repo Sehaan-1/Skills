@@ -1,0 +1,45 @@
+{
+  "skill_name": "sdk-advisor",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm building a checkout flow in Python with FastAPI and need to integrate Stripe — card payments via PaymentIntents. Which SDK should I use, and how do I get started?",
+      "expected_output": "Markdown recommendation naming the official `stripe` Python SDK as top pick, a comparison table with at least one alternative (e.g., generic httpx/REST fallback or a wrapper like dj-stripe ruled out as not-applicable), honest trade-offs, and a runnable snippet showing pip install, client init with a secret key, and PaymentIntent creation.",
+      "files": [],
+      "expectations": [
+        "Report follows the skill's fixed template (top pick, comparison table, trade-offs, getting started, assumptions sections)",
+        "Names the official `stripe` Python package as the top pick",
+        "Ran the facts script (or equivalent live lookup) and reflects real latest-version/release-recency data",
+        "Snippet includes install command, Stripe client initialization, and PaymentIntent creation with placeholder keys",
+        "Lists the assumptions it made (no stated priorities, project license assumed permissive)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We ship a commercial Android app written in Kotlin (closed source). We need to upload user photos to S3-compatible storage (our own MinIO cluster). Which client library should we use? Licensing matters to us.",
+      "expected_output": "Recommendation that treats license compatibility as a hard constraint for a closed-source app, recommends an Apache-2.0 option (AWS SDK for Kotlin or AWS SDK for Java v2 / MinIO Java client with Android caveats), shows a comparison table, and provides a Kotlin upload snippet.",
+      "files": [],
+      "expectations": [
+        "Report follows the skill's fixed template",
+        "Explicitly evaluates license compatibility for a closed-source project and flags or excludes any copyleft candidate",
+        "Recommended top pick has a permissive license verified via live data or clearly marked as from knowledge",
+        "Snippet is Kotlin and demonstrates configuring an S3-compatible endpoint (MinIO) and uploading an object",
+        "Assumptions section mentions minSdk/Android-compatibility considerations for a JVM-based client"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I'm writing a Rust service (Actix-web) that consumes a very high-throughput Kafka topic, roughly 200k messages/sec. Performance is the #1 concern. Which Kafka client crate should I pick?",
+      "expected_output": "Performance-weighted comparison of rdkafka vs kafka-rust (and possibly confluent-kafka), recommending rdkafka for throughput with honest trade-offs (native librdkafka dependency, build complexity), shifted weights reflecting the stated performance priority, and an init/consumer snippet.",
+      "files": [],
+      "expectations": [
+        "Report follows the skill's fixed template",
+        "States non-default weights skewed toward performance because the user declared it the top priority",
+        "Compares at least rdkafka and one pure-Rust alternative",
+        "No fabricated benchmark numbers — performance claims are cited, qualitative, or marked as architectural reasoning",
+        "Snippet shows rdkafka (or chosen crate) consumer initialization for the described use case",
+        "Trade-offs section mentions the native-dependency cost of librdkafka bindings if rdkafka is the pick"
+      ]
+    }
+  ]
+}
