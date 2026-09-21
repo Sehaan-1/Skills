@@ -1,0 +1,5 @@
+interface:
+  display_name: "Siegecraft"
+  short_description: "Design the algorithm before the code — scout, spec, and split hard tickets"
+policy:
+  allow_implicit_invocation: false

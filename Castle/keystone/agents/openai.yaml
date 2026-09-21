@@ -1,0 +1,5 @@
+interface:
+  display_name: "Keystone"
+  short_description: "Decide and enforce the shape of a system — boundaries, dependencies, contexts, and fitness functions"
+policy:
+  allow_implicit_invocation: false
