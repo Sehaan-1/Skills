@@ -1,0 +1,5 @@
+interface:
+  display_name: "Rampart"
+  short_description: "System design architect + interview coach — walk a design for weak points, estimate the load, weigh every trade-off, drill the interview"
+policy:
+  allow_implicit_invocation: true
