@@ -10,7 +10,7 @@ Siegecraft tackles hard, novel, or algorithmic problems: conducts primary source
 
 ## Hard gates
 
-1. **No decided task, no engine.** A ticket, a closed card, a cited ADR, a handoff slice, or an explicit human ask names the wall. A product question still open is a cuecards card, not an engine. If you catch yourself choosing *what the product should do*, you have left the skill.
+1. **No decided task, no engine.** A ticket, a closed card, a cited ADR, a handoff slice, or an explicit human ask names the wall. A product question still open is a cuecards card, not an engine. If you catch yourself choosing *what the product should do*, you have left the skill. Order-of-magnitude sizing is rampart's (Inquest); when a number must be provably right, it is an engine, and engines are this skill's.
 2. **Scout before you design.** The dossier exists before the spec; the spec is committed before any ticket is rewritten. No engine from memory. No algorithm because a blog, a summary site, or a training recollection said so.
 3. **Primary sources own their facts.** Official docs, specs and standards, the original paper, the reference implementation's code and tests, first-party APIs. A secondary write-up is a signpost to the primary, never a citation. Follow every claim back to the source that owns it.
 4. **No product code.** Output is the dossier, the engine spec, and tickets. Measurement you run as research is recorded in the dossier; scratch scripts stay out of the tree. If you are opening a source file to add a feature, you have left the skill.
