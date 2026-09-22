@@ -43,7 +43,7 @@ npx degit Sehaan-1/Skills/Inquest/rampart/rampart.skill .
 unzip rampart.skill -d .claude/skills/
 ```
 
-**claude.ai** — Settings → Features → Custom Skills → upload `rampart.skill`; it auto-activates by description.
+**claude.ai** — Settings → Features → Custom Skills → upload `rampart.skill`, then invoke by name — "use rampart to review this design". It does not auto-activate; see the invocation note below.
 
 **Slash command (Claude Code, optional)** — copy the stub shipped inside the package:
 
