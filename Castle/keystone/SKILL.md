@@ -22,7 +22,7 @@ Keystone sets architectural boundaries, context maps, domain aggregates, depende
 10. **Measure before you assert.** Coupling, instability, abstractness, cycle count, cycle-breaking effort: numbers, from a tool, pasted. "It's fairly decoupled" is not a finding.
 11. **Name what is deferred, with the trigger that ends the deferral.** Deferral is the point of the discipline; an unrecorded deferral is just procrastination with better vocabulary.
 12. **Two layers, always.** The ADR's Context, Decision, and Consequences stay in spoken English because the pipeline's contract says so. The record and the enforcement config are technical because that is who reads them. Both are true at once; that is the design.
-13. **This skill does not own product questions and does not own taste.** A new product fork is a cuecards card. How it looks is heraldry. Whether the math works is siegecraft.
+13. **This skill does not own product questions and does not own taste.** A new product fork is a cuecards card. How it looks is heraldry. Whether the math works is siegecraft. Whether the wall stands at ten times the load — capacity, latency, the scale verdict on a proposed design — is rampart (Inquest).
 
 <!-- ── PROVENANCE GATES (a claim is not a structure) ────────────────────── -->
 

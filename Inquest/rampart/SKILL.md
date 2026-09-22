@@ -2,24 +2,25 @@
 name: rampart
 description: >-
   System design architect and interview coach based on
-  donnemartin/system-design-primer. Invoke when the user says "design a/the
-  ..." (URL shortener, Bit.ly, pastebin, Twitter/Facebook feed, timeline,
-  web crawler, Mint, social graph, key-value store, rate limiter, chat,
-  WhatsApp, Instagram, Dropbox, Google Docs, CDN, stock exchange), asks how
-  they would build or scale a large-scale system, wants an architecture or
-  design review/critique, needs back-of-the-envelope estimates (QPS, storage,
-  bandwidth, servers), weighs trade-offs (SQL vs NoSQL, cache-aside vs
-  write-through, replication, sharding, federation, queues, REST vs RPC,
-  TCP vs UDP, CAP), or preps for system design / object-oriented design
-  interviews and study plans.
+  donnemartin/system-design-primer. Scope: the user explicitly asks for a
+  design drill ("design a/the ..." — URL shortener, Bit.ly, pastebin,
+  Twitter/Facebook feed, timeline, web crawler, Mint, social graph, key-value
+  store, rate limiter, chat, WhatsApp, Instagram, Dropbox, Google Docs, CDN,
+  stock exchange), asks how they would build or scale a large-scale system,
+  wants an architecture or design review/critique, needs
+  back-of-the-envelope estimates (QPS, storage, bandwidth, servers), weighs
+  trade-offs (SQL vs NoSQL, cache-aside vs write-through, replication,
+  sharding, federation, queues, REST vs RPC, TCP vs UDP, CAP), or preps for
+  system design / object-oriented design interviews and study plans.
 license: MIT
+disable-model-invocation: true
 compatibility:
   - Claude Code
   - claude.ai
   - OpenAI Codex
   - Cursor
 metadata:
-  version: "6.1.0"
+  version: "6.2.0"
   source: https://github.com/donnemartin/system-design-primer
   aliases: system-design, system-design-interview, architecture-review, design-review, scalability, capacity-estimation, ood-interview
 ---
@@ -32,9 +33,11 @@ You are acting as a system design interviewer/coach and architect. Your guidance
 
 ## Invocation
 
-### Auto-invocation (description-based routing)
+### Invocation policy — explicit only
 
-Load and follow this skill when the request matches the frontmatter `description`. High-signal trigger phrases:
+**Rampart does not go off by itself.** It never auto-invokes from a matching description, and a chat that brushes past an architecture word does not start a design drill. A human (or a handoff from a neighboring skill) must ask for it by name or by slash command. The frontmatter `description` documents scope; it is not a trigger.
+
+Once the skill IS loaded, route the request to a mode by these signals:
 
 | Signal | Examples |
 |---|---|
@@ -52,7 +55,7 @@ Load and follow this skill when the request matches the frontmatter `description
 | Claude Code (prose) | "use the rampart skill to review this diagram" |
 | Codex / open-spec agents | `$system-design estimate QPS for 10M DAU` (alias of this skill) |
 | Any agent with the file | point the agent at `Inquest/rampart/SKILL.md` and ask it to follow the skill |
-| claude.ai custom skill | install `rampart.skill` (Settings → Features → Custom Skills); auto-activates by description |
+| claude.ai custom skill | install `rampart.skill` (Settings → Features → Custom Skills), then invoke by name — "use rampart to review this design" |
 
 ### Modes — pick one first, then load only what you need
 
@@ -73,6 +76,21 @@ If the request fits more than one mode, prefer: `estimate`/`decide` for narrow q
 - General coding/debugging questions with no design or scale dimension (`references/examples.md` §6)
 - Ops/CI questions unrelated to architecture trade-offs
 - Topics the primer doesn't cover better than the user's own docs — defer to in-repo docs when they exist
+
+## Adjacent skills — handoffs, not overlaps
+
+Rampart shares the courtyard with the other skills in this repo, and it never swallows their jobs. When a request crosses a lane boundary, name the neighbor and stop — a one-line pointer is the whole handoff:
+
+| Neighbor | Owns | Hand the request over when |
+|---|---|---|
+| `Castle/cuecards` | product decisions, boards, ADRs | the request is a fuzzy product idea that needs choices settled *before* any design exists — rampart assumes scope, cuecards settles it with the human |
+| `Castle/keystone` | the shape of a system being built: boundaries, dependency direction, contexts, fitness functions | the question is code structure for a live codebase (an architecture record), not a capacity verdict or trade-off audit on a proposed design |
+| `Castle/siegecraft` | algorithm-hard math that must be provably right | rampart's envelope math is order-of-magnitude triage; once a number is load-bearing enough to need a derivation and a correctness argument, it is an engine spec |
+| `Castle/heraldry` | how the interface looks | entirely out of scope here — never comment on aesthetics |
+| `Castle/oneslice` / `Castle/lanes` | building and shipping slices | rampart produces designs and verdicts, never product code; a build starts at cuecards' handoff, not this skill |
+| `armory` | picking the concrete SDK/client library | after the architecture says a slot exists ("we need a cache, a queue, a storage SDK"), armory scores which package fills it |
+
+Greenfield flow: rampart sizes the problem and drafts the design; **cuecards → keystone → oneslice** carry it into a shipped system. In an interview drill (`interview` mode) there is no handoff — the walls are paper, and the whole point is practice.
 
 ## Core method: the 4-step interview flow
 

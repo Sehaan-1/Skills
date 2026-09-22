@@ -7,6 +7,8 @@ description: "Recommends the best SDK, client library, driver, or API wrapper fo
 
 The castle's armory is where you pick the right weapon before the campaign. This skill does that for SDKs: it helps the user commit to ONE library with confidence. The deliverable is a short Markdown report: a top choice, a scored comparison, honest trade-offs, and an initialization snippet they can paste straight into their project.
 
+Armory picks the weapon after the architecture has decided a slot exists. Whether the wall must stand at ten times the load — the architecture itself, capacity verdicts, design trade-offs — is rampart's sitting (Inquest), not this one.
+
 Users come to this skill because choosing an SDK is expensive to get wrong — swapping one later means rewriting glue code — and because the signals that matter (is it still maintained? will legal sign off on the license?) are scattered across registries, GitHub, and docs. Your job is to gather those signals and do the weighing for them.
 
 ## Inputs

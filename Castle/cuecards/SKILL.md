@@ -11,7 +11,7 @@ Cuecards turns vague product intent into structured decisions, drives ask-rounds
 ## Hard gates
 
 1. **Do not ship the destination from this skill.** Look-cards may add a real working slice, fixtures, screenshots, or a CI check as *evidence for a choice*. Chores may unblock. Find-cards write findings. Write ADRs and, when the board is done, a handoff. Do not start the rest of the product.
-2. **A card is a choice, not a sprint job.** If the title could be a to-do ("build login", "add Stripe"), it is mis-typed — unless it is a **look** card (produce real evidence so a choice can be made) or a **chore** (unblock a choice). Rewrite anything else as a question, or it is still fuzzy.
+2. **A card is a choice, not a sprint job.** If the title could be a to-do ("build login", "add Stripe"), it is mis-typed — unless it is a **look** card (produce real evidence so a choice can be made) or a **chore** (unblock a choice). Rewrite anything else as a question, or it is still fuzzy. A request that is really a design drill, a capacity estimate, or a scale review is a rampart sitting (Inquest), not a board.
 3. **The body is for a non-technical reader.** YAML, labels, and `## For the agent` / `## Tracking` are for you. If a tired founder cannot answer the card in a few minutes, rewrite it before you file it. Jargon in the human body is a defect.
 4. **Think, then simplify, then present.** Never show a question or a recommendation you have not run through the depth review. Plain language is pass two. Pass one is: is this the real fork, and does the recommendation aim at a product that would actually be impressive?
 5. **Review before create or present.** Depth review, then quality bar. Do not dump thin cards. Do not think out loud at them in jargon.
