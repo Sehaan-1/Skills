@@ -9,7 +9,7 @@ A skill for creating new skills and iteratively improving them.
 
 At a high level, the process of creating a skill goes like this:
 
-- Decide what you want the skill to do and roughly how it should do it
+- Decide what you want the skill to do and roughly how it should do it, and settle on a name that fits this repo's naming theme (see [Naming the skill](#naming-the-skill))
 - Write a draft of the skill
 - Create a few test prompts and run claude-with-access-to-the-skill on them
 - Help the user evaluate the results both qualitatively and quantitatively
@@ -52,6 +52,7 @@ Start by understanding the user's intent. The current conversation might already
 2. When should this skill trigger? (what user phrases/contexts)
 3. What's the expected output format?
 4. Should we set up test cases to verify the skill works? Skills with objectively verifiable outputs (file transforms, data extraction, code generation, fixed workflow steps) benefit from test cases. Skills with subjective outputs (writing style, art) often don't need them. Suggest the appropriate default based on the skill type, but let the user decide.
+5. What should the skill be called? New skills take a name from this repo's shared medieval theme — see [Naming the skill](#naming-the-skill) below; propose two or three themed candidates and let the user pick.
 
 ### Interview and Research
 
@@ -59,11 +60,38 @@ Proactively ask questions about edge cases, input/output formats, example files,
 
 Check available MCPs - if useful for research (searching docs, finding similar skills, looking up best practices), research in parallel via subagents if available, otherwise inline. Come prepared with context to reduce burden on the user.
 
+### Naming the skill
+
+Every skill in this repo's collections (`Castle/`, `Inquest/`, `armory/`) already carries a name from one shared theme, and new skills should join it: **a single short lowercase word — or a tight closed compound — from the medieval world these collections live in**: the castle and its structures, the siege and its craft, heraldry, the armory, and the court of inquiry. The word should double as a metaphor for the skill's role, so the name hints at the job before anyone opens the SKILL.md. "Run heraldry on this screen" sounds like it belongs here; "run pdf-extractor" sounds like it wandered in from a different repo. A bland functional label misses the point even when it's accurate — the name is the first thing the user sees and the word they'll say out loud every time they invoke the skill.
+
+Here is the current roster and what each name is doing — this is the bar:
+
+| Name | The thing in the medieval world | The role it names |
+| --- | --- | --- |
+| cuecards | prompt cards played at the war table | settle fuzzy intent into decisions, ADRs, a handoff |
+| keystone | the stone that locks an arch in place | set the architecture nothing later may break |
+| siegecraft | the art of reducing a hard wall | spec and split algorithm-hard problems |
+| oneslice | one cut of the work | build exactly one proven slice |
+| lanes | parallel lanes of travel | ship the whole destination in parallel |
+| heraldry | coats of arms — who looks like what | own how the interface looks |
+| rampart | the wall that holds under load | review and size designs so they stand (Inquest) |
+| armory | where the right weapon is chosen | pick the SDK before the campaign |
+
+How to land on a name:
+
+1. **Name the role, then find its castle word.** Write what the skill does in one plain phrase — "checks the wall holds", "chooses the weapon", "reads the signs" — then reach for the word from the same world that means that move: a structure, a tool of war, an office of the court, a craft of the stronghold. The metaphor should be recognizable once explained, not cryptic: `rampart` reads as "the thing that defends"; a random antique word does not.
+2. **Match the collection it lands in.** A skill joining `Castle/` wants the vocabulary of the stronghold and the campaign; one joining `Inquest/` wants the court and the defense (see `rampart`, and `Inquest` itself). Stay inside the shared medieval register either way so the families read as siblings.
+3. **One word where you can.** The roster has no hyphens and no spaces — closed compounds like `siegecraft` and `oneslice` are the house style. The validator still requires lowercase letters, digits, and hyphens only (max 64 characters), so lowercase is non-negotiable.
+4. **Offer two or three candidates and let the user pick.** Naming is taste, and the user has to live with this word for the rest of the project's life. Present each candidate with one line on the metaphor; don't unilaterally saddle them with a name they'll hate saying.
+5. **Use it everywhere, unchanged.** One name, used verbatim as the stem: the directory name, the frontmatter `name`, the `# Title`, and `skill_name` in `evals/evals.json` are the name itself; the results folder is `<name>-workspace/`; the package is `<name>.skill`. If these drift apart, packaging, validation, and the eval viewer start disagreeing about what they're looking at.
+
+Updating an existing skill is different: keep the name it already has (see the update guidance in the Claude.ai and Cowork sections below). The theme governs new skills, not renames nobody asked for.
+
 ### Write the SKILL.md
 
 Based on the user interview, fill in these components:
 
-- **name**: Skill identifier
+- **name**: Skill identifier — the themed name settled in [Naming the skill](#naming-the-skill); keep it identical to the directory name and the `# Title` so packaging, validation, and the eval viewer all line up
 - **description**: When to trigger, what it does. This is the primary triggering mechanism - include both what the skill does AND specific contexts for when to use it. All "when to use" info goes here, not in the body. Note: currently Claude has a tendency to "undertrigger" skills -- to not use them when they'd be useful. To combat this, please make the skill descriptions a little bit "pushy". So for instance, instead of "How to build a simple fast dashboard to display internal Anthropic data.", you might write "How to build a simple fast dashboard to display internal Anthropic data. Make sure to use this skill whenever the user mentions dashboards, data visualization, internal metrics, or wants to display any kind of company data, even if they don't explicitly ask for a 'dashboard.'"
 - **compatibility**: Required tools, dependencies (optional, rarely needed)
 - **the rest of the skill :)**
@@ -471,7 +499,7 @@ The references/ directory has additional documentation:
 
 Repeating one more time the core loop here for emphasis:
 
-- Figure out what the skill is about
+- Figure out what the skill is about and name it to fit the repo's theme
 - Draft or edit the skill
 - Run claude-with-access-to-the-skill on test prompts
 - With the user, evaluate the outputs:
