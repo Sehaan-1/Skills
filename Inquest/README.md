@@ -56,10 +56,10 @@ python3 Inquest/rampart/scripts/validate_skill.py --zip Inquest/rampart/rampart.
 
 ## Provenance
 
-rampart is a synthesis, not a fork. The knowledge was distilled from [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) (MIT) into a self-contained skill, then ported here from [Areej-ui-sehaan/system-design-primer → `skills/`](https://github.com/Areej-ui-sehaan/system-design-primer/tree/master/skills) and re-named to this collection's theme. The primer's full text, images, and notebooks are not re-hosted; `references/repo-map.md` maps every upstream section and solution to its package counterpart, and the package degrades gracefully when the upstream repo is absent (Standalone mode in `SKILL.md`).
+rampart is a synthesis, not a fork. The knowledge was distilled from [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) (MIT) into a self-contained skill and re-named to this collection's theme. The primer's full text, images, and notebooks are not re-hosted; `references/repo-map.md` maps every upstream section and solution to its package counterpart, and the package degrades gracefully when the upstream repo is absent (Standalone mode in `SKILL.md`).
 
 Inquest is MIT-licensed: see [LICENSE](../LICENSE).
 
 ## Changelog
 
-- **rampart 6.1.0** — ported into `Sehaan-1/Skills` as `Inquest/rampart`: themed rename (aliases keep `system-design`), `agents/openai.yaml` manifest, slash-command stub bundled at `commands/system-design.md`, `.skill` package co-located with the skill folder. Content unchanged from upstream 6.0.0.
+- **rampart 6.1.0** — added to `Sehaan-1/Skills` as `Inquest/rampart`: themed rename (aliases keep `system-design`), `agents/openai.yaml` manifest, slash-command stub bundled at `commands/system-design.md`, `.skill` package co-located with the skill folder. Content unchanged from the primer distillation (6.0.0).
