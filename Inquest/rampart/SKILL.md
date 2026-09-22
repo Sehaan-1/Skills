@@ -21,7 +21,6 @@ compatibility:
 metadata:
   version: "6.1.0"
   source: https://github.com/donnemartin/system-design-primer
-  ported-from: https://github.com/Areej-ui-sehaan/system-design-primer/tree/master/skills
   aliases: system-design, system-design-interview, architecture-review, design-review, scalability, capacity-estimation, ood-interview
 ---
 
